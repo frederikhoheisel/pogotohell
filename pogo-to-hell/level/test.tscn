@@ -1,0 +1,74 @@
+[gd_scene load_steps=14 format=3 uid="uid://lwbfiwaigua3"]
+
+[ext_resource type="PackedScene" uid="uid://cp0aw825yr8om" path="res://entities/player/player.tscn" id="1_dlp0f"]
+[ext_resource type="PackedScene" uid="uid://c1mxi56rrm2c4" path="res://ui/hud.tscn" id="2_8abgs"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dlp0f"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_8abgs"]
+sky_material = SubResource("ProceduralSkyMaterial_dlp0f")
+
+[sub_resource type="Environment" id="Environment_sywkh"]
+background_mode = 2
+sky = SubResource("Sky_8abgs")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_ilowo"]
+
+[sub_resource type="Gradient" id="Gradient_ilowo"]
+colors = PackedColorArray(0.2376962, 0.2135131, 0.09805807, 1, 0.74509805, 0.38039216, 0.30980393, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_dlp0f"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_8abgs"]
+noise = SubResource("FastNoiseLite_dlp0f")
+color_ramp = SubResource("Gradient_ilowo")
+seamless = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sywkh"]
+albedo_texture = SubResource("NoiseTexture2D_8abgs")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_dlp0f"]
+material = SubResource("StandardMaterial3D_sywkh")
+size = Vector2(100, 100)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dlp0f"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8abgs"]
+
+[node name="Test" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_sywkh")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Player" parent="." instance=ExtResource("1_dlp0f")]
+
+[node name="Boden" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Boden"]
+shape = SubResource("WorldBoundaryShape3D_ilowo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Boden"]
+mesh = SubResource("PlaneMesh_dlp0f")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.901042, 5.5101852, -10)
+use_collision = true
+size = Vector3(8.765, 23.63, 1.555)
+material = SubResource("StandardMaterial3D_dlp0f")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.111571, 11)
+use_collision = true
+size = Vector3(8.765, 23.63, 1.555)
+material = SubResource("StandardMaterial3D_8abgs")
+
+[node name="Hud" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_8abgs")]
+player = NodePath("../Player")
