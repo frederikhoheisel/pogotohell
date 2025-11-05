@@ -1,24 +1,48 @@
-[gd_scene load_steps=4 format=3 uid="uid://cp0aw825yr8om"]
+[gd_scene load_steps=7 format=3 uid="uid://cp0aw825yr8om"]
 
 [ext_resource type="Script" uid="uid://olsf6f01iad6" path="res://entities/player/player.gd" id="1_symyc"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_sfv1e"]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_symyc"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_symyc"]
+[sub_resource type="Gradient" id="Gradient_symyc"]
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(0.4745098, 0.2784314, 0.4745098, 1, 0, 0, 1, 1, 0.4745098, 0.2784314, 0.4745098, 1)
+metadata/_snap_enabled = true
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_abrql"]
+gradient = SubResource("Gradient_symyc")
+width = 8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sglur"]
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = SubResource("GradientTexture1D_abrql")
+texture_filter = 0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_symyc"]
+material = SubResource("StandardMaterial3D_sglur")
+top_radius = 0.05
+bottom_radius = 0.05
+height = 1.4
 
 [node name="Player" type="CharacterBody3D"]
 script = ExtResource("1_symyc")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("CapsuleShape3D_sfv1e")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-mesh = SubResource("CapsuleMesh_symyc")
+shape = SubResource("CylinderShape3D_symyc")
 
 [node name="Head" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Head"]
 unique_name_in_owner = true
+fov = 100.0
+
+[node name="pogo" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="pogo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+mesh = SubResource("CylinderMesh_symyc")
+skeleton = NodePath("../..")
