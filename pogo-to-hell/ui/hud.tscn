@@ -1,6 +1,16 @@
-[gd_scene load_steps=2 format=3 uid="uid://c1mxi56rrm2c4"]
+[gd_scene load_steps=4 format=3 uid="uid://c1mxi56rrm2c4"]
 
 [ext_resource type="Script" uid="uid://d2iuqmxdbt7ko" path="res://ui/hud.gd" id="1_rbyyf"]
+[ext_resource type="Shader" uid="uid://6pdoa2h2fsuk" path="res://ui/crosshair.gdshader" id="2_276te"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_546lt"]
+shader = ExtResource("2_276te")
+shader_parameter/thick = 0.03999999910592
+shader_parameter/hole = 0.09999998658880005
+shader_parameter/halo_thickness = 0.01
+shader_parameter/size = 0.48999998904752
+shader_parameter/col = Color(0, 1, 1, 1)
+shader_parameter/use_inv_screen_color = true
 
 [node name="Hud" type="CanvasLayer"]
 script = ExtResource("1_rbyyf")
@@ -29,3 +39,19 @@ offset_left = 1.0
 offset_top = 63.0
 offset_right = 41.0
 offset_bottom = 86.0
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_546lt")
+custom_minimum_size = Vector2(32, 32)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2

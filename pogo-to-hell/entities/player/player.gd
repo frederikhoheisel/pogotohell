@@ -18,7 +18,7 @@ var air_speed_cap: float = 1.5
 
 var wall_normal: Vector3 = Vector3.ZERO
 var wall_pos: Vector3 = Vector3.ZERO
-var max_wall_dist: float = 0.5
+var max_wall_dist: float = 0.2
 var on_wall: bool = false
 var wall_tween: Tween
 
@@ -109,7 +109,7 @@ func _handle_air_physics(delta: float) -> void:
 		#)
 		
 		self.velocity.x = clampf(self.velocity.x, jump_strength - 1.0, 1.0 - jump_strength)
-		self.velocity.y = clampf(self.velocity.y, jump_strength - 1.0, 1.0 - jump_strength)
+		self.velocity.y = clampf(self.velocity.y, jump_strength - 1.5, 1.0 - jump_strength)
 		self.velocity.z = clampf(self.velocity.z, jump_strength - 1.0, 1.0 - jump_strength)
 	
 	if is_on_wall():
@@ -120,9 +120,20 @@ func _handle_air_physics(delta: float) -> void:
 
 func _rotate_head_and_pogo(delta: float) -> void:
 	if on_wall:
-		# rotate head and pogo
+		# rotate head
 		head.rotation.z = move_toward(head.rotation.z, (PI / 8.0) * (self.transform.basis * Vector3.LEFT).dot(wall_normal), delta * 3.0)
-		pogo.global_rotation = Vector3((PI / 8.0) * Vector3.BACK.dot(wall_normal), 0.0, (PI / 8.0) * Vector3.LEFT.dot(wall_normal))
+		
+		# rotate pogo
+		var yaw: float = atan2(wall_normal.x, wall_normal.z) + PI
+		var yaw_basis: Basis = Basis(Vector3.UP, yaw)
+		
+		var n_local: Vector3 = yaw_basis.inverse() * wall_normal
+		
+		pogo.global_rotation = Vector3(
+				(PI / 8.0) * Vector3.BACK.dot(n_local),
+				yaw,
+				(PI / 8.0) * Vector3.LEFT.dot(n_local)
+			)
 		
 		#pogo.global_rotation.z = move_toward(pogo.global_rotation.z, (PI / 8.0) * Vector3.LEFT.dot(wall_normal), delta * 3.0)
 		#pogo.global_rotation.x = move_toward(pogo.global_rotation.x, (PI / 8.0) * Vector3.BACK.dot(wall_normal), delta * 3.0)
@@ -159,8 +170,13 @@ func _physics_process(delta: float) -> void:
 	# move down camera when charging jump
 	%Camera3D.position.y = -jump_strength * 0.2
 	
-	# turn pogo red
+	# turn pogo red and scale a bit
 	$pogo/MeshInstance3D.mesh.material.albedo_color = Color(1.0, 1.0 - jump_strength, 1.0 - jump_strength)
+	pogo.scale.y = 1.0 - jump_strength * 0.5
+	
+	# NEIN
+	#var fov: float = 12.0 * self.velocity.length()
+	#%Camera3D.fov = clampf(fov, 70.0, 120.0)
 	
 	# Get the input direction and handle the movement/deceleration.
 	var input_dir: Vector2 = Input.get_vector("left", "right", "forward", "backward").normalized()
