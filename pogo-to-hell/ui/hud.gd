@@ -14,4 +14,4 @@ func _process(_delta: float) -> void:
 	progress_bar.value = player.jump_strength * 100.0
 	debug_label_1.text = "player speed:  " + str(player.velocity.length())
 	debug_label_2.text = "on wall:  " + str(player.on_wall)
-	debug_label_3.text = "jump buffered:  " + str(player.jump_buffered)
+	debug_label_3.text = "jump buffered:  " + str(player.wish_dir.length())

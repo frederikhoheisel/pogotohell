@@ -23,7 +23,7 @@ var on_wall: bool = false
 var wall_tween: Tween
 
 var jump_strength: float = 0.0
-var jump_cooldown: float = 0.5 # damit man nicht an Wänden kleben bleibt nachdem man gesprungen ist
+var jump_cooldown: float = 1.0 # damit man nicht an Wänden kleben bleibt nachdem man gesprungen ist; wenn man ändern will muss man das auch irgendwo im code anpassen xd speghetti style
 var time_since_last_jump: float = 0.0
 var jump_buffered: bool = false
 var jump_buffer_time: float = 0.2
@@ -33,7 +33,8 @@ var wish_dir: Vector3 = Vector3.ZERO
 
 
 @onready var head: Node3D = $Head
-@onready var pogo: Node3D = $pogo
+@onready var pogo: Node3D = $LowPivot/pogo
+@onready var low_pivot: Node3D = $LowPivot
 
 
 func _handle_jump(delta: float) -> void:
@@ -53,6 +54,9 @@ func _handle_jump(delta: float) -> void:
 					JUMP_VELOCITY, 
 					self.velocity.z + wall_normal.z * JUMP_VELOCITY
 			) * jump_strength
+			
+			if self.is_on_floor():
+				self.velocity += wish_dir * JUMP_VELOCITY
 			
 			on_wall = false
 			wall_normal = Vector3.ZERO
@@ -83,6 +87,8 @@ func _handle_ground_physics(delta) -> void:
 	if self.velocity.length() > 0.0:
 		new_speed /= self.velocity.length()
 	self.velocity *= new_speed
+	
+	self.velocity *= (1.0 - jump_strength)
 
 
 func _handle_air_physics(delta: float) -> void:
@@ -129,16 +135,24 @@ func _rotate_head_and_pogo(delta: float) -> void:
 		
 		var n_local: Vector3 = yaw_basis.inverse() * wall_normal
 		
-		pogo.global_rotation = Vector3(
-				(PI / 8.0) * Vector3.BACK.dot(n_local),
-				yaw,
-				(PI / 8.0) * Vector3.LEFT.dot(n_local)
-			)
+		pogo.global_rotation.x = move_toward(pogo.global_rotation.x, (PI / 8.0) * Vector3.BACK.dot(n_local), delta * 3.0)
+		pogo.global_rotation.y = yaw
+		#pogo.global_rotation.y = move_toward(pogo.global_rotation.y, yaw, delta * 3.0) # Tylko jedno w głowie mam
+		pogo.global_rotation.z = move_toward(pogo.global_rotation.z, (PI / 8.0) * Vector3.LEFT.dot(n_local), delta * 3.0)
 		
-		#pogo.global_rotation.z = move_toward(pogo.global_rotation.z, (PI / 8.0) * Vector3.LEFT.dot(wall_normal), delta * 3.0)
-		#pogo.global_rotation.x = move_toward(pogo.global_rotation.x, (PI / 8.0) * Vector3.BACK.dot(wall_normal), delta * 3.0)
+	# rotate the pogo when on ground and charging jump
+	if self.is_on_floor() and jump_strength > 0.1 and not (self.is_on_wall() or on_wall):
+		var input_dir: Vector2 = Input.get_vector("left", "right", "forward", "backward").normalized()
+		var lean_amount: float = 0.2
+		low_pivot.rotation.x = move_toward(low_pivot.rotation.x, input_dir.y * lean_amount * jump_strength, delta)
+		low_pivot.rotation.z = move_toward(low_pivot.rotation.z, -input_dir.x * lean_amount * jump_strength, delta)
+		#pogo.rotation = Vector3(input_dir.y, 0.0, -input_dir.x) * 0.5
 	else:
-		# derotate head and pogo
+		low_pivot.rotation.x = move_toward(low_pivot.rotation.x, 0.0, delta)
+		low_pivot.rotation.z = move_toward(low_pivot.rotation.z, 0.0, delta)
+	
+	
+	if not on_wall and jump_strength < 0.1 or (self.is_on_wall() and not on_wall):
 		head.rotation.z = move_toward(head.rotation.z, 0.0, delta)
 		pogo.global_rotation.z = move_toward(pogo.global_rotation.z, 0.0, delta)
 		pogo.global_rotation.x = move_toward(pogo.global_rotation.x, 0.0, delta)
@@ -148,11 +162,6 @@ func _rotate_head_and_pogo(delta: float) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	elif event.is_action_pressed("ui_cancel"):
-		if Input.get_mouse_mode() == Input.MOUSE_MODE_VISIBLE:
-			get_tree().quit()
-		else:
-			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	
 	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		if event is InputEventMouseMotion:
@@ -171,7 +180,7 @@ func _physics_process(delta: float) -> void:
 	%Camera3D.position.y = -jump_strength * 0.2
 	
 	# turn pogo red and scale a bit
-	$pogo/MeshInstance3D.mesh.material.albedo_color = Color(1.0, 1.0 - jump_strength, 1.0 - jump_strength)
+	$LowPivot/pogo/MeshInstance3D.mesh.material.albedo_color = Color(1.0, 1.0 - jump_strength, 1.0 - jump_strength)
 	pogo.scale.y = 1.0 - jump_strength * 0.5
 	
 	# NEIN
@@ -180,7 +189,8 @@ func _physics_process(delta: float) -> void:
 	
 	# Get the input direction and handle the movement/deceleration.
 	var input_dir: Vector2 = Input.get_vector("left", "right", "forward", "backward").normalized()
-	wish_dir = (transform.basis * Vector3(input_dir.x, 0, input_dir.y))
+	
+	wish_dir = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)) * clamp(time_since_last_jump, 0.0, jump_cooldown)
 	
 	# not on wall anymore
 	if on_wall and abs((self.global_position - wall_pos).dot(wall_normal)) > max_wall_dist or is_on_floor():

@@ -5,12 +5,12 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_546lt"]
 shader = ExtResource("2_276te")
-shader_parameter/thick = 0.03999999910592
-shader_parameter/hole = 0.09999998658880005
-shader_parameter/halo_thickness = 0.01
-shader_parameter/size = 0.48999998904752
+shader_parameter/thick = 0.02999999932944
+shader_parameter/hole = 0.05999998748288004
+shader_parameter/halo_thickness = 0.01999999955296
+shader_parameter/size = 0.3499999921768
 shader_parameter/col = Color(0, 1, 1, 1)
-shader_parameter/use_inv_screen_color = true
+shader_parameter/use_inv_screen_color = false
 
 [node name="Hud" type="CanvasLayer"]
 script = ExtResource("1_rbyyf")

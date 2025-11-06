@@ -1,7 +1,8 @@
-[gd_scene load_steps=19 format=3 uid="uid://lwbfiwaigua3"]
+[gd_scene load_steps=20 format=3 uid="uid://lwbfiwaigua3"]
 
 [ext_resource type="PackedScene" uid="uid://cp0aw825yr8om" path="res://entities/player/player.tscn" id="1_dlp0f"]
 [ext_resource type="PackedScene" uid="uid://c1mxi56rrm2c4" path="res://ui/hud.tscn" id="2_8abgs"]
+[ext_resource type="PackedScene" uid="uid://ch062xtce311c" path="res://ui/pause_menu.tscn" id="3_sywkh"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dlp0f"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -62,6 +63,8 @@ albedo_color = Color(1, 0, 1, 1)
 
 [node name="Test" type="Node3D"]
 
+[node name="PauseMenu" parent="." instance=ExtResource("3_sywkh")]
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_sywkh")
 
@@ -70,9 +73,6 @@ transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545
 shadow_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("1_dlp0f")]
-
-[node name="Hud" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_8abgs")]
-player = NodePath("../Player")
 
 [node name="Boden" type="StaticBody3D" parent="."]
 
@@ -119,3 +119,6 @@ transform = Transform3D(0.8366592, 0.5477238, 0, -0.5477238, 0.8366592, 0, 0, 0,
 operation = 2
 size = Vector3(20, 10, 20)
 material = SubResource("StandardMaterial3D_rsfpr")
+
+[node name="Hud" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_8abgs")]
+player = NodePath("../Player")
