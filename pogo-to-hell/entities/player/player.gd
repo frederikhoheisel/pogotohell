@@ -152,7 +152,7 @@ func _rotate_head_and_pogo(delta: float) -> void:
 		low_pivot.rotation.z = move_toward(low_pivot.rotation.z, 0.0, delta)
 	
 	
-	if not on_wall and jump_strength < 0.1 or (self.is_on_wall() and not on_wall):
+	if (not on_wall and jump_strength < 0.1 or (self.is_on_wall() and not on_wall)) or not on_wall and not self.is_on_floor():
 		head.rotation.z = move_toward(head.rotation.z, 0.0, delta)
 		pogo.global_rotation.z = move_toward(pogo.global_rotation.z, 0.0, delta)
 		pogo.global_rotation.x = move_toward(pogo.global_rotation.x, 0.0, delta)

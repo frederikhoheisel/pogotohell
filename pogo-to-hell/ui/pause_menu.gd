@@ -1,18 +1,25 @@
 extends CanvasLayer
 
 
+signal settings_pressed(toggled_on: bool)
+
+
 var paused: bool = false
+var settings_shown: bool = false
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
+func _on_settings_button_pressed() -> void:
+	settings_pressed.emit(true)
+	settings_shown = true
 
 
-func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_cancel"):
-		paused = not paused
-		
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE if paused else Input.MOUSE_MODE_CAPTURED)
-		self.visible = paused
-		get_tree().paused = paused
+func _on_resume_button_pressed() -> void:
+	paused = false
+	
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	self.visible = paused
+	get_tree().paused = paused
+
+
+func _on_exit_button_pressed() -> void:
+	get_tree().quit()
