@@ -1,0 +1,94 @@
+[gd_scene load_steps=14 format=3 uid="uid://dj2jf17hpwxug"]
+
+[ext_resource type="PackedScene" uid="uid://4ndkdayx6bsf" path="res://ui/Screen_shader.tscn" id="1_cuaqy"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_myg2k"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_cuaqy"]
+sky_material = SubResource("ProceduralSkyMaterial_myg2k")
+
+[sub_resource type="Environment" id="Environment_cuaqy"]
+background_mode = 2
+sky = SubResource("Sky_cuaqy")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_myg2k"]
+
+[sub_resource type="Gradient" id="Gradient_yjnc3"]
+colors = PackedColorArray(0.2376962, 0.2135131, 0.09805807, 1, 0.74509805, 0.38039216, 0.30980393, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_rrrws"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_cuaqy"]
+noise = SubResource("FastNoiseLite_rrrws")
+color_ramp = SubResource("Gradient_yjnc3")
+seamless = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r6h6r"]
+albedo_texture = SubResource("NoiseTexture2D_cuaqy")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_yjnc3"]
+material = SubResource("StandardMaterial3D_r6h6r")
+size = Vector2(100, 100)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_idop5"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_augfa"]
+width = 1000
+noise = SubResource("FastNoiseLite_idop5")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f8ndg"]
+albedo_color = Color(1, 0.40392157, 0.2, 1)
+albedo_texture = SubResource("NoiseTexture2D_augfa")
+
+[node name="TestHans" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_cuaqy")
+
+[node name="Boden" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Boden"]
+shape = SubResource("WorldBoundaryShape3D_myg2k")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Boden"]
+mesh = SubResource("PlaneMesh_yjnc3")
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(12.54042, 0, 0, 0, 1, 0, 0, 0, 12.371774, 0, 0, 0.359841)
+material = SubResource("StandardMaterial3D_f8ndg")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9133444, 1.1425319, 2.9845948)
+
+[node name="CSGCylinder3D4" type="CSGCylinder3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.7886434, 1.1425319, 2.9845948)
+
+[node name="CSGCylinder3D5" type="CSGCylinder3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6855428, 1.1425319, 4.1010394)
+
+[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5851817, 2.8913505, -0.115404606)
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="CSGCombiner3D"]
+transform = Transform3D(1.8138573, 0, 0, 0, 4.003512, 0, 0, 0, 1.8784494, -2.9133444, 2.6014667, 0.088282585)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1.6641011, 0, 0, 0, 1.5160238, -0.31332955, 0, 0.500203, 0.94964445, 3.2527704, 2.376112, 0)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1.3315057, 0, -0.59981996, 0, 1.596412, 0, 0.99816084, 0, 0.8001351, -0.19154549, 3.208376, -2.1749725)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.87393343, 0.48604557, 0, -0.48604557, 0.87393343, 0, 4.3201857, 7.9126515)
+
+[node name="ScreenShader" parent="Camera3D" instance=ExtResource("1_cuaqy")]
