@@ -2,7 +2,7 @@ class_name Player
 extends CharacterBody3D
 
 
-const JUMP_VELOCITY = 9.5
+const JUMP_VELOCITY = 7.5
 
 
 var look_sensitivity: float = 0.005
@@ -12,8 +12,8 @@ var ground_accel: float = 14.0
 var ground_decel: float = 10.0
 var ground_friction: float = 3.0
 
-var air_accel: float = 800.0
-var air_move_speed: float = 500.0
+var air_accel: float = 14.0
+var air_move_speed: float = 3.0
 var air_speed_cap: float = 1.5
 
 var wall_normal: Vector3 = Vector3.ZERO
@@ -182,10 +182,14 @@ func _physics_process(delta: float) -> void:
 	# turn pogo red and scale a bit
 	$LowPivot/pogo/MeshInstance3D.mesh.material.albedo_color = Color(1.0, 1.0 - jump_strength, 1.0 - jump_strength)
 	pogo.scale.y = 1.0 - jump_strength * 0.5
+	# shake poko
+	pogo.position = Vector3(0.0, 1.0, 0.0) + Vector3(randf() - 0.5, randf() - 0.5, randf() - 0.5) * pow(jump_strength * delta * 4.0, 2.0)
 	
 	# NEIN
 	#var fov: float = 12.0 * self.velocity.length()
 	#%Camera3D.fov = clampf(fov, 70.0, 120.0)
+	var fov: float = 100.0 + 15.0 * (jump_strength - 0.5)
+	%Camera3D.fov = fov
 	
 	# Get the input direction and handle the movement/deceleration.
 	var input_dir: Vector2 = Input.get_vector("left", "right", "forward", "backward").normalized()
