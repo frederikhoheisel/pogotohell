@@ -15,13 +15,26 @@ corner_radius_top_left = 32
 corner_radius_top_right = 32
 corner_radius_bottom_right = 32
 corner_radius_bottom_left = 32
+expand_margin_left = 32.0
+expand_margin_top = 32.0
+expand_margin_right = 32.0
+expand_margin_bottom = 32.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2ty5h"]
 bg_color = Color(0.80049086, 0.8004908, 0.8004906, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.15294118, 0.15294118, 0.15294118, 1)
+border_blend = true
 corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
+shadow_size = 4
+shadow_offset = Vector2(2, 2)
+anti_aliasing = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a6yft"]
 bg_color = Color(0.15294118, 0.15294118, 0.15294118, 1)
@@ -43,46 +56,68 @@ theme_override_constants/margin_bottom = 64
 
 [node name="PanelContainer" type="PanelContainer" parent="MarginContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxFlat_xutny")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 mouse_filter = 2
-theme_override_constants/separation = 16
+theme_override_constants/separation = 32
 
-[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer"]
+[node name="SettingsLabel" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-text = "CROSSHAIR SETTINGS"
+text = "SETTINGS"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer"]
+[node name="Sensitivity" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/Sensitivity"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.3
+text = "sensitivity"
+
+[node name="SensitivityLabel" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/Sensitivity"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.2
+text = "50"
+horizontal_alignment = 1
+
+[node name="SensitivityHSlider" type="HSlider" parent="MarginContainer/PanelContainer/VBoxContainer/Sensitivity"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Crosshair" type="VBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 8
+alignment = 1
+
+[node name="CrosshairLabel3" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/Crosshair"]
 layout_mode = 2
 size_flags_vertical = 3
-mouse_filter = 2
-theme_override_constants/separation = 64
-alignment = 1
+text = "CROSSHAIR"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-mouse_filter = 2
-theme_override_constants/separation = 20
-alignment = 1
-
-[node name="Preview" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="PreviewColor" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/Crosshair"]
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
 theme_override_constants/separation = 32
-alignment = 2
+alignment = 1
 
-[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/Preview"]
-layout_mode = 2
-text = "preview"
-
-[node name="Panel" type="PanelContainer" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/Preview"]
-custom_minimum_size = Vector2(74, 74)
+[node name="Panel" type="PanelContainer" parent="MarginContainer/PanelContainer/VBoxContainer/Crosshair/PreviewColor"]
+custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -90,7 +125,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_2ty5h")
 
-[node name="Crosshair" type="ColorRect" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/Preview/Panel"]
+[node name="Crosshair" type="ColorRect" parent="MarginContainer/PanelContainer/VBoxContainer/Crosshair/PreviewColor/Panel"]
 unique_name_in_owner = true
 material = ExtResource("2_xutny")
 custom_minimum_size = Vector2(64, 64)
@@ -100,18 +135,35 @@ size_flags_vertical = 4
 mouse_filter = 2
 mouse_default_cursor_shape = 3
 
-[node name="InverseColor" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="ColorPicker" type="ColorPicker" parent="MarginContainer/PanelContainer/VBoxContainer/Crosshair/PreviewColor"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 0
+mouse_default_cursor_shape = 3
+edit_alpha = false
+edit_intensity = false
+picker_shape = 4
+can_add_swatches = false
+sampler_visible = false
+color_modes_visible = false
+hex_visible = false
+presets_visible = false
+
+[node name="InverseColor" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/Crosshair"]
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
 alignment = 1
 
-[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/InverseColor"]
+[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/Crosshair/InverseColor"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "use inverse screen color"
 
-[node name="CheckBox" type="CheckBox" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/InverseColor"]
+[node name="CheckBox" type="CheckBox" parent="MarginContainer/PanelContainer/VBoxContainer/Crosshair/InverseColor"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -121,97 +173,102 @@ mouse_default_cursor_shape = 3
 alignment = 1
 icon_alignment = 1
 
-[node name="Length" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="Length" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/Crosshair"]
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
 
-[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/Length"]
+[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/Crosshair/Length"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "length"
 
-[node name="LenghtHSlider" type="HSlider" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/Length"]
+[node name="LengthLabel" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/Crosshair/Length"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0.1"
+horizontal_alignment = 2
+
+[node name="LenghtHSlider" type="HSlider" parent="MarginContainer/PanelContainer/VBoxContainer/Crosshair/Length"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(256, 0)
 layout_mode = 2
 size_flags_vertical = 1
+size_flags_stretch_ratio = 4.0
 mouse_default_cursor_shape = 3
 
-[node name="Thickness" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="Thickness" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/Crosshair"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/Thickness"]
+[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/Crosshair/Thickness"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "thickness"
 
-[node name="ThickHSlider" type="HSlider" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/Thickness"]
+[node name="ThickLabel" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/Crosshair/Thickness"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0.1"
+horizontal_alignment = 2
+
+[node name="ThickHSlider" type="HSlider" parent="MarginContainer/PanelContainer/VBoxContainer/Crosshair/Thickness"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(256, 0)
 layout_mode = 2
 size_flags_vertical = 1
+size_flags_stretch_ratio = 4.0
 mouse_default_cursor_shape = 3
 
-[node name="Gap" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="Gap" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/Crosshair"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/Gap"]
+[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/Crosshair/Gap"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "gap"
 
-[node name="GapHSlider" type="HSlider" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/Gap"]
+[node name="GapLabel" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/Crosshair/Gap"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0.1"
+horizontal_alignment = 2
+
+[node name="GapHSlider" type="HSlider" parent="MarginContainer/PanelContainer/VBoxContainer/Crosshair/Gap"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(256, 0)
 layout_mode = 2
 size_flags_vertical = 1
 mouse_default_cursor_shape = 3
 
-[node name="Halo" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="Halo" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/Crosshair"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/Halo"]
+[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/Crosshair/Halo"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "halo"
 
-[node name="HaloHSlider" type="HSlider" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/Halo"]
+[node name="HaloLabel" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/Crosshair/Halo"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0.1"
+horizontal_alignment = 2
+
+[node name="HaloHSlider" type="HSlider" parent="MarginContainer/PanelContainer/VBoxContainer/Crosshair/Halo"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(256, 0)
 layout_mode = 2
 size_flags_vertical = 1
 mouse_default_cursor_shape = 3
 
-[node name="ColorPicker" type="VBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-mouse_filter = 2
-alignment = 1
-
-[node name="Label2" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/ColorPicker"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "COLOR"
-horizontal_alignment = 1
-
-[node name="ColorPicker" type="ColorPicker" parent="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/ColorPicker"]
-unique_name_in_owner = true
-layout_mode = 2
-mouse_filter = 0
-mouse_default_cursor_shape = 3
-edit_alpha = false
-edit_intensity = false
-picker_shape = 1
-can_add_swatches = false
-sampler_visible = false
-color_modes_visible = false
-hex_visible = false
-presets_visible = false
-
-[node name="Button" type="Button" parent="MarginContainer/PanelContainer/VBoxContainer"]
+[node name="ReturnButton" type="Button" parent="MarginContainer/PanelContainer/VBoxContainer"]
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -223,10 +280,11 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_a6yft")
 theme_override_styles/focus = SubResource("StyleBoxFlat_a6yft")
 text = "RETURN"
 
-[connection signal="toggled" from="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/InverseColor/CheckBox" to="." method="_on_inverse_color_toggled"]
-[connection signal="value_changed" from="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/Length/LenghtHSlider" to="." method="_on_lenght_h_slider_value_changed"]
-[connection signal="value_changed" from="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/Thickness/ThickHSlider" to="." method="_on_thick_h_slider_value_changed"]
-[connection signal="value_changed" from="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/Gap/GapHSlider" to="." method="_on_gap_h_slider_value_changed"]
-[connection signal="value_changed" from="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/Halo/HaloHSlider" to="." method="_on_halo_h_slider_value_changed"]
-[connection signal="color_changed" from="MarginContainer/PanelContainer/VBoxContainer/HBoxContainer/ColorPicker/ColorPicker" to="." method="_on_color_picker_color_changed"]
-[connection signal="pressed" from="MarginContainer/PanelContainer/VBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="value_changed" from="MarginContainer/PanelContainer/VBoxContainer/Sensitivity/SensitivityHSlider" to="." method="_on_sensitivity_h_slider_value_changed"]
+[connection signal="color_changed" from="MarginContainer/PanelContainer/VBoxContainer/Crosshair/PreviewColor/ColorPicker" to="." method="_on_color_picker_color_changed"]
+[connection signal="toggled" from="MarginContainer/PanelContainer/VBoxContainer/Crosshair/InverseColor/CheckBox" to="." method="_on_inverse_color_toggled"]
+[connection signal="value_changed" from="MarginContainer/PanelContainer/VBoxContainer/Crosshair/Length/LenghtHSlider" to="." method="_on_lenght_h_slider_value_changed"]
+[connection signal="value_changed" from="MarginContainer/PanelContainer/VBoxContainer/Crosshair/Thickness/ThickHSlider" to="." method="_on_thick_h_slider_value_changed"]
+[connection signal="value_changed" from="MarginContainer/PanelContainer/VBoxContainer/Crosshair/Gap/GapHSlider" to="." method="_on_gap_h_slider_value_changed"]
+[connection signal="value_changed" from="MarginContainer/PanelContainer/VBoxContainer/Crosshair/Halo/HaloHSlider" to="." method="_on_halo_h_slider_value_changed"]
+[connection signal="pressed" from="MarginContainer/PanelContainer/VBoxContainer/ReturnButton" to="." method="_on_button_pressed"]

@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://d4baqm2niu2b0" path="res://ui/settings_menu.tscn" id="4_7ihmi"]
 
 [node name="Hud" type="CanvasLayer"]
+process_mode = 3
 script = ExtResource("1_rbyyf")
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
