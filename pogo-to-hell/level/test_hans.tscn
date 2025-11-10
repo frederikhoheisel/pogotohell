@@ -91,7 +91,7 @@ environment = SubResource("Environment_cuaqy")
 shape = SubResource("WorldBoundaryShape3D_myg2k")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Boden"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.27923825, -0.0058453083, -0.0035068989)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.047388762, -0.32002044, 0.7859278)
 mesh = SubResource("PlaneMesh_yjnc3")
 
 [node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]

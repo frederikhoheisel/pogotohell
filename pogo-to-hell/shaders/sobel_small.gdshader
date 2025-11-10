@@ -63,12 +63,12 @@ float[9] get_depth_neighbors(vec2 uv, vec2 pixel_size) {
 	return neighbors;
 }
 
-float outline(vec2 uv, vec2 pixel_size, float depth) {
+float outline(vec2 uv, vec2 pixel_size, float depth, float grazing) {
 	float depth_neighbors[9];
 	vec3 normal_neighbors[9];
 	float res;
-	float depth_threshold = 0.1; //30
-	float normal_threshold = 1000000.0;
+	float depth_threshold = 25.0; //30
+	float normal_threshold = 4.0; //4.0
 	float offset = 1.0;
 	depth_neighbors = get_depth_neighbors(uv, offset * pixel_size);
 	normal_neighbors = get_normal_neighbors(uv, offset * pixel_size);
@@ -78,16 +78,15 @@ float outline(vec2 uv, vec2 pixel_size, float depth) {
 	float sobel_depth_y = depth_neighbors[0] + 2.0 * depth_neighbors[1] + depth_neighbors[2] - depth_neighbors[6] - 2.0 * depth_neighbors[7] - depth_neighbors[8];
 	float depth_gradient = 100.0 * (abs(sobel_depth_x) + abs(sobel_depth_y));
 	
-	depth_threshold *= depth;
+	depth_threshold *= depth_neighbors[4] * (1.0 + 50.0 * grazing);
 	if (depth_gradient > depth_threshold) depth_gradient = 1.0;
 	else depth_gradient = 0.0;
-	//depth_gradient = step(depth_threshold, depth_gradient);
 	
 	vec3 sobel_norm_x_vec = normal_neighbors[0] + 2.0 * normal_neighbors[3] + normal_neighbors[6] - normal_neighbors[2] - 2.0 * normal_neighbors[5] - normal_neighbors[8];
 	vec3 sobel_norm_y_vec = normal_neighbors[0] + 2.0 * normal_neighbors[1] + normal_neighbors[2] - normal_neighbors[6] - 2.0 * normal_neighbors[7] - normal_neighbors[8];
-	float normal_gradient = sqrt(dot(sobel_norm_x_vec, sobel_norm_x_vec) + dot(sobel_norm_y_vec, sobel_norm_y_vec));
+	float normal_gradient = abs(dot(sobel_norm_x_vec, sobel_norm_x_vec)) + abs(dot(sobel_norm_y_vec, sobel_norm_y_vec));
 	
-	normal_threshold *= depth_neighbors[4];
+	normal_threshold *= (1.0 - depth_neighbors[4]) * (1.0 + grazing);
 	if (normal_gradient > normal_threshold) normal_gradient = 1.0;
 	else normal_gradient = 0.0;
 	
@@ -122,8 +121,7 @@ void fragment() {
 	vec4 vertex_pos_homo = INV_VIEW_MATRIX * vec4(VERTEX, 1.0);
 	vec3 vertex_world = (vertex_pos_homo / vertex_pos_homo.w).xyz;
 	vec3 view_dir = vertex_world - CAMERA_POSITION_WORLD;
-	float grazing = clamp(1.0 - pow(abs(normal.z), 2), 0.0, 1.0);
-	grazing = step(grazing, 0.7);
-	ALBED.rgb = color.rgb + vec3(grazing);
-	//ALBEDO.rgb = color.rgb - (outline(uv, pixel_size, linear_depth));
+	float grazing = clamp(pow(1.0 - abs(normal.z), 2), 0.0, 1.0);
+	//ALBEDO.rgb = color.rgb + vec3(grazing);
+	ALBEDO.rgb = color.rgb - (outline(uv, pixel_size, linear_depth, grazing));
 }
