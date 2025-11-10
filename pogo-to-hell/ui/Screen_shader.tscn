@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://4ndkdayx6bsf"]
 
-[ext_resource type="Shader" uid="uid://bml0jk4a2l3s" path="res://shaders/outline.gdshader" id="1_xa4i0"]
+[ext_resource type="Shader" uid="uid://vicxrmat083w" path="res://shaders/sobel_small.gdshader" id="1_xa4i0"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xa4i0"]
 render_priority = 0
