@@ -1,9 +1,16 @@
 [gd_scene load_steps=5 format=3 uid="uid://c1mxi56rrm2c4"]
 
 [ext_resource type="Script" uid="uid://d2iuqmxdbt7ko" path="res://ui/hud.gd" id="1_rbyyf"]
-[ext_resource type="Material" uid="uid://c7n6hmrhx0x1n" path="res://ui/crosshair.tres" id="2_7ihmi"]
-[ext_resource type="PackedScene" uid="uid://ch062xtce311c" path="res://ui/pause_menu.tscn" id="3_546lt"]
-[ext_resource type="PackedScene" uid="uid://d4baqm2niu2b0" path="res://ui/settings_menu.tscn" id="4_7ihmi"]
+[ext_resource type="Shader" uid="uid://6pdoa2h2fsuk" path="res://ui/crosshair.gdshader" id="2_276te"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_546lt"]
+shader = ExtResource("2_276te")
+shader_parameter/thick = 0.03999999910592
+shader_parameter/hole = 0.09999998658880004
+shader_parameter/halo_thickness = 0.01
+shader_parameter/size = 0.48999998904752
+shader_parameter/col = Color(0, 1, 1, 1)
+shader_parameter/use_inv_screen_color = true
 
 [node name="Hud" type="CanvasLayer"]
 process_mode = 3

@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://4ndkdayx6bsf"]
+
+[ext_resource type="Shader" uid="uid://vicxrmat083w" path="res://shaders/sobel_small.gdshader" id="1_xa4i0"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xa4i0"]
+render_priority = 0
+shader = ExtResource("1_xa4i0")
+
+[sub_resource type="QuadMesh" id="QuadMesh_3javi"]
+material = SubResource("ShaderMaterial_xa4i0")
+flip_faces = true
+size = Vector2(2, 2)
+
+[node name="ScreenShader" type="MeshInstance3D"]
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_3javi")
