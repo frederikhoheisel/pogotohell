@@ -71,9 +71,6 @@ shadow_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("1_dlp0f")]
 
-[node name="Hud" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_8abgs")]
-player = NodePath("../Player")
-
 [node name="Boden" type="StaticBody3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Boden"]
@@ -119,3 +116,6 @@ transform = Transform3D(0.8366592, 0.5477238, 0, -0.5477238, 0.8366592, 0, 0, 0,
 operation = 2
 size = Vector3(20, 10, 20)
 material = SubResource("StandardMaterial3D_rsfpr")
+
+[node name="Hud" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_8abgs")]
+player = NodePath("../Player")

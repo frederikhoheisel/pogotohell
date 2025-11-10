@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://c1mxi56rrm2c4"]
+[gd_scene load_steps=5 format=3 uid="uid://c1mxi56rrm2c4"]
 
 [ext_resource type="Script" uid="uid://d2iuqmxdbt7ko" path="res://ui/hud.gd" id="1_rbyyf"]
 [ext_resource type="Shader" uid="uid://6pdoa2h2fsuk" path="res://ui/crosshair.gdshader" id="2_276te"]
@@ -13,6 +13,7 @@ shader_parameter/col = Color(0, 1, 1, 1)
 shader_parameter/use_inv_screen_color = true
 
 [node name="Hud" type="CanvasLayer"]
+process_mode = 3
 script = ExtResource("1_rbyyf")
 
 [node name="ProgressBar" type="ProgressBar" parent="."]
@@ -40,8 +41,8 @@ offset_top = 63.0
 offset_right = 41.0
 offset_bottom = 86.0
 
-[node name="ColorRect" type="ColorRect" parent="."]
-material = SubResource("ShaderMaterial_546lt")
+[node name="Crosshair" type="ColorRect" parent="."]
+material = ExtResource("2_7ihmi")
 custom_minimum_size = Vector2(32, 32)
 anchors_preset = 8
 anchor_left = 0.5
@@ -55,3 +56,14 @@ offset_bottom = 32.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+
+[node name="PauseMenu" parent="." instance=ExtResource("3_546lt")]
+layer = 2
+visible = false
+
+[node name="SettingsMenu" parent="." instance=ExtResource("4_7ihmi")]
+layer = 2
+visible = false
+
+[connection signal="settings_pressed" from="PauseMenu" to="." method="_on_pause_menu_settings_pressed"]
+[connection signal="settings_disabled" from="SettingsMenu" to="." method="_on_pause_menu_settings_pressed"]

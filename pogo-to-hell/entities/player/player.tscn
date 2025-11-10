@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://olsf6f01iad6" path="res://entities/player/player.gd" id="1_symyc"]
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_symyc"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_symyc"]
 
 [sub_resource type="Gradient" id="Gradient_symyc"]
 offsets = PackedFloat32Array(0, 0.5, 1)
@@ -41,7 +41,7 @@ script = ExtResource("1_symyc")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("CylinderShape3D_symyc")
+shape = SubResource("CapsuleShape3D_symyc")
 
 [node name="Head" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
@@ -50,22 +50,24 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 unique_name_in_owner = true
 fov = 100.0
 
-[node name="pogo" type="Node3D" parent="."]
+[node name="LowPivot" type="Node3D" parent="."]
+
+[node name="pogo" type="Node3D" parent="LowPivot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="pogo"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="LowPivot/pogo"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.7, 0)
 mesh = SubResource("CylinderMesh_symyc")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="pogo"]
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="LowPivot/pogo"]
 transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0.11275375, 0)
 mesh = SubResource("CylinderMesh_abrql")
 
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="pogo"]
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="LowPivot/pogo"]
 transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, -0.4191088, 0.04518038)
 mesh = SubResource("CylinderMesh_abrql")
 
-[node name="MeshInstance3D4" type="MeshInstance3D" parent="pogo"]
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="LowPivot/pogo"]
 transform = Transform3D(1, 0, 0, 0, 1.1924881e-08, 1, 0, -1, 1.1924881e-08, 0, 0.30007422, -0.008707311)
 mesh = SubResource("PrismMesh_symyc")
