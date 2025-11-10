@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://cp0aw825yr8om"]
+[gd_scene load_steps=10 format=3 uid="uid://cp0aw825yr8om"]
 
 [ext_resource type="Script" uid="uid://olsf6f01iad6" path="res://entities/player/player.gd" id="1_symyc"]
+[ext_resource type="PackedScene" uid="uid://ckotjsucisr3i" path="res://entities/player/view_model.tscn" id="2_abrql"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_symyc"]
 
@@ -49,6 +50,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 [node name="Camera3D" type="Camera3D" parent="Head"]
 unique_name_in_owner = true
 fov = 100.0
+
+[node name="ViewModel" parent="Head/Camera3D" instance=ExtResource("2_abrql")]
+transform = Transform3D(0.46984628, -0.029695585, -0.16841201, 0, 0.49240386, -0.08682408, 0.17101005, 0.081587955, 0.46270823, -0.2, -0.1, 0.1)
 
 [node name="LowPivot" type="Node3D" parent="."]
 
