@@ -1,15 +1,18 @@
 extends Node3D
 
 
-var fire_delay: float = 0.5
+var fire_delay: float = 0.3
 var fire_time: float = 0.0
 var camera_tween: Tween
-var camera_shake_amount = PI/12.0
+var camera_shake_amount = PI/24.0
+var camera_shake_duration: float = 0.4
+var decal: PackedScene = preload("res://entities/effects/decal.tscn")
 
 
 @onready var hit_ray_cast: RayCast3D = %HitRayCast
 @onready var view_model: Node3D = %ViewModel
 @onready var camera_3d: Camera3D = %Camera3D
+@onready var head: Node3D = $"../Head"
 
 
 # Called when the node enters the scene tree for the first time.
@@ -25,18 +28,38 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("shoot"):
 		if fire_time < fire_delay:
 			return
-		shake_camera()
-		view_model.play_fire_anim()
 		fire_time = 0.0
+		shoot_gun()
 	
 	if event.is_action_pressed("pull_out"):
 		view_model.play_pull_out_anim()
 
 
-func shake_camera() -> void:
+func _shake_camera() -> void:
 	if camera_tween:
 		camera_tween.kill()
 	camera_tween = get_tree().create_tween()
+	camera_tween.set_parallel(false)
+	camera_tween.tween_property(head, "rotation", Vector3(head.rotation.x + camera_shake_amount, head.rotation.y, head.rotation.z), camera_shake_duration * 0.2)
+	camera_tween.tween_property(head, "rotation", Vector3(head.rotation.x, head.rotation.y, head.rotation.z), camera_shake_duration).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+
+
+func _place_decal(collision_point: Vector3) -> void:
+	var decal_scene: Decal = decal.instantiate()
+	get_tree().root.get_child(0).add_child(decal_scene)
+	decal_scene.global_position = collision_point
+
+
+func shoot_gun() -> void:
+	_shake_camera()
+	view_model.play_fire_anim()
 	
-	camera_3d.rotation.x = camera_3d.rotation.x + camera_shake_amount
-	camera_tween.tween_property(camera_3d, "rotation", Vector3(camera_3d.rotation.x - camera_shake_amount, camera_3d.rotation.y, camera_3d.rotation.z), 0.4)
+	hit_ray_cast.force_raycast_update()
+	if hit_ray_cast.is_colliding():
+		var collider = hit_ray_cast.get_collider()
+		
+		var collision_point: Vector3 = hit_ray_cast.get_collision_point()
+		_place_decal(collision_point)
+		
+		if collider is SoftBody3D:
+			collider.apply_central_impulse(hit_ray_cast.get_collision_normal() * -10.0)
