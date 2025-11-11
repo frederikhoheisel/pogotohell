@@ -137,72 +137,6 @@ shadow_mesh = SubResource("ArrayMesh_nednp")
 
 [sub_resource type="Animation" id="Animation_4ggg8"]
 length = 0.001
-tracks/0/type = "bezier"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Arm_Rig/Skeleton3D/BoneAttachment3D/revolver:rotation:x")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(-1.5494117, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/1/type = "bezier"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Arm_Rig/Skeleton3D/BoneAttachment3D/revolver:rotation:y")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(-2.839304, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/2/type = "bezier"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Arm_Rig/Skeleton3D/BoneAttachment3D/revolver:rotation:z")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(1.1642288, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/3/type = "bezier"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Arm_Rig/Skeleton3D/BoneAttachment3D/revolver:position:x")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(0.0012893034, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/4/type = "bezier"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Arm_Rig/Skeleton3D/BoneAttachment3D/revolver:position:y")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(0.0042240657, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/5/type = "bezier"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Arm_Rig/Skeleton3D/BoneAttachment3D/revolver:position:z")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(0.0007508397, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_hhxqw"]
 _data = {
@@ -230,21 +164,21 @@ bones/1/parent = 0
 bones/1/rest = Transform3D(0.061439, 0.99811125, 1.4901163e-07, -2.9802333e-08, -2.3841866e-07, 1.0000001, 0.99811125, -0.06143903, 0, 0.006417473, 3.6921634e-23, 1.5337119e-09)
 bones/1/enabled = true
 bones/1/position = Vector3(0.0069218604, -0.0046114065, -0.0003938378)
-bones/1/rotation = Quaternion(-0.6054778, -0.41605616, 0.6774056, -0.037624907)
+bones/1/rotation = Quaternion(0.5627056, 0.23236597, -0.75404656, 0.2465409)
 bones/1/scale = Vector3(1.0000005, 1.0000014, 1.0000001)
 bones/2/name = "lower_arm"
 bones/2/parent = 1
 bones/2/rest = Transform3D(0.99173105, 0.12833364, -1.2520552e-07, -0.12833364, 0.99173105, 5.474339e-09, 1.2487273e-07, 1.0639008e-08, 1, -5.8640946e-11, 0.010753576, -1.5841966e-18)
 bones/2/enabled = true
 bones/2/position = Vector3(2.9802322e-10, 0.010753577, -7.0780515e-10)
-bones/2/rotation = Quaternion(-2.6072708e-09, -4.8234547e-08, -0.69973344, 0.7144041)
+bones/2/rotation = Quaternion(-9.6123705e-09, -7.930177e-08, -0.77510583, 0.6318315)
 bones/2/scale = Vector3(0.9999991, 1.0000011, 0.99999994)
 bones/3/name = "hand"
 bones/3/parent = 2
 bones/3/rest = Transform3D(0.9977422, -0.06715991, -9.0162633e-10, 0.06715989, 0.9977425, -6.7735666e-09, 1.3545026e-09, 6.6977224e-09, 1, 1.099723e-10, 0.009837614, -2.5835952e-17)
 bones/3/enabled = true
 bones/3/position = Vector3(2.9802322e-10, 0.009837613, 2.9802322e-10)
-bones/3/rotation = Quaternion(0.004725425, 0.390425, 0.3407449, 0.8552421)
+bones/3/rotation = Quaternion(0.0048927465, 0.47927293, 0.54222715, 0.6901184)
 bones/3/scale = Vector3(1, 1.0000008, 0.9999997)
 bones/4/name = "index_finger_01"
 bones/4/parent = 3
@@ -364,12 +298,12 @@ mesh = SubResource("ArrayMesh_vhwf7")
 skin = SubResource("Skin_u8l04")
 
 [node name="BoneAttachment3D" type="BoneAttachment3D" parent="arm_view_model/Arm_Rig/Skeleton3D"]
-transform = Transform3D(0.11701894, -0.08566737, -0.989428, 0.22130157, 0.9734743, -0.058112282, 0.9681596, -0.21216086, 0.13287365, 0.010404981, 0.014447261, -0.007290442)
+transform = Transform3D(0.23177274, -0.11339566, -0.9661382, 0.8817844, 0.44388992, 0.15943843, 0.41077864, -0.8888786, 0.20287219, 0.010114076, 0.010314791, -0.012431458)
 bone_name = "hand"
 bone_idx = 3
 
 [node name="revolver" type="Node3D" parent="arm_view_model/Arm_Rig/Skeleton3D/BoneAttachment3D"]
-transform = Transform3D(-0.004166104, 0.039781645, -0.00025463453, 0.0007855997, 0.00033824472, 0.039990887, 0.03977473, 0.004160146, -0.00081654004, 0.0012893034, 0.0042240657, 0.0007508397)
+transform = Transform3D(-0.0041661034, 0.039781645, -0.00025463453, 0.00078559964, 0.00033824472, 0.039990887, 0.039774727, 0.004160146, -0.00081654004, 0.0012893034, 0.0042240657, 0.0007508397)
 
 [node name="Gun" type="MeshInstance3D" parent="arm_view_model/Arm_Rig/Skeleton3D/BoneAttachment3D/revolver"]
 mesh = SubResource("ArrayMesh_5kmhy")
