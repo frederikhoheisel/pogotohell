@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://cp0aw825yr8om"]
+[gd_scene load_steps=11 format=3 uid="uid://cp0aw825yr8om"]
 
 [ext_resource type="Script" uid="uid://olsf6f01iad6" path="res://entities/player/player.gd" id="1_symyc"]
-[ext_resource type="PackedScene" uid="uid://ckotjsucisr3i" path="res://entities/player/view_model.tscn" id="2_abrql"]
+[ext_resource type="PackedScene" uid="uid://dhtiycvswaaqb" path="res://entities/player/view_model.tscn" id="2_abrql"]
+[ext_resource type="Script" uid="uid://ce5byukny1pod" path="res://entities/player/shooting.gd" id="3_sglur"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_symyc"]
 
@@ -52,7 +53,12 @@ unique_name_in_owner = true
 fov = 100.0
 
 [node name="ViewModel" parent="Head/Camera3D" instance=ExtResource("2_abrql")]
+unique_name_in_owner = true
 transform = Transform3D(0.46984628, -0.029695585, -0.16841201, 0, 0.49240386, -0.08682408, 0.17101005, 0.081587955, 0.46270823, -0.2, -0.1, 0.1)
+
+[node name="HitRayCast" type="RayCast3D" parent="Head/Camera3D"]
+unique_name_in_owner = true
+target_position = Vector3(0, 0, -999)
 
 [node name="LowPivot" type="Node3D" parent="."]
 
@@ -75,3 +81,6 @@ mesh = SubResource("CylinderMesh_abrql")
 [node name="MeshInstance3D4" type="MeshInstance3D" parent="LowPivot/pogo"]
 transform = Transform3D(1, 0, 0, 0, 1.1924881e-08, 1, 0, -1, 1.1924881e-08, 0, 0.30007422, -0.008707311)
 mesh = SubResource("PrismMesh_symyc")
+
+[node name="Shooting" type="Node3D" parent="."]
+script = ExtResource("3_sglur")
