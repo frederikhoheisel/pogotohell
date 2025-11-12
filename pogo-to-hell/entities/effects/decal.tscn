@@ -1,7 +1,73 @@
-[gd_scene load_steps=2 format=3 uid="uid://c10uyow36vg38"]
+[gd_scene load_steps=12 format=3 uid="uid://c10uyow36vg38"]
 
 [ext_resource type="Texture2D" uid="uid://c8o5phkubafj1" path="res://assets/textures/decal.png" id="1_0ui8b"]
 
-[node name="Decal" type="Decal"]
+[sub_resource type="Curve" id="Curve_r24mc"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_hiaeo"]
+curve = SubResource("Curve_r24mc")
+
+[sub_resource type="Gradient" id="Gradient_nm5q2"]
+offsets = PackedFloat32Array(0, 0.23888889)
+colors = PackedColorArray(1, 1, 0, 1, 0.41960785, 0.078431375, 0.050980393, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_jqn5f"]
+gradient = SubResource("Gradient_nm5q2")
+
+[sub_resource type="Curve" id="Curve_vcqpf"]
+_data = [Vector2(0.2524272, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_c76uq"]
+curve = SubResource("Curve_vcqpf")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0ui8b"]
+particle_flag_align_y = true
+emission_shape = 1
+emission_sphere_radius = 0.04
+direction = Vector3(0, 0, 1)
+spread = 30.0
+initial_velocity_min = 1.0
+initial_velocity_max = 3.0
+scale_max = 3.0
+scale_curve = SubResource("CurveTexture_c76uq")
+color_ramp = SubResource("GradientTexture1D_jqn5f")
+alpha_curve = SubResource("CurveTexture_hiaeo")
+
+[sub_resource type="Curve" id="Curve_0ui8b"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.20588234, 0.8764045), 0.0, 0.0, 0, 0, Vector2(0.7899159, 0.82022476), 1.1313744, 1.1313744, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0ui8b"]
+transparency = 1
+cull_mode = 2
+shading_mode = 0
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+
+[sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_r24mc"]
+material = SubResource("StandardMaterial3D_0ui8b")
+size = 0.01
+section_length = 0.005
+section_segments = 1
+curve = SubResource("Curve_0ui8b")
+
+[node name="BulletHole" type="Node3D"]
+
+[node name="Decal" type="Decal" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
 size = Vector3(0.1, 0.1, 0.1)
 texture_albedo = ExtResource("1_0ui8b")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+gi_mode = 0
+emitting = false
+amount = 16
+one_shot = true
+explosiveness = 0.9
+randomness = 1.0
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_0ui8b")
+draw_pass_1 = SubResource("RibbonTrailMesh_r24mc")
