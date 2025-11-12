@@ -14,7 +14,10 @@ sky_material = SubResource("ProceduralSkyMaterial_dlp0f")
 [sub_resource type="Environment" id="Environment_sywkh"]
 background_mode = 2
 sky = SubResource("Sky_8abgs")
-tonemap_mode = 2
+ambient_light_source = 2
+tonemap_mode = 3
+sdfgi_enabled = true
+sdfgi_use_occlusion = true
 glow_enabled = true
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_ilowo"]
