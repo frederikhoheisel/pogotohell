@@ -44,12 +44,6 @@ func _shake_camera() -> void:
 	camera_tween.tween_property(head, "rotation", Vector3(head.rotation.x, head.rotation.y, head.rotation.z), camera_shake_duration).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
 
 
-func _place_decal(collision_point: Vector3) -> void:
-	var decal_scene: Decal = decal.instantiate()
-	get_tree().root.get_child(0).add_child(decal_scene)
-	decal_scene.global_position = collision_point
-
-
 func shoot_gun() -> void:
 	_shake_camera()
 	view_model.play_fire_anim()
@@ -59,7 +53,12 @@ func shoot_gun() -> void:
 		var collider = hit_ray_cast.get_collider()
 		
 		var collision_point: Vector3 = hit_ray_cast.get_collision_point()
-		_place_decal(collision_point)
+		var collision_normal: Vector3 = hit_ray_cast.get_collision_normal()
+		
+		get_tree().get_first_node_in_group("DecalManager").place_decal(collision_point, collision_normal)
+		
+		if collider.has_method("take_damage"):
+			collider.take_damage(1)
 		
 		if collider is SoftBody3D:
-			collider.apply_central_impulse(hit_ray_cast.get_collision_normal() * -10.0)
+			collider.apply_central_impulse(collision_normal * -10.0)

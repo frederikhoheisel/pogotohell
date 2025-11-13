@@ -312,7 +312,7 @@ skeleton = NodePath("")
 
 [node name="MuzzleFlash" parent="arm_view_model/Arm_Rig/Skeleton3D/BoneAttachment3D/revolver" instance=ExtResource("2_hhxqw")]
 unique_name_in_owner = true
-transform = Transform3D(-1, -1.8626451e-08, -2.2351742e-08, -1.5832484e-08, 1, 2.9802322e-08, 7.0780516e-08, 0, -1.0000005, 0.0014562607, 0.023667738, 0.120654106)
+transform = Transform3D(-1, -2.4214387e-08, 0, -1.6763806e-08, 1, 2.9802322e-08, 6.7055225e-08, 0, -1.0000005, -0.002935648, 0.025526628, 0.12831575)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="arm_view_model"]
 libraries = {
