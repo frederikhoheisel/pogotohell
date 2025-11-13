@@ -57,5 +57,8 @@ func shoot_gun() -> void:
 		
 		get_tree().get_first_node_in_group("DecalManager").place_decal(collision_point, collision_normal)
 		
+		if collider.has_method("take_damage"):
+			collider.take_damage(1)
+		
 		if collider is SoftBody3D:
 			collider.apply_central_impulse(collision_normal * -10.0)

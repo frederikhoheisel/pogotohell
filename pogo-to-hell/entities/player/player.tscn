@@ -38,7 +38,7 @@ rings = 1
 [sub_resource type="PrismMesh" id="PrismMesh_symyc"]
 size = Vector3(0.1, 0.1, 0.01)
 
-[node name="Player" type="CharacterBody3D"]
+[node name="Player" type="CharacterBody3D" groups=["Player"]]
 script = ExtResource("1_symyc")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

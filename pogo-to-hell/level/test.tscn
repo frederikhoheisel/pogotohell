@@ -1,10 +1,11 @@
-[gd_scene load_steps=25 format=3 uid="uid://lwbfiwaigua3"]
+[gd_scene load_steps=26 format=3 uid="uid://lwbfiwaigua3"]
 
 [ext_resource type="PackedScene" uid="uid://cp0aw825yr8om" path="res://entities/player/player.tscn" id="1_dlp0f"]
 [ext_resource type="VoxelGIData" uid="uid://tabxh1nvawko" path="res://level/test.VoxelGI_data.res" id="1_ea25h"]
 [ext_resource type="PackedScene" uid="uid://c1mxi56rrm2c4" path="res://ui/hud.tscn" id="2_8abgs"]
 [ext_resource type="Script" uid="uid://blpvtdqouubfu" path="res://level/decal_manager.gd" id="2_yihe8"]
 [ext_resource type="PackedScene" uid="uid://4ndkdayx6bsf" path="res://ui/Screen_shader.tscn" id="3_sywkh"]
+[ext_resource type="PackedScene" uid="uid://dgunwb7odlxau" path="res://entities/enemies/broski/broski.tscn" id="6_rsfpr"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dlp0f"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -2727,3 +2728,22 @@ linear_stiffness = 0.1
 pressure_coefficient = 100.0
 
 [node name="ScreenShader" parent="." instance=ExtResource("3_sywkh")]
+
+[node name="Broski" parent="." instance=ExtResource("6_rsfpr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.2507896, 1.9227862, 0)
+health = 1
+
+[node name="Broski2" parent="." instance=ExtResource("6_rsfpr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.29644, 6.260816, 4.774279)
+
+[node name="Broski5" parent="." instance=ExtResource("6_rsfpr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.29644, 6.260816, 4.774279)
+health = 1
+
+[node name="Broski3" parent="." instance=ExtResource("6_rsfpr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.680133, 7.7973304, -8.696688)
+health = 1
+
+[node name="Broski4" parent="." instance=ExtResource("6_rsfpr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.839625, 6.83164, 5.8490496)
+health = 1
