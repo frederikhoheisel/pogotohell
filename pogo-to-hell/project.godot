@@ -84,5 +84,7 @@ pull_out={
 rendering_device/driver="d3d12"
 rendering_device/driver.windows="d3d12"
 rendering_device/fallback_to_vulkan=false
+
 lights_and_shadows/directional_shadow/size=16384
-anti_aliasing/quality/screen_space_aa=2
+
+
