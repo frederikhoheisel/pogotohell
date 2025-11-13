@@ -14,9 +14,8 @@ extends CanvasLayer
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
-		if pause_menu.settings_shown:
-			_on_pause_menu_settings_pressed(false)
-			pause_menu.settings_shown = false
+		if settings_menu.visible:
+			settings_menu.visible = false
 			return
 		
 		pause_menu.paused = not pause_menu.paused

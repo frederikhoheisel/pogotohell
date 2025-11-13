@@ -15,9 +15,26 @@ run/main_scene="uid://lwbfiwaigua3"
 config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
+[display]
+
+window/vsync/vsync_mode=0
+
+[file_customization]
+
+folder_colors={
+"res://assets/": "green",
+"res://entities/": "purple",
+"res://entities/effects/": "yellow",
+"res://ui/": "red"
+}
+
 [filesystem]
 
 import/blender/enabled=false
+
+[gui]
+
+theme/default_font_multichannel_signed_distance_field=true
 
 [input]
 
@@ -67,4 +84,7 @@ pull_out={
 rendering_device/driver="d3d12"
 rendering_device/driver.windows="d3d12"
 rendering_device/fallback_to_vulkan=false
-anti_aliasing/quality/screen_space_aa=2
+
+lights_and_shadows/directional_shadow/size=16384
+
+
