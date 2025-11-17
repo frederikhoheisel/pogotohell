@@ -67,7 +67,7 @@ float outline(vec2 uv, vec2 pixel_size, float depth, float grazing) {
 	float depth_neighbors[9];
 	vec3 normal_neighbors[9];
 	float res;
-	float depth_threshold = 25.0; //30
+	float depth_threshold = 25.0; //25
 	float normal_threshold = 4.0; //4.0
 	float offset = 1.0;
 	depth_neighbors = get_depth_neighbors(uv, offset * pixel_size);
@@ -78,7 +78,7 @@ float outline(vec2 uv, vec2 pixel_size, float depth, float grazing) {
 	float sobel_depth_y = depth_neighbors[0] + 2.0 * depth_neighbors[1] + depth_neighbors[2] - depth_neighbors[6] - 2.0 * depth_neighbors[7] - depth_neighbors[8];
 	float depth_gradient = 100.0 * (abs(sobel_depth_x) + abs(sobel_depth_y));
 	
-	depth_threshold *= depth_neighbors[4] * (1.0 + 50.0 * grazing);
+	depth_threshold *= depth_neighbors[4] * (1.0 + 50.0 * grazing); // 50 * grazing
 	if (depth_gradient > depth_threshold) depth_gradient = 1.0;
 	else depth_gradient = 0.0;
 	
@@ -86,12 +86,12 @@ float outline(vec2 uv, vec2 pixel_size, float depth, float grazing) {
 	vec3 sobel_norm_y_vec = normal_neighbors[0] + 2.0 * normal_neighbors[1] + normal_neighbors[2] - normal_neighbors[6] - 2.0 * normal_neighbors[7] - normal_neighbors[8];
 	float normal_gradient = abs(dot(sobel_norm_x_vec, sobel_norm_x_vec)) + abs(dot(sobel_norm_y_vec, sobel_norm_y_vec));
 	
-	normal_threshold *= (1.0 - depth_neighbors[4]) * (1.0 + grazing);
+	normal_threshold *= 3.0 * (1.0 - depth_neighbors[4]) * (1.0 + grazing); // worked well without "3.0 *"
 	if (normal_gradient > normal_threshold) normal_gradient = 1.0;
 	else normal_gradient = 0.0;
 	
 	res = max(depth_gradient, normal_gradient);
-	return clamp(0.0, 1.0, res);
+	return res;
 }
 
 
@@ -118,10 +118,9 @@ void fragment() {
 	view.xyz /= view.w;
 	float linear_depth = -view.z;
 
-	vec4 vertex_pos_homo = INV_VIEW_MATRIX * vec4(VERTEX, 1.0);
-	vec3 vertex_world = (vertex_pos_homo / vertex_pos_homo.w).xyz;
-	vec3 view_dir = vertex_world - CAMERA_POSITION_WORLD;
 	float grazing = clamp(pow(1.0 - abs(normal.z), 2), 0.0, 1.0);
+	//grazing = clamp(pow(1.0 - dot(normal, view), 2), 0.0, 1.0);
 	//ALBEDO.rgb = color.rgb + vec3(grazing);
 	ALBEDO.rgb = color.rgb - (outline(uv, pixel_size, linear_depth, grazing));
+	//ALBEDO.rgb = normal.rgb;
 }

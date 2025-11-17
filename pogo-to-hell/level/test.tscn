@@ -99,6 +99,7 @@ shadow_enabled = true
 shape = SubResource("WorldBoundaryShape3D_ilowo")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Boden"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, -1.0263762, 1)
 mesh = SubResource("PlaneMesh_dlp0f")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
