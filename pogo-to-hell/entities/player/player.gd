@@ -2,7 +2,13 @@ class_name Player
 extends CharacterBody3D
 
 
+signal damage_taken
+
+
 const JUMP_VELOCITY = 7.5
+
+
+@export var health: int = 20
 
 
 var look_sensitivity: float = 0.005
@@ -207,3 +213,9 @@ func _physics_process(delta: float) -> void:
 		_handle_air_physics(delta)
 	
 	move_and_slide()
+
+
+func take_damage(amount: int) -> void:
+	health -= amount
+	print(health)
+	damage_taken.emit()

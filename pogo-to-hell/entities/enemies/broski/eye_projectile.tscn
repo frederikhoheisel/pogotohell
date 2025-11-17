@@ -1,0 +1,87 @@
+[gd_scene load_steps=15 format=3 uid="uid://cnteg5qnye6p"]
+
+[ext_resource type="Texture2D" uid="uid://cfws7li6gn3yn" path="res://assets/textures/eye.png" id="1_obkge"]
+[ext_resource type="Script" uid="uid://de3jwb7vjsqbg" path="res://entities/enemies/broski/eye_projectile.gd" id="1_x7sbj"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x7sbj"]
+albedo_texture = ExtResource("1_obkge")
+texture_filter = 0
+
+[sub_resource type="SphereMesh" id="SphereMesh_qj0a5"]
+material = SubResource("StandardMaterial3D_x7sbj")
+radius = 0.1
+height = 0.2
+radial_segments = 8
+rings = 4
+
+[sub_resource type="Curve" id="Curve_ecji6"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_h4ot2"]
+curve = SubResource("Curve_ecji6")
+
+[sub_resource type="Curve" id="Curve_ca0sg"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_kkv7p"]
+curve = SubResource("Curve_ca0sg")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xutnq"]
+emission_shape = 1
+emission_sphere_radius = 0.1
+direction = Vector3(0, 0, 1)
+spread = 90.0
+initial_velocity_min = 0.5
+initial_velocity_max = 1.0
+gravity = Vector3(0, -2, 0)
+scale_max = 2.0
+scale_curve = SubResource("CurveTexture_kkv7p")
+alpha_curve = SubResource("CurveTexture_h4ot2")
+
+[sub_resource type="Gradient" id="Gradient_608yu"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_dguek"]
+gradient = SubResource("Gradient_608yu")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.8, 0.5)
+metadata/_snap_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c4o6v"]
+transparency = 1
+cull_mode = 2
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = SubResource("GradientTexture2D_dguek")
+texture_filter = 0
+
+[sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_6oy60"]
+material = SubResource("StandardMaterial3D_c4o6v")
+size = 0.1
+sections = 2
+section_length = 0.05
+section_segments = 1
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_obkge"]
+radius = 0.1
+
+[node name="EyeProjectile" type="Node3D"]
+script = ExtResource("1_x7sbj")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_qj0a5")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+amount = 16
+process_material = SubResource("ParticleProcessMaterial_xutnq")
+draw_pass_1 = SubResource("RibbonTrailMesh_6oy60")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("SphereShape3D_obkge")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
