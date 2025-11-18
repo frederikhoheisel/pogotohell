@@ -1,4 +1,6 @@
-[gd_scene load_steps=11 format=3 uid="uid://c0sjb70mhesg7"]
+[gd_scene load_steps=12 format=3 uid="uid://c0sjb70mhesg7"]
+
+[ext_resource type="Script" uid="uid://fypxavxv27ob" path="res://entities/environment/jump_pad.gd" id="1_xdkpd"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rbm6g"]
 albedo_color = Color(0, 1, 0.05490196, 1)
@@ -44,10 +46,11 @@ rings = 8
 ring_segments = 4
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_rbm6g"]
-height = 0.37304688
+height = 0.2
 radius = 1.0
 
 [node name="JumpPad" type="Node3D"]
+script = ExtResource("1_xdkpd")
 
 [node name="CSGPolygon3D" type="CSGPolygon3D" parent="."]
 use_collision = true
@@ -66,7 +69,10 @@ process_material = SubResource("ParticleProcessMaterial_o8ynq")
 draw_pass_1 = SubResource("TorusMesh_si43k")
 
 [node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12229699, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.06347656, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.19868392, 0)
 shape = SubResource("CylinderShape3D_rbm6g")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

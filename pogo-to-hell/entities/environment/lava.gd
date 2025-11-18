@@ -17,11 +17,13 @@ extends Node3D
 
 @export var damage_per_tick: int = 1
 @export var damage_interval: float = 0.5
+@export var speed: Vector3
 
 
 var player: Player
 var player_inside: bool = false
 var time: float = 0.0
+var offset: Vector3 = Vector3.ZERO
 
 
 @onready var collision_shape_3d: CollisionShape3D = %CollisionShape3D
@@ -30,9 +32,16 @@ var time: float = 0.0
 
 func _ready() -> void:
 	player = get_tree().get_first_node_in_group("Player")
+	offset = Vector3.ZERO
+	_update()
 
 
 func _physics_process(delta: float) -> void:
+	offset += speed * delta
+	lava_mesh.mesh.material.albedo_texture.noise.offset = offset
+	#lava_mesh.mesh.material.uv1_offset = offset
+	
+	
 	if not player_inside:
 		return
 	

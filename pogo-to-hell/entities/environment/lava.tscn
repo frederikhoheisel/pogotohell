@@ -1,25 +1,44 @@
-[gd_scene load_steps=5 format=3 uid="uid://xbhv7p0a8n62"]
+[gd_scene load_steps=8 format=3 uid="uid://xbhv7p0a8n62"]
 
 [ext_resource type="Script" uid="uid://bkatiu30mb52n" path="res://entities/environment/lava.gd" id="1_xqo5k"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_sg2u3"]
-size = Vector3(3.47, 2.69, 3.515)
+resource_local_to_scene = true
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xqo5k"]
-albedo_color = Color(0.87058824, 0.24705882, 0.19607843, 0.5019608)
-emission_enabled = true
-emission = Color(1, 0, 0, 1)
-emission_energy_multiplier = 2.0
+[sub_resource type="Gradient" id="Gradient_xqo5k"]
+offsets = PackedFloat32Array(0, 0.7091837, 0.8520408, 1)
+colors = PackedColorArray(0.41876578, 0.034388494, 0.02998038, 1, 0.92156863, 0.02745098, 0.03529412, 1, 0.8227777, 0.8017858, 0.1913023, 1, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_m6qrj"]
+offset = Vector3(-209.32832, -443.6477, 895.20825)
+fractal_type = 3
+fractal_octaves = 2
+fractal_lacunarity = 1.4
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_co0wn"]
+resource_local_to_scene = true
+noise = SubResource("FastNoiseLite_m6qrj")
+color_ramp = SubResource("Gradient_xqo5k")
+seamless = true
+in_3d_space = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mo1ng"]
+resource_local_to_scene = true
+albedo_texture = SubResource("NoiseTexture2D_co0wn")
+emission = Color(1, 0.12156863, 0.09411765, 1)
+uv1_scale = Vector3(0.2, 0.2, 0.2)
+uv1_offset = Vector3(2298.9392, -2691.4475, 3057.4502)
+uv1_triplanar = true
+uv1_world_triplanar = true
+texture_filter = 0
 
 [sub_resource type="BoxMesh" id="BoxMesh_m6qrj"]
-material = SubResource("StandardMaterial3D_xqo5k")
-size = Vector3(3.47, 2.69, 3.515)
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_mo1ng")
 
 [node name="Lava" type="Node3D"]
 script = ExtResource("1_xqo5k")
-width = 3.11
-height = 1.66
-depth = 2.745
+speed = Vector3(-2.515, -5.33, 10.755)
 
 [node name="DamageArea" type="Area3D" parent="."]
 
