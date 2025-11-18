@@ -19,7 +19,10 @@ var air_speed_cap: float = 1.5
 var wall_normal: Vector3 = Vector3.ZERO
 var wall_pos: Vector3 = Vector3.ZERO
 var max_wall_dist: float = 0.2
+@export
 var on_wall: bool = false
+@export
+var on_floor: bool = false
 var wall_tween: Tween
 
 var jump_strength: float = 0.0
@@ -171,6 +174,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _physics_process(delta: float) -> void:
+	on_floor = is_on_floor()
 	# Handle jump and wall jump (je aufgeladener der Sprung ist, desto mehr klingy ist man an der wand)
 	_handle_jump(delta)
 	
