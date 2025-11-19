@@ -87,8 +87,11 @@ mesh = SubResource("PrismMesh_symyc")
 [node name="Shooting" type="Node3D" parent="."]
 script = ExtResource("3_sglur")
 
+[node name="RopePos" type="Marker3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.26383358, 1.4508579, 0.056696773)
+
 [node name="SCHWERT" type="Node3D" parent="." node_paths=PackedStringArray("camera", "player")]
 script = ExtResource("4_bls4j")
 camera = NodePath("../Head/Camera3D")
 player = NodePath("..")
-max_dash_distance = 10.0

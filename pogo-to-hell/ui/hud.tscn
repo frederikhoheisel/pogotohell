@@ -1,9 +1,19 @@
-[gd_scene load_steps=5 format=3 uid="uid://c1mxi56rrm2c4"]
+[gd_scene load_steps=7 format=3 uid="uid://c1mxi56rrm2c4"]
 
 [ext_resource type="Script" uid="uid://d2iuqmxdbt7ko" path="res://ui/hud.gd" id="1_rbyyf"]
-[ext_resource type="Material" uid="uid://c7n6hmrhx0x1n" path="res://ui/crosshair.tres" id="2_7ihmi"]
-[ext_resource type="PackedScene" uid="uid://ch062xtce311c" path="res://ui/pause_menu.tscn" id="3_546lt"]
+[ext_resource type="Material" path="res://ui/crosshair.tres" id="2_7ihmi"]
+[ext_resource type="PackedScene" path="res://ui/pause_menu.tscn" id="3_546lt"]
 [ext_resource type="PackedScene" uid="uid://d4baqm2niu2b0" path="res://ui/settings_menu.tscn" id="4_7ihmi"]
+
+[sub_resource type="Gradient" id="Gradient_7ihmi"]
+offsets = PackedFloat32Array(0.20588236, 1)
+colors = PackedColorArray(1, 0, 0, 0, 1, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_en2x2"]
+gradient = SubResource("Gradient_7ihmi")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+metadata/_snap_enabled = true
 
 [node name="Hud" type="CanvasLayer"]
 process_mode = 3
@@ -17,6 +27,20 @@ anchor_bottom = 1.0
 offset_top = -27.0
 grow_horizontal = 2
 grow_vertical = 0
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+unique_name_in_owner = true
+modulate = Color(1, 0, 0, 1)
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -61.0
+offset_bottom = -34.0
+grow_horizontal = 2
+grow_vertical = 0
+max_value = 20.0
+show_percentage = false
 
 [node name="DebugLabel1" type="Label" parent="."]
 offset_right = 40.0
@@ -49,6 +73,16 @@ offset_bottom = 32.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
+
+[node name="HitColorRect" type="TextureRect" parent="."]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_en2x2")
 
 [node name="PauseMenu" parent="." instance=ExtResource("3_546lt")]
 layer = 2

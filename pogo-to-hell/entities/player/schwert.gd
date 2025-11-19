@@ -5,12 +5,15 @@ var camera:Camera3D
 @export
 var player:Player
 @export
-var max_dash_distance: float
+var max_dash_distance: float = 10.0
+@export
+var dash_speed: float = 3.0
 
 var dash_dir:Vector3
 var dash_start: Vector3
 var is_dashing: bool
 #	var player: Player
+var hit_obstacle: bool = false
 
 func _ready() -> void:
 	#player = $"."
@@ -19,12 +22,18 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if is_dashing:
 		# on_floor/on_wall tests not working
-		if (player.global_position - dash_start).length() < max_dash_distance && !(player.on_floor || player.on_wall):
+		var collisions = player.get_slide_collision(player.get_slide_collision_count() -1)
+		for collision_idx in range(player.get_slide_collision_count()):
+			if "CSGBox3D CSGCylinder3D StaticBody3D CSGCombiner3D CSGPolygon3D".contains(player.get_slide_collision(collision_idx).get_collider().get_class()):
+				hit_obstacle = true
+		if !hit_obstacle && (dash_start - player.global_position).length() < max_dash_distance:
 			# check if player is touching wall/floor
-			player.position += 0.1 * dash_dir#change to view direction
 			# if not, move along dash_dir
+			player.position += 0.1* dash_dir * dash_speed
 		else:
 			is_dashing = false
+			hit_obstacle = false
+			player.velocity += dash_dir.normalized() * 3
 	
 	
 	
@@ -43,7 +52,7 @@ func dash() -> void:
 	is_dashing = true
 	dash_dir = -camera.get_global_transform().basis.z
 	
-	dash_start = player.position
+	dash_start = player.global_position
 	# move in view direction
 	
 	# disable hitbox
