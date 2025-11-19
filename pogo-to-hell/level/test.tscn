@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://lwbfiwaigua3"]
+[gd_scene load_steps=29 format=3 uid="uid://lwbfiwaigua3"]
 
 [ext_resource type="PackedScene" uid="uid://cp0aw825yr8om" path="res://entities/player/player.tscn" id="1_dlp0f"]
 [ext_resource type="VoxelGIData" uid="uid://tabxh1nvawko" path="res://level/test.VoxelGI_data.res" id="1_ea25h"]
@@ -6,6 +6,9 @@
 [ext_resource type="Script" uid="uid://blpvtdqouubfu" path="res://level/decal_manager.gd" id="2_yihe8"]
 [ext_resource type="PackedScene" uid="uid://4ndkdayx6bsf" path="res://ui/Screen_shader.tscn" id="3_sywkh"]
 [ext_resource type="PackedScene" uid="uid://dgunwb7odlxau" path="res://entities/enemies/broski/broski.tscn" id="6_rsfpr"]
+[ext_resource type="PackedScene" uid="uid://xbhv7p0a8n62" path="res://entities/environment/lava.tscn" id="7_dshje"]
+[ext_resource type="PackedScene" uid="uid://c0sjb70mhesg7" path="res://entities/environment/jump_pad.tscn" id="8_wp51n"]
+[ext_resource type="PackedScene" uid="uid://dmt2idq2abk3y" path="res://entities/effects/grapple_rope.tscn" id="9_c2sbp"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dlp0f"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -77,13 +80,6 @@ rings = 8
 
 [node name="Test" type="Node3D"]
 
-[node name="VoxelGI" type="VoxelGI" parent="."]
-size = Vector3(200, 200, 200)
-data = ExtResource("1_ea25h")
-
-[node name="DecalManager" type="Node" parent="." groups=["DecalManager"]]
-script = ExtResource("2_yihe8")
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_sywkh")
 
@@ -91,15 +87,28 @@ environment = SubResource("Environment_sywkh")
 transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
 shadow_enabled = true
 
+[node name="VoxelGI" type="VoxelGI" parent="."]
+size = Vector3(200, 200, 200)
+data = ExtResource("1_ea25h")
+
+[node name="DecalManager" type="Node" parent="." groups=["DecalManager"]]
+script = ExtResource("2_yihe8")
+
+[node name="ProjectileContainer" type="Node" parent="." groups=["ProjectileContainer"]]
+
+[node name="ScreenShader" parent="." instance=ExtResource("3_sywkh")]
+
 [node name="Player" parent="." instance=ExtResource("1_dlp0f")]
 
 [node name="Boden" type="StaticBody3D" parent="."]
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Boden"]
 shape = SubResource("WorldBoundaryShape3D_ilowo")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Boden"]
 mesh = SubResource("PlaneMesh_dlp0f")
+metadata/_edit_lock_ = true
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.901042, 5.5101852, -10)
@@ -2727,8 +2736,6 @@ total_mass = 1.01
 linear_stiffness = 0.1
 pressure_coefficient = 100.0
 
-[node name="ScreenShader" parent="." instance=ExtResource("3_sywkh")]
-
 [node name="Broski" parent="." instance=ExtResource("6_rsfpr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.2507896, 1.9227862, 0)
 health = 1
@@ -2747,3 +2754,27 @@ health = 1
 [node name="Broski4" parent="." instance=ExtResource("6_rsfpr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.839625, 6.83164, 5.8490496)
 health = 1
+
+[node name="Lava" parent="." instance=ExtResource("7_dshje")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.267266, 0.0010927916, 9.604513)
+width = 10.685
+height = 0.255
+depth = 12.93
+
+[node name="Lava2" parent="." instance=ExtResource("7_dshje")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.398676, 5.069364, 10.97179)
+width = 0.25
+height = 10.32
+depth = 1.3
+
+[node name="Lava3" parent="." instance=ExtResource("7_dshje")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -3.09975, 5.069364, 10.229024)
+width = 0.195
+height = 10.32
+depth = 1.3
+speed = Vector3(-2.515, -27.79, 10.755)
+
+[node name="JumpPad" parent="." instance=ExtResource("8_wp51n")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.069355, 0, -1.6298418)
+
+[node name="GrappleRope" parent="." instance=ExtResource("9_c2sbp")]

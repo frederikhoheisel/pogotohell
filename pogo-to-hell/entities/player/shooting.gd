@@ -7,6 +7,8 @@ var camera_tween: Tween
 var camera_shake_amount = PI/24.0
 var camera_shake_duration: float = 0.4
 var decal: PackedScene = preload("res://entities/effects/decal.tscn")
+var grapple_point: Vector3
+var player: Player
 
 
 @onready var hit_ray_cast: RayCast3D = %HitRayCast
@@ -15,9 +17,8 @@ var decal: PackedScene = preload("res://entities/effects/decal.tscn")
 @onready var head: Node3D = $"../Head"
 
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	player = get_tree().get_first_node_in_group("Player")
 
 
 func _process(delta: float) -> void:
@@ -30,6 +31,9 @@ func _input(event: InputEvent) -> void:
 			return
 		fire_time = 0.0
 		shoot_gun()
+	
+	if event.is_action_pressed("grapple"):
+		grapple()
 	
 	if event.is_action_pressed("pull_out"):
 		view_model.play_pull_out_anim()
@@ -62,3 +66,25 @@ func shoot_gun() -> void:
 		
 		if collider is SoftBody3D:
 			collider.apply_central_impulse(collision_normal * -10.0)
+
+
+func grapple() -> void:
+	hit_ray_cast.force_raycast_update()
+	
+	if hit_ray_cast.is_colliding():
+		var collider = hit_ray_cast.get_collider()
+		
+		if collider is not StaticBody3D and\
+				collider is not CSGCombiner3D and\
+				collider is not CSGBox3D and\
+				collider is not CSGCylinder3D and\
+				collider is not CSGPolygon3D and\
+				collider is not CSGSphere3D and\
+				collider is not CSGTorus3D and\
+				collider is not CSGMesh3D:
+			return
+		
+		var collision_point: Vector3 = hit_ray_cast.get_collision_point()
+		
+		player.grapple_point = collision_point
+		player.is_grappling = true

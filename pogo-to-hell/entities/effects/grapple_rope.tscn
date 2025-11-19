@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://dmt2idq2abk3y"]
+
+[ext_resource type="Script" uid="uid://lsr8qymcrkk" path="res://entities/effects/grapple_rope.gd" id="1_fxwsv"]
+
+[sub_resource type="Curve3D" id="Curve3D_tdg1o"]
+bake_interval = 0.1
+_data = {
+"points": PackedVector3Array(0.6, 0.46, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, -0.6, -0.46, 0, 0, 0, -1),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_3v311"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vtdsd"]
+albedo_color = Color(0.22028527, 0.18004599, 0.048730828, 1)
+
+[node name="GrappleRope" type="Path3D" groups=["Rope"]]
+visible = false
+curve = SubResource("Curve3D_tdg1o")
+script = ExtResource("1_fxwsv")
+radius = 0.02
+radius_profile = SubResource("Curve_3v311")
+radial_resolution = 4
+material = SubResource("StandardMaterial3D_vtdsd")
+cap_end = false
+cap_rings = 1
+metadata/_custom_type_script = "uid://cajwdocn507ck"

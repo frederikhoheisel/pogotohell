@@ -2,10 +2,16 @@ class_name Player
 extends CharacterBody3D
 
 
+signal damage_taken
+
+
 const JUMP_VELOCITY = 7.5
 
 
-var look_sensitivity: float = 0.005
+@export var health: int = 20
+
+
+var look_sensitivity: float = 0.001
 
 var ground_speed: float = 3.0
 var ground_accel: float = 14.0
@@ -31,10 +37,22 @@ var jump_buffer_timer: float = 0.0
 
 var wish_dir: Vector3 = Vector3.ZERO
 
+var rope: Path3D
+var is_grappling: bool = false
+var grapple_point: Vector3
+var grapple_speed: float = 20.0
+var grapple_acceleration: float = 10.0
+var max_grapple_distance: float = 50.0
 
+
+@onready var rope_pos: Marker3D = %RopePos
 @onready var head: Node3D = $Head
 @onready var pogo: Node3D = $LowPivot/pogo
 @onready var low_pivot: Node3D = $LowPivot
+
+
+func _ready() -> void:
+	rope = get_tree().get_first_node_in_group("Rope")
 
 
 func _handle_jump(delta: float) -> void:
@@ -48,7 +66,7 @@ func _handle_jump(delta: float) -> void:
 		jump_buffer_timer = 0.0
 	
 	if jump_buffered:
-		if is_on_floor() or on_wall:
+		if (is_on_floor() or on_wall) and not is_grappling:
 			self.velocity = Vector3(
 					self.velocity.x + wall_normal.x * JUMP_VELOCITY, 
 					JUMP_VELOCITY, 
@@ -170,6 +188,29 @@ func _unhandled_input(event: InputEvent) -> void:
 			%Camera3D.rotation.x = clamp(%Camera3D.rotation.x, deg_to_rad(-90), deg_to_rad(90))
 
 
+func _handle_grapple(delta: float) -> void:
+	var to_hook: Vector3 = grapple_point - self.global_position
+	var distance: float = to_hook.length()
+	
+	if distance < 2.0 or distance > max_grapple_distance:
+		is_grappling = false
+		rope.is_grappling = false
+		return
+	
+	
+	rope.start_point = rope_pos.global_position
+	rope.dir = (self.transform.basis * Vector3.FORWARD).normalized()
+	rope.end_point = grapple_point
+	rope.is_grappling = true
+	
+	var dir: Vector3 = to_hook.normalized()
+	
+	velocity += get_gravity() * delta
+	
+	var target_velocity: Vector3 = dir * grapple_speed
+	self.velocity = self.velocity.lerp(target_velocity, grapple_acceleration * delta)
+
+
 func _physics_process(delta: float) -> void:
 	# Handle jump and wall jump (je aufgeladener der Sprung ist, desto mehr klingy ist man an der wand)
 	_handle_jump(delta)
@@ -201,9 +242,17 @@ func _physics_process(delta: float) -> void:
 		on_wall = false
 		wall_normal = Vector3.ZERO
 	
-	if is_on_floor():
-		_handle_ground_physics(delta)
+	if is_grappling:
+		_handle_grapple(delta)
 	else:
-		_handle_air_physics(delta)
+		if is_on_floor():
+			_handle_ground_physics(delta)
+		else:
+			_handle_air_physics(delta)
 	
 	move_and_slide()
+
+
+func take_damage(amount: int) -> void:
+	health -= amount
+	damage_taken.emit()
