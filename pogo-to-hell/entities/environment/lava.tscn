@@ -10,7 +10,7 @@ offsets = PackedFloat32Array(0, 0.7091837, 0.8520408, 1)
 colors = PackedColorArray(0.41876578, 0.034388494, 0.02998038, 1, 0.92156863, 0.02745098, 0.03529412, 1, 0.8227777, 0.8017858, 0.1913023, 1, 1, 1, 1, 1)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_m6qrj"]
-offset = Vector3(-209.32832, -443.6477, 895.20825)
+offset = Vector3(663.0714, -3182.611, -530.5136)
 fractal_type = 3
 fractal_octaves = 2
 fractal_lacunarity = 1.4
@@ -23,22 +23,22 @@ seamless = true
 in_3d_space = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mo1ng"]
-resource_local_to_scene = true
 albedo_texture = SubResource("NoiseTexture2D_co0wn")
-emission = Color(1, 0.12156863, 0.09411765, 1)
+emission_enabled = true
+emission = Color(0.5019608, 0, 0, 1)
 uv1_scale = Vector3(0.2, 0.2, 0.2)
 uv1_offset = Vector3(2298.9392, -2691.4475, 3057.4502)
 uv1_triplanar = true
 uv1_world_triplanar = true
 texture_filter = 0
 
-[sub_resource type="BoxMesh" id="BoxMesh_m6qrj"]
+[sub_resource type="BoxMesh" id="BoxMesh_0hbyy"]
 resource_local_to_scene = true
 material = SubResource("StandardMaterial3D_mo1ng")
 
 [node name="Lava" type="Node3D"]
 script = ExtResource("1_xqo5k")
-speed = Vector3(-2.515, -5.33, 10.755)
+speed = Vector3(5, -24, -4)
 
 [node name="DamageArea" type="Area3D" parent="."]
 
@@ -48,7 +48,7 @@ shape = SubResource("BoxShape3D_sg2u3")
 
 [node name="LavaMesh" type="MeshInstance3D" parent="."]
 unique_name_in_owner = true
-mesh = SubResource("BoxMesh_m6qrj")
+mesh = SubResource("BoxMesh_0hbyy")
 
 [connection signal="body_entered" from="DamageArea" to="." method="_on_damage_area_body_entered"]
 [connection signal="body_exited" from="DamageArea" to="." method="_on_damage_area_body_exited"]

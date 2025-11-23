@@ -39,8 +39,6 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	offset += speed * delta
 	lava_mesh.mesh.material.albedo_texture.noise.offset = offset
-	#lava_mesh.mesh.material.uv1_offset = offset
-	
 	
 	if not player_inside:
 		return

@@ -15,6 +15,7 @@ var player: Player
 @onready var view_model: Node3D = %ViewModel
 @onready var camera_3d: Camera3D = %Camera3D
 @onready var head: Node3D = $"../Head"
+@onready var audio_stream_player: AudioStreamPlayer = %GunshotAudioPlayer
 
 
 func _ready() -> void:
@@ -51,6 +52,7 @@ func _shake_camera() -> void:
 func shoot_gun() -> void:
 	_shake_camera()
 	view_model.play_fire_anim()
+	audio_stream_player.play()
 	
 	hit_ray_cast.force_raycast_update()
 	if hit_ray_cast.is_colliding():
