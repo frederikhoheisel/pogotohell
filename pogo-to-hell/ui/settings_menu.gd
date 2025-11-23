@@ -17,6 +17,10 @@ func _ready() -> void:
 	%HaloHSlider.value = crosshair_material.get_shader_parameter("halo_thickness") * 1000.0
 	
 	%SensitivityHSlider.value = get_parent().player.look_sensitivity * 10000.0
+	
+	%MasterSlider.value = 50.0
+	%MusicSlider.value = 50.0
+	%SoundsSlider.value = 50.0
 
 
 func _on_inverse_color_toggled(toggled_on: bool) -> void:
@@ -95,17 +99,17 @@ func _on_check_box_item_selected(index: int) -> void:
 
 func _on_master_slider_value_changed(value: float) -> void:
 	%MasterVolume.text = str(value as int)
-	AudioServer.set_bus_volume_db(0, linear_to_db(value * 0.1))
+	AudioServer.set_bus_volume_db(0, linear_to_db(value * 0.04))
 	AudioServer.set_bus_mute(0, value * 0.1 < 0.01)
 
 
 func _on_music_slider_value_changed(value: float) -> void:
 	%MusicVolume.text = str(value as int)
-	AudioServer.set_bus_volume_db(1, linear_to_db(value * 0.1))
+	AudioServer.set_bus_volume_db(1, linear_to_db(value * 0.04))
 	AudioServer.set_bus_mute(1, value * 0.1 < 0.01)
 
 
 func _on_sounds_slider_value_changed(value: float) -> void:
 	%SoundsVolume.text = str(value as int)
-	AudioServer.set_bus_volume_db(2, linear_to_db(value * 0.1))
+	AudioServer.set_bus_volume_db(2, linear_to_db(value * 0.04))
 	AudioServer.set_bus_mute(2, value * 0.1 < 0.01)

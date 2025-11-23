@@ -11,4 +11,5 @@ func _ready() -> void:
 
 func _on_area_3d_body_entered(body: Node3D) -> void:
 	if body is Player:
-		player.velocity.y = player.JUMP_VELOCITY
+		player.velocity.y = player.JUMP_VELOCITY * 1.5
+		$AudioStreamPlayer.play()

@@ -1,8 +1,9 @@
-[gd_scene load_steps=13 format=4 uid="uid://dgunwb7odlxau"]
+[gd_scene load_steps=14 format=4 uid="uid://dgunwb7odlxau"]
 
 [ext_resource type="Script" uid="uid://b82mwo8ld2i5r" path="res://entities/enemies/broski/broski.gd" id="1_faoro"]
 [ext_resource type="Texture2D" uid="uid://bjl3dufpisdld" path="res://assets/models/broski_Material.png" id="1_ji8ac"]
 [ext_resource type="PackedScene" uid="uid://4ndkdayx6bsf" path="res://ui/Screen_shader.tscn" id="3_7gvho"]
+[ext_resource type="AudioStream" uid="uid://70sgeog8tua0" path="res://assets/sounds/enemy_shot1.wav" id="4_bpemi"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ocpe1"]
 resource_name = "Material.001"
@@ -2414,6 +2415,11 @@ text = "Hallo"
 
 [node name="ScreenShader" parent="." instance=ExtResource("3_7gvho")]
 visible = false
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_bpemi")
+volume_db = -16.0
+bus = &"Sounds"
 
 [connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]

@@ -1,4 +1,4 @@
-extends Node3D
+extends CharacterBody3D
 
 
 var direction: Vector3  = Vector3.ZERO
@@ -26,3 +26,7 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 	if body.has_method("take_damage"):
 		body.take_damage(1)
 		self.queue_free()
+
+
+func take_damage(_amount: int) -> void:
+	self.queue_free()

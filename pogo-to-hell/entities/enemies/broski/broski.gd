@@ -26,16 +26,23 @@ var time_shoot: float = 0.0
 var pieces: PackedScene = preload("res://entities/enemies/broski/broski_pieces.tscn")
 var eye_projectile: PackedScene = preload("res://entities/enemies/broski/eye_projectile.tscn")
 
+
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
 @onready var debug_label: Label3D = $DebugLabel
+@onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
 
 
 func take_damage(amount: int = 1) -> void:
 	health -= amount
 	if health <= 0:
+		audio_stream_player.stream = AudioStreamWAV.load_from_file("res://assets/sounds/enemy_down1.wav")
+		audio_stream_player.volume_db = -6.0
+		audio_stream_player.play()
 		var pieces_scene: Node3D = pieces.instantiate()
 		self.get_parent().add_child(pieces_scene)
 		pieces_scene.transform = self.transform
+		self.hide()
+		await get_tree().create_timer(1.0).timeout
 		self.queue_free()
 
 
@@ -100,6 +107,8 @@ func _physics_process(delta: float) -> void:
 func _shoot_projectile(dir_to_player: Vector3, delta: float) -> void:
 	time_shoot += delta
 	if time_shoot > shoot_interval:
+		audio_stream_player.stream = AudioStreamWAV.load_from_file("res://assets/sounds/enemy_shot1.wav")
+		audio_stream_player.play()
 		var projectile: Node3D = eye_projectile.instantiate()
 		get_tree().get_first_node_in_group("ProjectileContainer").add_child(projectile)
 		projectile.direction = dir_to_player

@@ -13,13 +13,13 @@ const JUMP_VELOCITY = 7.5
 
 var look_sensitivity: float = 0.001
 
-var ground_speed: float = 3.0
-var ground_accel: float = 14.0
-var ground_decel: float = 10.0
+var ground_speed: float = 2.0
+var ground_accel: float = 10.0
+var ground_decel: float = 5.0
 var ground_friction: float = 3.0
 
 var air_accel: float = 14.0
-var air_move_speed: float = 3.0
+var air_move_speed: float = 8.0
 var air_speed_cap: float = 1.5
 
 var wall_normal: Vector3 = Vector3.ZERO
@@ -49,6 +49,8 @@ var max_grapple_distance: float = 50.0
 @onready var head: Node3D = $Head
 @onready var pogo: Node3D = $LowPivot/pogo
 @onready var low_pivot: Node3D = $LowPivot
+@onready var audio_stream_player: AudioStreamPlayer = $JumpAudioPlayer
+@onready var hurt_audio_player: AudioStreamPlayer = $HurtAudioPlayer
 
 
 func _ready() -> void:
@@ -67,6 +69,7 @@ func _handle_jump(delta: float) -> void:
 	
 	if jump_buffered:
 		if (is_on_floor() or on_wall) and not is_grappling:
+			audio_stream_player.play()
 			self.velocity = Vector3(
 					self.velocity.x + wall_normal.x * JUMP_VELOCITY, 
 					JUMP_VELOCITY, 
@@ -254,5 +257,6 @@ func _physics_process(delta: float) -> void:
 
 
 func take_damage(amount: int) -> void:
+	hurt_audio_player.play()
 	health -= amount
 	damage_taken.emit()

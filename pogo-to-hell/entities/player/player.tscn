@@ -1,8 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://cp0aw825yr8om"]
+[gd_scene load_steps=14 format=3 uid="uid://cp0aw825yr8om"]
 
 [ext_resource type="Script" uid="uid://olsf6f01iad6" path="res://entities/player/player.gd" id="1_symyc"]
 [ext_resource type="PackedScene" uid="uid://dhtiycvswaaqb" path="res://entities/player/view_model.tscn" id="2_abrql"]
 [ext_resource type="Script" uid="uid://ce5byukny1pod" path="res://entities/player/shooting.gd" id="3_sglur"]
+[ext_resource type="AudioStream" uid="uid://dfvql5dmwnmhq" path="res://assets/sounds/gunshot1.wav" id="4_bls4j"]
+[ext_resource type="AudioStream" uid="uid://6c8ckc1q0tyr" path="res://assets/sounds/jump1.wav" id="5_fkugw"]
+[ext_resource type="AudioStream" uid="uid://8fcw40yoddt4" path="res://assets/sounds/hurt1.wav" id="6_8fjmc"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_symyc"]
 
@@ -86,6 +89,20 @@ mesh = SubResource("PrismMesh_symyc")
 [node name="Shooting" type="Node3D" parent="."]
 script = ExtResource("3_sglur")
 
+[node name="GunshotAudioPlayer" type="AudioStreamPlayer" parent="Shooting"]
+unique_name_in_owner = true
+stream = ExtResource("4_bls4j")
+bus = &"Sounds"
+
 [node name="RopePos" type="Marker3D" parent="."]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.26383358, 1.4508579, 0.056696773)
+
+[node name="JumpAudioPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_fkugw")
+volume_db = -16.0
+bus = &"Sounds"
+
+[node name="HurtAudioPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_8fjmc")
+bus = &"Sounds"

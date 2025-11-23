@@ -1,6 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://c0sjb70mhesg7"]
+[gd_scene load_steps=13 format=3 uid="uid://c0sjb70mhesg7"]
 
 [ext_resource type="Script" uid="uid://fypxavxv27ob" path="res://entities/environment/jump_pad.gd" id="1_xdkpd"]
+[ext_resource type="AudioStream" uid="uid://6c8ckc1q0tyr" path="res://assets/sounds/jump1.wav" id="2_k1lny"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rbm6g"]
 albedo_color = Color(0, 1, 0.05490196, 1)
@@ -74,5 +75,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12229699, 0)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.19868392, 0)
 shape = SubResource("CylinderShape3D_rbm6g")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.29813623, 0)
+light_color = Color(0, 1, 0, 1)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_k1lny")
+volume_db = -16.0
+bus = &"Sounds"
 
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
