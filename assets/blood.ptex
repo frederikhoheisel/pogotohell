@@ -1,18 +1,6 @@
 {
 	"connections": [
 		{
-			"from": "fbm3",
-			"from_port": 0,
-			"to": "shape",
-			"to_port": 1
-		},
-		{
-			"from": "fbm3",
-			"from_port": 0,
-			"to": "shape",
-			"to_port": 0
-		},
-		{
 			"from": "scale",
 			"from_port": 0,
 			"to": "tones_step",
@@ -61,12 +49,6 @@
 			"to_port": 0
 		},
 		{
-			"from": "gaussian_blur",
-			"from_port": 0,
-			"to": "math",
-			"to_port": 1
-		},
-		{
 			"from": "math",
 			"from_port": 0,
 			"to": "scale",
@@ -109,12 +91,6 @@
 			"to_port": 0
 		},
 		{
-			"from": "tones_step_2",
-			"from_port": 0,
-			"to": "decompose_3",
-			"to_port": 0
-		},
-		{
 			"from": "decompose_2",
 			"from_port": 0,
 			"to": "combine_2",
@@ -131,6 +107,30 @@
 			"from_port": 0,
 			"to": "combine_3",
 			"to_port": 3
+		},
+		{
+			"from": "decompose_2",
+			"from_port": 0,
+			"to": "quantize_2",
+			"to_port": 0
+		},
+		{
+			"from": "quantize_2",
+			"from_port": 0,
+			"to": "quantize_3",
+			"to_port": 0
+		},
+		{
+			"from": "fbm3",
+			"from_port": 0,
+			"to": "shape",
+			"to_port": 0
+		},
+		{
+			"from": "tones_step_2",
+			"from_port": 0,
+			"to": "decompose_3",
+			"to_port": 0
 		},
 		{
 			"from": "decompose_3",
@@ -203,12 +203,12 @@
 		{
 			"name": "shape",
 			"node_position": {
-				"x": -1448.93627929688,
-				"y": -384.813659667969
+				"x": -1492.85925292969,
+				"y": -381.885467529297
 			},
 			"parameters": {
 				"edge": 1.0,
-				"radius": 0.94,
+				"radius": 1.0,
 				"shape": 2.0,
 				"sides": 7.0
 			},
@@ -219,7 +219,7 @@
 			"name": "fbm3",
 			"node_position": {
 				"x": -1736.74719238281,
-				"y": -480.828216552734
+				"y": -479.364135742188
 			},
 			"parameters": {
 				"folds": 1.0,
@@ -250,7 +250,7 @@
 		{
 			"name": "decompose",
 			"node_position": {
-				"x": -479.834991455078,
+				"x": -479.835021972656,
 				"y": -326.698150634766
 			},
 			"parameters": {
@@ -274,7 +274,7 @@
 		{
 			"name": "combine_2",
 			"node_position": {
-				"x": -213.385284423828,
+				"x": -213.385299682617,
 				"y": -563.78857421875
 			},
 			"parameters": {
@@ -307,8 +307,8 @@
 			"parameters": {
 				"clamp": false,
 				"default_in1": 0.0,
-				"default_in2": 0.0,
-				"op": 13
+				"default_in2": 1.0,
+				"op": 13.0
 			},
 			"seed_int": 0,
 			"type": "math"
@@ -370,8 +370,8 @@
 		{
 			"name": "decompose_3",
 			"node_position": {
-				"x": 348.881103515625,
-				"y": -507.176696777344
+				"x": 357.665679931641,
+				"y": -503.784423828125
 			},
 			"parameters": {
 
@@ -394,7 +394,7 @@
 		{
 			"name": "combine_4",
 			"node_position": {
-				"x": 602.881225585938,
+				"x": 604.345336914062,
 				"y": -487.176727294922
 			},
 			"parameters": {
@@ -402,6 +402,32 @@
 			},
 			"seed_int": 0,
 			"type": "combine"
+		},
+		{
+			"generic_size": 1,
+			"name": "quantize_2",
+			"node_position": {
+				"x": 610.940856933594,
+				"y": -648.826232910156
+			},
+			"parameters": {
+				"steps": 30.0
+			},
+			"seed_int": 0,
+			"type": "quantize"
+		},
+		{
+			"generic_size": 1,
+			"name": "quantize_3",
+			"node_position": {
+				"x": 780.776428222656,
+				"y": -660.539001464844
+			},
+			"parameters": {
+				"steps": 2.0
+			},
+			"seed_int": 0,
+			"type": "quantize"
 		}
 	],
 	"parameters": {
