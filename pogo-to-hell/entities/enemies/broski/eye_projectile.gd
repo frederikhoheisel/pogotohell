@@ -30,3 +30,5 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 
 func take_damage(_amount: int) -> void:
 	self.queue_free()
+	
+	get_tree().get_first_node_in_group("SmokeManager").place_smoke(self.global_position, true, 0.5)

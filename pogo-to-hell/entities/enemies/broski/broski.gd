@@ -35,6 +35,7 @@ var eye_projectile: PackedScene = preload("res://entities/enemies/broski/eye_pro
 func take_damage(amount: int = 1) -> void:
 	health -= amount
 	if health <= 0:
+		get_tree().get_first_node_in_group("SmokeManager").place_smoke(self.global_position + Vector3(0.0, 1.0, 0.0), true, 2.0)
 		audio_stream_player.stream = AudioStreamWAV.load_from_file("res://assets/sounds/enemy_down1.wav")
 		audio_stream_player.volume_db = -6.0
 		audio_stream_player.play()

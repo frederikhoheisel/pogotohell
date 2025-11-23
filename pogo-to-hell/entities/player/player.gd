@@ -51,6 +51,7 @@ var max_grapple_distance: float = 50.0
 @onready var low_pivot: Node3D = $LowPivot
 @onready var audio_stream_player: AudioStreamPlayer = $JumpAudioPlayer
 @onready var hurt_audio_player: AudioStreamPlayer = $HurtAudioPlayer
+@onready var gpu_particles_3d: GPUParticles3D = $LowPivot/pogo/GPUParticles3D
 
 
 func _ready() -> void:
@@ -160,7 +161,10 @@ func _rotate_head_and_pogo(delta: float) -> void:
 		pogo.global_rotation.y = yaw
 		#pogo.global_rotation.y = move_toward(pogo.global_rotation.y, yaw, delta * 3.0) # Tylko jedno w głowie mam
 		pogo.global_rotation.z = move_toward(pogo.global_rotation.z, (PI / 8.0) * Vector3.LEFT.dot(n_local), delta * 3.0)
-		
+		gpu_particles_3d.emitting = true
+	else:
+		gpu_particles_3d.emitting = false
+	
 	# rotate the pogo when on ground and charging jump
 	if self.is_on_floor() and jump_strength > 0.1 and not (self.is_on_wall() or on_wall):
 		var input_dir: Vector2 = Input.get_vector("left", "right", "forward", "backward").normalized()
