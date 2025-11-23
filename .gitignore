@@ -15,4 +15,6 @@ export_credentials.cfg
 data_*/
 mono_crash.*.json
 
-pogo-to-hell/addons/
+pogo-to-hell/addons/godot-vim/
+pogo-to-hell/addons/godot_vim/
+pogo-to-hell/addons/go-to-last-scene/

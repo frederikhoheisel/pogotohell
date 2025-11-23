@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://olsf6f01iad6" path="res://entities/player/player.gd" id="1_symyc"]
 [ext_resource type="PackedScene" uid="uid://dhtiycvswaaqb" path="res://entities/player/view_model.tscn" id="2_abrql"]
 [ext_resource type="Script" uid="uid://ce5byukny1pod" path="res://entities/player/shooting.gd" id="3_sglur"]
-[ext_resource type="Script" uid="uid://dtp5ll5730e38" path="res://entities/player/schwert.gd" id="4_bls4j"]
+[ext_resource type="Script" uid="uid://dtp5ll5730e38" path="res://entities/player/dash.gd" id="4_bls4j"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_symyc"]
 
@@ -91,7 +91,9 @@ script = ExtResource("3_sglur")
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.26383358, 1.4508579, 0.056696773)
 
-[node name="SCHWERT" type="Node3D" parent="." node_paths=PackedStringArray("camera", "player")]
+[node name="Schwert" type="Node3D" parent="."]
+
+[node name="dash" type="Node3D" parent="Schwert" node_paths=PackedStringArray("camera", "player")]
 script = ExtResource("4_bls4j")
-camera = NodePath("../Head/Camera3D")
-player = NodePath("..")
+camera = NodePath("../../Head/Camera3D")
+player = NodePath("../..")
