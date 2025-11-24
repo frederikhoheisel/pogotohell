@@ -3,11 +3,14 @@ extends Node3D
 
 var fire_delay: float = 0.3
 var fire_time: float = 0.0
+
 var camera_tween: Tween
-var camera_shake_amount = PI/24.0
+var camera_shake_amount = PI / 24.0
 var camera_shake_duration: float = 0.4
 var decal: PackedScene = preload("res://entities/effects/decal.tscn")
 var grapple_point: Vector3
+var grapple_delay: float = 6.0
+var grapple_time: float = 0.0
 var player: Player
 
 
@@ -24,6 +27,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	fire_time += delta
+	grapple_time += delta
 
 
 func _input(event: InputEvent) -> void:
@@ -34,6 +38,8 @@ func _input(event: InputEvent) -> void:
 		shoot_gun()
 	
 	if event.is_action_pressed("grapple"):
+		if grapple_time < grapple_delay:
+			return
 		grapple()
 	
 	if event.is_action_pressed("pull_out"):

@@ -29,7 +29,7 @@ var eye_projectile: PackedScene = preload("res://entities/enemies/broski/eye_pro
 
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
 @onready var debug_label: Label3D = $DebugLabel
-@onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
+@onready var audio_stream_player: AudioStreamPlayer3D = $AudioStreamPlayer
 
 
 func take_damage(amount: int = 1) -> void:

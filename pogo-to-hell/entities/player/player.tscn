@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cp0aw825yr8om"]
+[gd_scene load_steps=21 format=3 uid="uid://cp0aw825yr8om"]
 
 [ext_resource type="Script" uid="uid://olsf6f01iad6" path="res://entities/player/player.gd" id="1_symyc"]
 [ext_resource type="PackedScene" uid="uid://dhtiycvswaaqb" path="res://entities/player/view_model.tscn" id="2_abrql"]
@@ -9,29 +9,18 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_symyc"]
 
-[sub_resource type="Gradient" id="Gradient_symyc"]
-offsets = PackedFloat32Array(0, 0.5, 1)
-colors = PackedColorArray(0.4745098, 0.2784314, 0.4745098, 1, 0, 0, 1, 1, 0.4745098, 0.2784314, 0.4745098, 1)
-metadata/_snap_enabled = true
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_abrql"]
-gradient = SubResource("Gradient_symyc")
-width = 8
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sglur"]
-diffuse_mode = 3
-specular_mode = 1
-albedo_texture = SubResource("GradientTexture1D_abrql")
-texture_filter = 0
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8fjmc"]
+transparency = 1
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_symyc"]
-material = SubResource("StandardMaterial3D_sglur")
+material = SubResource("StandardMaterial3D_8fjmc")
 top_radius = 0.05
 bottom_radius = 0.05
 radial_segments = 8
 rings = 1
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_abrql"]
+material = SubResource("StandardMaterial3D_8fjmc")
 top_radius = 0.05
 bottom_radius = 0.05
 height = 0.5
@@ -39,6 +28,7 @@ radial_segments = 8
 rings = 1
 
 [sub_resource type="PrismMesh" id="PrismMesh_symyc"]
+material = SubResource("StandardMaterial3D_8fjmc")
 size = Vector3(0.1, 0.1, 0.01)
 
 [sub_resource type="Curve" id="Curve_8fjmc"]

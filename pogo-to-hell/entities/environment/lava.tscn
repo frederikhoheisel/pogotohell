@@ -10,7 +10,7 @@ offsets = PackedFloat32Array(0, 0.7091837, 0.8520408, 1)
 colors = PackedColorArray(0.41876578, 0.034388494, 0.02998038, 1, 0.92156863, 0.02745098, 0.03529412, 1, 0.8227777, 0.8017858, 0.1913023, 1, 1, 1, 1, 1)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_m6qrj"]
-offset = Vector3(663.0714, -3182.611, -530.5136)
+offset = Vector3(150.8335, -724.0074, -120.66551)
 fractal_type = 3
 fractal_octaves = 2
 fractal_lacunarity = 1.4

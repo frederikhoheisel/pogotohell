@@ -3,8 +3,8 @@
 [ext_resource type="PackedScene" uid="uid://cp0aw825yr8om" path="res://entities/player/player.tscn" id="1_dlp0f"]
 [ext_resource type="VoxelGIData" uid="uid://tabxh1nvawko" path="res://level/test.VoxelGI_data.res" id="1_ea25h"]
 [ext_resource type="PackedScene" uid="uid://c1mxi56rrm2c4" path="res://ui/hud.tscn" id="2_8abgs"]
-[ext_resource type="Script" path="res://level/decal_manager.gd" id="2_yihe8"]
-[ext_resource type="Script" path="res://level/smoke_manager.gd" id="3_omxvp"]
+[ext_resource type="Script" uid="uid://blpvtdqouubfu" path="res://level/decal_manager.gd" id="2_yihe8"]
+[ext_resource type="Script" uid="uid://jvbi6xcci22" path="res://level/smoke_manager.gd" id="3_omxvp"]
 [ext_resource type="PackedScene" uid="uid://4ndkdayx6bsf" path="res://ui/Screen_shader.tscn" id="3_sywkh"]
 [ext_resource type="PackedScene" uid="uid://dgunwb7odlxau" path="res://entities/enemies/broski/broski.tscn" id="6_rsfpr"]
 [ext_resource type="PackedScene" uid="uid://xbhv7p0a8n62" path="res://entities/environment/lava.tscn" id="7_dshje"]
@@ -89,7 +89,7 @@ offsets = PackedFloat32Array(0, 0.7091837, 0.8520408, 1)
 colors = PackedColorArray(0.41876578, 0.034388494, 0.02998038, 1, 0.92156863, 0.02745098, 0.03529412, 1, 0.8227777, 0.8017858, 0.1913023, 1, 1, 1, 1, 1)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_o28ph"]
-offset = Vector3(-339.36996, -1297.0472, -258.6674)
+offset = Vector3(-2742.1277, -10479.823, -2089.955)
 fractal_type = 3
 fractal_octaves = 2
 fractal_lacunarity = 1.4
@@ -138,7 +138,6 @@ script = ExtResource("2_yihe8")
 script = ExtResource("3_omxvp")
 
 [node name="ScreenShader" parent="." instance=ExtResource("3_sywkh")]
-visible = false
 
 [node name="Player" parent="." instance=ExtResource("1_dlp0f")]
 

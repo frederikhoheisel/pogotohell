@@ -3,12 +3,13 @@ extends CharacterBody3D
 
 
 signal damage_taken
+signal player_died
 
 
 const JUMP_VELOCITY = 7.5
 
 
-@export var health: int = 20
+@export var health: int = 10
 
 
 var look_sensitivity: float = 0.001
@@ -44,6 +45,8 @@ var grapple_speed: float = 20.0
 var grapple_acceleration: float = 10.0
 var max_grapple_distance: float = 50.0
 
+var pogo_material: Material
+
 
 @onready var rope_pos: Marker3D = %RopePos
 @onready var head: Node3D = $Head
@@ -56,6 +59,7 @@ var max_grapple_distance: float = 50.0
 
 func _ready() -> void:
 	rope = get_tree().get_first_node_in_group("Rope")
+	pogo_material = $LowPivot/pogo/MeshInstance3D.mesh.material
 
 
 func _handle_jump(delta: float) -> void:
@@ -195,15 +199,18 @@ func _unhandled_input(event: InputEvent) -> void:
 			%Camera3D.rotation.x = clamp(%Camera3D.rotation.x, deg_to_rad(-90), deg_to_rad(90))
 
 
+var last_distance: float
 func _handle_grapple(delta: float) -> void:
 	var to_hook: Vector3 = grapple_point - self.global_position
 	var distance: float = to_hook.length()
+	$Shooting.grapple_time = 0.0
 	
-	if distance < 2.0 or distance > max_grapple_distance:
+	if distance < 2.0 or distance > max_grapple_distance or is_equal_approx(distance, last_distance):
 		is_grappling = false
 		rope.is_grappling = false
 		return
 	
+	last_distance = distance
 	
 	rope.start_point = rope_pos.global_position
 	rope.dir = (self.transform.basis * Vector3.FORWARD).normalized()
@@ -230,6 +237,14 @@ func _physics_process(delta: float) -> void:
 	# turn pogo red and scale a bit
 	$LowPivot/pogo/MeshInstance3D.mesh.material.albedo_color = Color(1.0, 1.0 - jump_strength, 1.0 - jump_strength)
 	pogo.scale.y = 1.0 - jump_strength * 0.5
+	
+	var forward: Vector3 = -%Camera3D.global_transform.basis.z
+	var dot_down = forward.dot(Vector3.DOWN)
+	var t = clamp((dot_down - 0.6) / (1.0 - 0.6), 0.0, 1.0)
+	var target_alpha = lerp(1.0, 0.35, t)
+	
+	pogo_material.albedo_color.a = target_alpha
+	
 	# shake poko
 	pogo.position = Vector3(0.0, 1.0, 0.0) + Vector3(randf() - 0.5, randf() - 0.5, randf() - 0.5) * pow(jump_strength * delta * 4.0, 2.0)
 	
@@ -264,3 +279,7 @@ func take_damage(amount: int) -> void:
 	hurt_audio_player.play()
 	health -= amount
 	damage_taken.emit()
+	
+	if health <= 0:
+		player_died.emit()
+		get_tree().call_deferred("reload_current_scene")

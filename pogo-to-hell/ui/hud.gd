@@ -15,10 +15,12 @@ var tween: Tween
 @onready var pause_menu: CanvasLayer = $PauseMenu
 @onready var hit_color_rect: TextureRect = %HitColorRect
 @onready var health_bar: TextureProgressBar = %HealthBar
+@onready var grapple_bar: TextureProgressBar = %GrappleBar
 
 
 func _ready() -> void:
 	player.damage_taken.connect(_on_player_damage)
+	player.player_died.connect(_on_player_died)
 
 
 func _input(event: InputEvent) -> void:
@@ -37,8 +39,9 @@ func _input(event: InputEvent) -> void:
 func _process(_delta: float) -> void:
 	health_bar.value = player.health
 	progress_bar.value = player.jump_strength * 100.0
+	grapple_bar.value = player.get_node("Shooting").grapple_time * 2.0
 	debug_label_1.text = "player speed:  " + str(player.velocity.length())
-	debug_label_2.text = "on wall:  " + str(player.on_wall)
+	debug_label_2.text = "grapple_time:  " + str(player.get_node("Shooting").grapple_time)
 	debug_label_3.text = "fps:  " + str(Engine.get_frames_per_second())
 
 
@@ -54,3 +57,7 @@ func _on_player_damage() -> void:
 	
 	hit_color_rect.modulate = Color(1.0, 1.0, 1.0, 1.0)
 	tween.tween_property(hit_color_rect, "modulate", Color(1.0, 1.0, 1.0, 0.0), 0.7).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+
+
+func _on_player_died() -> void:
+	pass
