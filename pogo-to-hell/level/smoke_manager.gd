@@ -5,6 +5,7 @@ extends Node
 
 
 var smoke: PackedScene = preload("res://entities/effects/smoke_explosion.tscn")
+var blood_expl: PackedScene = preload("res://entities/effects/blood_expl_particles.tscn")
 var smokes: Array[Node3D]
 
 
@@ -24,3 +25,8 @@ func place_smoke(collision_point: Vector3, explosive: bool, size: float) -> void
 	smoke_instance.global_position = collision_point
 	
 	smoke_instance.smoke_away(explosive, size)
+
+func place_blood_expl(death_pos: Vector3) -> void:
+	var blood_instance: GPUParticles3D = blood_expl.instantiate()
+	blood_instance.position = Vector3(death_pos.x, death_pos.y + 1.0, death_pos.z)
+	self.add_child(blood_instance)

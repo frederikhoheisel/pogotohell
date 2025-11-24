@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://ddanne7w5jonu"]
+[gd_scene load_steps=19 format=3 uid="uid://b1u6ocwuovnq1"]
 
 [ext_resource type="Texture2D" uid="uid://cj01s5cn4f06u" path="res://assets/textures/ketchup/blooddecallow.png" id="1_ogg1d"]
 [ext_resource type="Texture2D" uid="uid://dp6yduk2jfc5q" path="res://assets/textures/ketchup/blooddecalnormallow.png" id="2_clb8r"]
@@ -75,6 +75,33 @@ colors = PackedColorArray(0, 0.42358288, 0.58383155, 1)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_a0soe"]
 gradient = SubResource("Gradient_y1u6n")
 
+[sub_resource type="Animation" id="Animation_v5j17"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Decal:albedo_mix")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Decal:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.7055968, 0, 0.025840001, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_pl2gm"]
 resource_name = "init"
 length = 5.0
@@ -113,33 +140,6 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
-}
-
-[sub_resource type="Animation" id="Animation_v5j17"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Decal:albedo_mix")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Decal:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0.7055968, 0, 0.025840001, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_tmfel"]

@@ -1,9 +1,10 @@
-[gd_scene load_steps=14 format=4 uid="uid://dgunwb7odlxau"]
+[gd_scene load_steps=16 format=4 uid="uid://dgunwb7odlxau"]
 
 [ext_resource type="Script" uid="uid://b82mwo8ld2i5r" path="res://entities/enemies/broski/broski.gd" id="1_faoro"]
 [ext_resource type="Texture2D" uid="uid://bjl3dufpisdld" path="res://assets/models/broski_Material.png" id="1_ji8ac"]
 [ext_resource type="PackedScene" uid="uid://4ndkdayx6bsf" path="res://ui/Screen_shader.tscn" id="3_7gvho"]
 [ext_resource type="AudioStream" uid="uid://70sgeog8tua0" path="res://assets/sounds/enemy_shot1.wav" id="4_bpemi"]
+[ext_resource type="PackedScene" uid="uid://b88n2u2hgvg8j" path="res://entities/effects/bleeding.tscn" id="5_w83xo"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ocpe1"]
 resource_name = "Material.001"
@@ -274,6 +275,9 @@ bind/72/pose = Transform3D(0.97931397, -0.0023752856, -0.20232457, -2.6170122e-0
 bind/73/name = &"tentacle_frontleft_07"
 bind/73/bone = -1
 bind/73/pose = Transform3D(0.979314, -0.0010287284, -0.20233594, -2.6181763e-07, -0.9999871, 0.0050841905, -0.20233817, -0.0049790326, -0.979303, -1.0594041, -3.587488, -0.7143238)
+
+[sub_resource type="Animation" id="Animation_bpemi"]
+resource_name = "blood"
 
 [sub_resource type="Animation" id="Animation_ffycr"]
 resource_name = "idle"
@@ -1844,6 +1848,7 @@ tracks/73/keys = PackedFloat32Array(0, 1, 0.0032587745, -2.3453271e-08, -0.00067
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_7ixva"]
 _data = {
+&"blood": SubResource("Animation_bpemi"),
 &"idle": SubResource("Animation_ffycr"),
 &"idle_pose": SubResource("Animation_vc61g"),
 &"reset_pose": SubResource("Animation_68gtv")
@@ -2420,6 +2425,9 @@ visible = false
 stream = ExtResource("4_bpemi")
 volume_db = -16.0
 bus = &"Sounds"
+
+[node name="Bleeding" parent="." instance=ExtResource("5_w83xo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.93953454, 0)
 
 [connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]
