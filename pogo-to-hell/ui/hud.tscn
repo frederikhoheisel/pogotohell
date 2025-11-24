@@ -1,9 +1,15 @@
-[gd_scene load_steps=7 format=3 uid="uid://c1mxi56rrm2c4"]
+[gd_scene load_steps=13 format=3 uid="uid://c1mxi56rrm2c4"]
 
 [ext_resource type="Script" uid="uid://d2iuqmxdbt7ko" path="res://ui/hud.gd" id="1_rbyyf"]
-[ext_resource type="Material" path="res://ui/crosshair.tres" id="2_7ihmi"]
-[ext_resource type="PackedScene" path="res://ui/pause_menu.tscn" id="3_546lt"]
+[ext_resource type="Texture2D" uid="uid://qwci8cyvit6n" path="res://assets/textures/healthbar_over.png" id="2_1v5rv"]
+[ext_resource type="Material" uid="uid://c7n6hmrhx0x1n" path="res://ui/crosshair.tres" id="2_7ihmi"]
+[ext_resource type="Texture2D" uid="uid://c7b1trek5ddhb" path="res://assets/textures/pogo_under.png" id="2_srpbi"]
+[ext_resource type="PackedScene" uid="uid://ch062xtce311c" path="res://ui/pause_menu.tscn" id="3_546lt"]
+[ext_resource type="Texture2D" uid="uid://b1c6nam34xb1n" path="res://assets/textures/healthbar.png" id="3_q43x7"]
+[ext_resource type="Texture2D" uid="uid://cmdj4bawg1kcs" path="res://assets/textures/pogo_over.png" id="3_spcu4"]
 [ext_resource type="PackedScene" uid="uid://d4baqm2niu2b0" path="res://ui/settings_menu.tscn" id="4_7ihmi"]
+[ext_resource type="Texture2D" uid="uid://cb038omud8v8g" path="res://assets/textures/grapple.png" id="9_ff8ar"]
+[ext_resource type="Texture2D" uid="uid://4u10e5vulxg6" path="res://assets/textures/grapple_over.png" id="10_m0eg6"]
 
 [sub_resource type="Gradient" id="Gradient_7ihmi"]
 offsets = PackedFloat32Array(0.20588236, 1)
@@ -19,28 +25,53 @@ metadata/_snap_enabled = true
 process_mode = 3
 script = ExtResource("1_rbyyf")
 
-[node name="ProgressBar" type="ProgressBar" parent="."]
-anchors_preset = 12
+[node name="ProgressBar" type="TextureProgressBar" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -27.0
-grow_horizontal = 2
+offset_left = -128.0
+offset_top = -292.0
+grow_horizontal = 0
 grow_vertical = 0
+fill_mode = 3
+texture_under = ExtResource("2_srpbi")
+texture_progress = ExtResource("3_spcu4")
 
-[node name="HealthBar" type="ProgressBar" parent="."]
+[node name="HealthBar" type="TextureProgressBar" parent="."]
 unique_name_in_owner = true
-modulate = Color(1, 0, 0, 1)
-anchors_preset = 12
+texture_filter = 1
+anchors_preset = 2
 anchor_top = 1.0
-anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -61.0
-offset_bottom = -34.0
-grow_horizontal = 2
+offset_top = -292.0
+offset_right = 128.0
 grow_vertical = 0
-max_value = 20.0
-show_percentage = false
+max_value = 10.0
+value = 10.0
+fill_mode = 3
+texture_under = ExtResource("2_1v5rv")
+texture_progress = ExtResource("3_q43x7")
+
+[node name="GrappleBar" type="TextureProgressBar" parent="."]
+unique_name_in_owner = true
+texture_filter = 1
+anchors_preset = -1
+anchor_left = 0.94
+anchor_top = 0.4
+anchor_right = 0.94
+anchor_bottom = 0.4
+offset_left = -64.0
+offset_top = -32.0
+offset_bottom = 32.0
+grow_horizontal = 0
+grow_vertical = 2
+scale = Vector2(2, 2)
+max_value = 12.0
+fill_mode = 4
+texture_under = ExtResource("9_ff8ar")
+texture_progress = ExtResource("10_m0eg6")
 
 [node name="DebugLabel1" type="Label" parent="."]
 offset_right = 40.0

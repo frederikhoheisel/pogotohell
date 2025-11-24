@@ -2421,7 +2421,7 @@ text = "Hallo"
 [node name="ScreenShader" parent="." instance=ExtResource("3_7gvho")]
 visible = false
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("4_bpemi")
 volume_db = -16.0
 bus = &"Sounds"

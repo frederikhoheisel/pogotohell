@@ -1,8 +1,7 @@
-[gd_scene load_steps=21 format=3 uid="uid://34g43aybnmia"]
+[gd_scene load_steps=8 format=3 uid="uid://ld0h6j3c4wye"]
 
 [ext_resource type="PackedScene" uid="uid://do670xin754vl" path="res://level/level_template.tscn" id="1_omx5w"]
 [ext_resource type="PackedScene" uid="uid://xbhv7p0a8n62" path="res://entities/environment/lava.tscn" id="3_moo38"]
-[ext_resource type="Script" uid="uid://bkatiu30mb52n" path="res://entities/environment/lava.gd" id="3_nokfs"]
 [ext_resource type="PackedScene" uid="uid://c0sjb70mhesg7" path="res://entities/environment/jump_pad.tscn" id="4_nokfs"]
 [ext_resource type="PackedScene" uid="uid://dgunwb7odlxau" path="res://entities/enemies/broski/broski.tscn" id="5_jfgjb"]
 
@@ -27,78 +26,6 @@ fog_enabled = true
 fog_light_color = Color(0.3231853, 0.16830945, 0.14844668, 1)
 adjustment_enabled = true
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_jfgjb"]
-resource_local_to_scene = true
-size = Vector3(4, 72, 8)
-
-[sub_resource type="Gradient" id="Gradient_l1g64"]
-offsets = PackedFloat32Array(0, 0.7091837, 0.8520408, 1)
-colors = PackedColorArray(0.41876578, 0.034388494, 0.02998038, 1, 0.92156863, 0.02745098, 0.03529412, 1, 0.8227777, 0.8017858, 0.1913023, 1, 1, 1, 1, 1)
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_vb5hv"]
-offset = Vector3(424.5143, -2037.6875, -339.61462)
-fractal_type = 3
-fractal_octaves = 2
-fractal_lacunarity = 1.4
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_vndax"]
-resource_local_to_scene = true
-noise = SubResource("FastNoiseLite_vb5hv")
-color_ramp = SubResource("Gradient_l1g64")
-seamless = true
-in_3d_space = true
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k4ctk"]
-albedo_texture = SubResource("NoiseTexture2D_vndax")
-emission_enabled = true
-emission = Color(0.5019608, 0, 0, 1)
-uv1_scale = Vector3(0.2, 0.2, 0.2)
-uv1_offset = Vector3(2298.9392, -2691.4475, 3057.4502)
-uv1_triplanar = true
-uv1_world_triplanar = true
-texture_filter = 0
-
-[sub_resource type="BoxMesh" id="BoxMesh_skxlf"]
-resource_local_to_scene = true
-material = SubResource("StandardMaterial3D_k4ctk")
-size = Vector3(4, 72, 8)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_nokfs"]
-resource_local_to_scene = true
-size = Vector3(4, 72, 8)
-
-[sub_resource type="Gradient" id="Gradient_xqo5k"]
-offsets = PackedFloat32Array(0, 0.7091837, 0.8520408, 1)
-colors = PackedColorArray(0.41876578, 0.034388494, 0.02998038, 1, 0.92156863, 0.02745098, 0.03529412, 1, 0.8227777, 0.8017858, 0.1913023, 1, 1, 1, 1, 1)
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_m6qrj"]
-offset = Vector3(424.5143, -2037.6875, -339.61462)
-fractal_type = 3
-fractal_octaves = 2
-fractal_lacunarity = 1.4
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_co0wn"]
-resource_local_to_scene = true
-noise = SubResource("FastNoiseLite_m6qrj")
-color_ramp = SubResource("Gradient_xqo5k")
-seamless = true
-in_3d_space = true
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mo1ng"]
-albedo_texture = SubResource("NoiseTexture2D_co0wn")
-emission_enabled = true
-emission = Color(0.5019608, 0, 0, 1)
-uv1_scale = Vector3(0.2, 0.2, 0.2)
-uv1_offset = Vector3(2298.9392, -2691.4475, 3057.4502)
-uv1_triplanar = true
-uv1_world_triplanar = true
-texture_filter = 0
-
-[sub_resource type="BoxMesh" id="BoxMesh_jfgjb"]
-resource_local_to_scene = true
-material = SubResource("StandardMaterial3D_mo1ng")
-size = Vector3(4, 72, 8)
-
 [node name="Level1" instance=ExtResource("1_omx5w")]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." index="0"]
@@ -110,7 +37,10 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." index="1"]
 environment = SubResource("Environment_moo38")
 
-[node name="Player" parent="." index="5"]
+[node name="ScreenShader" parent="." index="5"]
+visible = true
+
+[node name="Player" parent="." index="6"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 51.067383, 20.535988)
 
 [node name="SolidGeometry" type="CSGCombiner3D" parent="." index="8"]
@@ -501,6 +431,19 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 13.54631, 0)
 operation = 2
 size = Vector3(8, 24, 8)
 
+[node name="dildo9" type="CSGCombiner3D" parent="SolidGeometry/Schacht3" index="13"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.768341, -123.27841, -6.573921)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="SolidGeometry/Schacht3/dildo9" index="0"]
+radius = 4.0
+height = 32.0
+cone = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Schacht3/dildo9" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 13.54631, 0)
+operation = 2
+size = Vector3(8, 24, 8)
+
 [node name="Schacht4" type="CSGCombiner3D" parent="SolidGeometry" index="5"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -296, -64)
 
@@ -830,71 +773,49 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -255.18933, -31.591267)
 width = 51.0
 depth = 51.0
 
-[node name="Lava9" type="Node3D" parent="Lava" index="4"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32, -326.50464, -32.090584)
-script = ExtResource("3_nokfs")
-width = 32.0
-depth = 32.0
-speed = Vector3(5, -24, -4)
-
-[node name="DamageArea" type="Area3D" parent="Lava/Lava9" index="0"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Lava/Lava9/DamageArea" index="0"]
-unique_name_in_owner = true
-shape = SubResource("BoxShape3D_jfgjb")
-
-[node name="LavaMesh" type="MeshInstance3D" parent="Lava/Lava9" index="1"]
-unique_name_in_owner = true
-mesh = SubResource("BoxMesh_skxlf")
-
-[node name="Lava12" type="Node3D" parent="Lava" index="5"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, -291, -32)
-script = ExtResource("3_nokfs")
-width = 4.0
-height = 72.0
-depth = 8.0
-speed = Vector3(5, -24, -4)
-
-[node name="DamageArea" type="Area3D" parent="Lava/Lava12" index="0"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Lava/Lava12/DamageArea" index="0"]
-shape = SubResource("BoxShape3D_nokfs")
-
-[node name="LavaMesh" type="MeshInstance3D" parent="Lava/Lava12" index="1"]
-mesh = SubResource("BoxMesh_jfgjb")
-
-[node name="Lava10" parent="Lava" index="6" instance=ExtResource("3_moo38")]
+[node name="Lava10" parent="Lava" index="4" instance=ExtResource("3_moo38")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, -422.45667, -65.09058)
 width = 64.0
 depth = 64.0
 
-[node name="Lava11" parent="Lava" index="7" instance=ExtResource("3_moo38")]
+[node name="Lava11" parent="Lava" index="5" instance=ExtResource("3_moo38")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.910473, -485.3942, -65.09058)
 width = 32.0
 depth = 32.0
 
-[node name="Lava4" parent="Lava" index="8" instance=ExtResource("3_moo38")]
+[node name="Lava4" parent="Lava" index="6" instance=ExtResource("3_moo38")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.5, 0, 0)
 height = 100.0
 depth = 5.0
 
-[node name="Lava5" parent="Lava" index="9" instance=ExtResource("3_moo38")]
+[node name="Lava5" parent="Lava" index="7" instance=ExtResource("3_moo38")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.5, 0, 0)
 height = 100.0
 depth = 5.0
 
-[node name="Lava6" parent="Lava" index="10" instance=ExtResource("3_moo38")]
+[node name="Lava6" parent="Lava" index="8" instance=ExtResource("3_moo38")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.5, 49.8, 12)
 depth = 32.0
 
-[node name="Lava7" parent="Lava" index="11" instance=ExtResource("3_moo38")]
+[node name="Lava7" parent="Lava" index="9" instance=ExtResource("3_moo38")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.5, 49.8, 12)
 depth = 32.0
 
-[node name="Lava13" parent="Lava" index="12" instance=ExtResource("3_moo38")]
+[node name="Lava13" parent="Lava" index="10" instance=ExtResource("3_moo38")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.06934166, -338.4193, -55)
 width = 8.0
-height = 164.0
+height = 168.0
+depth = 8.0
+
+[node name="Lava9" parent="Lava" index="11" instance=ExtResource("3_moo38")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32, -326.505, -32)
+width = 32.0
+depth = 32.0
+
+[node name="Lava12" parent="Lava" index="12" instance=ExtResource("3_moo38")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, -291, -32)
+width = 4.0
+height = 72.0
 depth = 8.0
 
 [node name="JumpPads" type="Node" parent="." index="10"]
@@ -938,28 +859,31 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.0342803, -237.45828, -29.4
 [node name="JumpPad13" parent="JumpPads" index="12" instance=ExtResource("4_nokfs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.977077, -319.76715, -26.578445)
 
-[node name="JumpPad14" parent="JumpPads" index="13" instance=ExtResource("4_nokfs")]
+[node name="JumpPad22" parent="JumpPads" index="13" instance=ExtResource("4_nokfs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 28.222013, -323.7684, -38.5806)
+
+[node name="JumpPad14" parent="JumpPads" index="14" instance=ExtResource("4_nokfs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5076745, -398.27008, -72.749626)
 
-[node name="JumpPad15" parent="JumpPads" index="14" instance=ExtResource("4_nokfs")]
+[node name="JumpPad15" parent="JumpPads" index="15" instance=ExtResource("4_nokfs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.1159644, -404.81317, -66.51368)
 
-[node name="JumpPad16" parent="JumpPads" index="15" instance=ExtResource("4_nokfs")]
+[node name="JumpPad16" parent="JumpPads" index="16" instance=ExtResource("4_nokfs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.782609, -410.21008, -73.7424)
 
-[node name="JumpPad17" parent="JumpPads" index="16" instance=ExtResource("4_nokfs")]
+[node name="JumpPad17" parent="JumpPads" index="17" instance=ExtResource("4_nokfs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.369638, -404.5456, -75.071175)
 
-[node name="JumpPad18" parent="JumpPads" index="17" instance=ExtResource("4_nokfs")]
+[node name="JumpPad18" parent="JumpPads" index="18" instance=ExtResource("4_nokfs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.175135, -399.122, -53.637844)
 
-[node name="JumpPad19" parent="JumpPads" index="18" instance=ExtResource("4_nokfs")]
+[node name="JumpPad19" parent="JumpPads" index="19" instance=ExtResource("4_nokfs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.478575, -393.6671, -56.65513)
 
-[node name="JumpPad20" parent="JumpPads" index="19" instance=ExtResource("4_nokfs")]
+[node name="JumpPad20" parent="JumpPads" index="20" instance=ExtResource("4_nokfs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.682518, -387.1142, -50.063232)
 
-[node name="JumpPad21" parent="JumpPads" index="20" instance=ExtResource("4_nokfs")]
+[node name="JumpPad21" parent="JumpPads" index="21" instance=ExtResource("4_nokfs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.973908, -416.22565, -44.65356)
 
 [node name="Enemies" type="Node" parent="." index="11"]
@@ -990,8 +914,3 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.790216, -389.00558, -59.1
 
 [node name="Broski9" parent="Enemies" index="8" instance=ExtResource("5_jfgjb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.860054, -389.00558, -50.20412)
-
-[connection signal="body_entered" from="Lava/Lava9/DamageArea" to="Lava/Lava9" method="_on_damage_area_body_entered"]
-[connection signal="body_exited" from="Lava/Lava9/DamageArea" to="Lava/Lava9" method="_on_damage_area_body_exited"]
-[connection signal="body_entered" from="Lava/Lava12/DamageArea" to="Lava/Lava12" method="_on_damage_area_body_entered"]
-[connection signal="body_exited" from="Lava/Lava12/DamageArea" to="Lava/Lava12" method="_on_damage_area_body_exited"]
