@@ -1,0 +1,180 @@
+[gd_scene load_steps=19 format=3 uid="uid://b1u6ocwuovnq1"]
+
+[ext_resource type="Texture2D" uid="uid://cj01s5cn4f06u" path="res://assets/textures/ketchup/blooddecallow.png" id="1_ogg1d"]
+[ext_resource type="Texture2D" uid="uid://dp6yduk2jfc5q" path="res://assets/textures/ketchup/blooddecalnormallow.png" id="2_clb8r"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_xv14m"]
+load_path = "res://.godot/imported/bloodlow.png-05b4b6cfea999ba133b4db734c07687c.s3tc.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_sr2vh"]
+load_path = "res://.godot/imported/bloodnoromallow.png-e7a63f2a0eac0b207af7283a00d28245.s3tc.ctex"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5rj12"]
+transparency = 2
+alpha_scissor_threshold = 0.154
+alpha_antialiasing_mode = 0
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+albedo_texture = SubResource("CompressedTexture2D_xv14m")
+roughness = 0.02
+normal_enabled = true
+normal_scale = 0.66
+normal_texture = SubResource("CompressedTexture2D_sr2vh")
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_vryiy"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.05825243, 1), -2.380738, -2.380738, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_gko38"]
+curve = SubResource("Curve_vryiy")
+
+[sub_resource type="Gradient" id="Gradient_onuv1"]
+interpolation_color_space = 1
+offsets = PackedFloat32Array(0.12222222, 1)
+colors = PackedColorArray(0.4877556, 2.6652403e-06, 2.6471912e-07, 1, 0.82190794, 2.3584067e-05, 7.893444e-06, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_u5xpj"]
+gradient = SubResource("Gradient_onuv1")
+
+[sub_resource type="Curve" id="Curve_k2dao"]
+_data = [Vector2(0, 0), 0.0, 2.700375, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_381mx"]
+curve = SubResource("Curve_k2dao")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dmgwe"]
+lifetime_randomness = 0.5
+particle_flag_rotate_y = true
+emission_shape = 1
+emission_sphere_radius = 0.3
+angle_min = -179.99998
+angle_max = 180.00002
+direction = Vector3(0, 1, 0)
+spread = 9.915
+initial_velocity_min = -0.5
+initial_velocity_max = 3.0
+radial_velocity_min = -2.2351742e-05
+radial_velocity_max = 0.7999776
+scale_min = 0.7
+scale_max = 1.5
+scale_curve = SubResource("CurveTexture_381mx")
+color_ramp = SubResource("GradientTexture1D_u5xpj")
+alpha_curve = SubResource("CurveTexture_gko38")
+
+[sub_resource type="QuadMesh" id="QuadMesh_n31mq"]
+
+[sub_resource type="Gradient" id="Gradient_y1u6n"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(0, 0.42358288, 0.58383155, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_a0soe"]
+gradient = SubResource("Gradient_y1u6n")
+
+[sub_resource type="Animation" id="Animation_v5j17"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Decal:albedo_mix")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Decal:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.7055968, 0, 0.025840001, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_pl2gm"]
+resource_name = "init"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Decal:albedo_mix")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.29562098, 0.56666666, 4.6, 4.8649483),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 1.0, 1.0, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Decal:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.29733962, 0.56666666, 4.6, 4.866667),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(0.7055968, 0, 0.025840001, 0), Color(0.7055968, 0, 0.025840001, 1), Color(0.7055968, 0, 0.025840001, 1), Color(0.7055968, 0, 0.025840001, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("BloodParticles:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tmfel"]
+_data = {
+&"RESET": SubResource("Animation_v5j17"),
+&"init": SubResource("Animation_pl2gm")
+}
+
+[node name="BloodExplosion" type="Node"]
+
+[node name="BloodParticles" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5399462, 1.3038737)
+visible = false
+layers = 4
+material_override = SubResource("StandardMaterial3D_5rj12")
+emitting = false
+amount = 20
+one_shot = true
+explosiveness = 0.8
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_dmgwe")
+draw_pass_1 = SubResource("QuadMesh_n31mq")
+
+[node name="Decal" type="Decal" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.052589178, 0.997712, 1.3770976)
+visible = false
+texture_albedo = ExtResource("1_ogg1d")
+texture_normal = ExtResource("2_clb8r")
+texture_orm = SubResource("GradientTexture1D_a0soe")
+modulate = Color(0.7055968, 0, 0.025840001, 0)
+albedo_mix = 0.0
+cull_mask = 1048571
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_tmfel")
+}
+autoplay = "init"

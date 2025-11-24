@@ -25,6 +25,7 @@ var time_loose_player: float = 0.0
 var time_shoot: float = 0.0
 var pieces: PackedScene = preload("res://entities/enemies/broski/broski_pieces.tscn")
 var eye_projectile: PackedScene = preload("res://entities/enemies/broski/eye_projectile.tscn")
+var blood_expl_particles:  PackedScene = preload("res://entities/effects/blood_expl_particles.tscn")
 
 
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
@@ -35,7 +36,9 @@ var eye_projectile: PackedScene = preload("res://entities/enemies/broski/eye_pro
 func take_damage(amount: int = 1) -> void:
 	health -= amount
 	if health <= 0:
-		get_tree().get_first_node_in_group("SmokeManager").place_smoke(self.global_position + Vector3(0.0, 1.0, 0.0), true, 2.0)
+		$Bleeding.stop_bleeding()
+		#get_tree().get_first_node_in_group("SmokeManager").place_smoke(self.global_position + Vector3(0.0, 1.0, 0.0), true, 2.0)
+		get_tree().get_first_node_in_group("SmokeManager").place_blood_expl(self.global_position)
 		audio_stream_player.stream = AudioStreamWAV.load_from_file("res://assets/sounds/enemy_down1.wav")
 		audio_stream_player.volume_db = -6.0
 		audio_stream_player.play()
@@ -45,7 +48,7 @@ func take_damage(amount: int = 1) -> void:
 		self.hide()
 		await get_tree().create_timer(1.0).timeout
 		self.queue_free()
-
+	$Bleeding.start_bleeding()
 
 func _ready() -> void:
 	animation_player.play("idle")

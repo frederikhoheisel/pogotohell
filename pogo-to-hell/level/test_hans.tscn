@@ -1,7 +1,10 @@
-[gd_scene load_steps=24 format=3 uid="uid://dj2jf17hpwxug"]
+[gd_scene load_steps=36 format=3 uid="uid://dj2jf17hpwxug"]
 
 [ext_resource type="PackedScene" uid="uid://4ndkdayx6bsf" path="res://ui/Screen_shader.tscn" id="1_cuaqy"]
 [ext_resource type="PackedScene" uid="uid://cp0aw825yr8om" path="res://entities/player/player.tscn" id="1_yjnc3"]
+[ext_resource type="Texture2D" uid="uid://cj01s5cn4f06u" path="res://assets/textures/ketchup/blooddecallow.png" id="3_f8ndg"]
+[ext_resource type="Texture2D" uid="uid://cjkfiqidmxfcj" path="res://assets/textures/ketchup/bloodnoromallow.png" id="4_r6h6r"]
+[ext_resource type="Texture2D" uid="uid://dp6yduk2jfc5q" path="res://assets/textures/ketchup/blooddecalnormallow.png" id="5_augfa"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_myg2k"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -76,6 +79,65 @@ albedo_color = Color(0.6039216, 0.59607846, 0.13333334, 1)
 disable_specular_occlusion = true
 albedo_color = Color(0.75927615, 0.113937415, 0.5317561, 1)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g0kc6"]
+transparency = 2
+alpha_scissor_threshold = 0.154
+alpha_antialiasing_mode = 0
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+albedo_texture = ExtResource("3_f8ndg")
+roughness = 0.02
+normal_enabled = true
+normal_scale = 0.14
+normal_texture = ExtResource("4_r6h6r")
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_f8ndg"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.05825243, 1), -2.380738, -2.380738, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_r6h6r"]
+curve = SubResource("Curve_f8ndg")
+
+[sub_resource type="Gradient" id="Gradient_augfa"]
+interpolation_color_space = 1
+offsets = PackedFloat32Array(0.12222222, 1)
+colors = PackedColorArray(0.3525722, 1.260424e-06, 7.219613e-08, 1, 0.82190794, 2.3584067e-05, 7.893444e-06, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_et1fi"]
+gradient = SubResource("Gradient_augfa")
+
+[sub_resource type="Curve" id="Curve_ak1kl"]
+_data = [Vector2(0, 0), 0.0, 2.700375, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_sf1s1"]
+curve = SubResource("Curve_ak1kl")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0stpr"]
+lifetime_randomness = 0.5
+particle_flag_rotate_y = true
+emission_shape = 1
+emission_sphere_radius = 0.3
+angle_min = -179.99998
+angle_max = 180.00002
+direction = Vector3(0, 1, 0)
+spread = 9.915
+initial_velocity_min = -0.5
+initial_velocity_max = 3.0
+radial_velocity_min = -2.2351742e-05
+radial_velocity_max = 0.7999776
+scale_min = 0.7
+scale_max = 1.5
+scale_curve = SubResource("CurveTexture_sf1s1")
+color_ramp = SubResource("GradientTexture1D_et1fi")
+alpha_curve = SubResource("CurveTexture_r6h6r")
+
+[sub_resource type="QuadMesh" id="QuadMesh_n31mq"]
+
 [node name="TestHans" type="Node3D"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
@@ -131,13 +193,33 @@ transform = Transform3D(1.3315057, 0, -0.59981996, 0, 1.596412, 0, 0.99816084, 0
 material = SubResource("StandardMaterial3D_k0a2x")
 
 [node name="CSGBox3D4" type="CSGBox3D" parent="CSGCombiner3D"]
-transform = Transform3D(1.3315057, 0, -0.59981996, 0, 1.596412, 0, 0.99816084, 0, 0.8001351, -0.19154549, 0.06568414, -2.1749725)
+transform = Transform3D(1.3315057, 0, -0.59981996, 0, 1.596412, 0, 0.99816084, 0, 0.8001351, -0.19154549, 0.06568414, 1.2654705)
 material = SubResource("StandardMaterial3D_8iu8l")
 
 [node name="CSGSphere3D2" type="CSGSphere3D" parent="CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 0.9705401, -0.24093954, 0, 0.24093954, 0.9705401, -2.5473769, 3.8889449, 2.030126)
+transform = Transform3D(1, 0, 0, 0, 0.9705401, -0.24093954, 0, 0.24093954, 0.9705401, -2.5473769, 3.8889449, 4.2290792)
 material = SubResource("StandardMaterial3D_wf48f")
 
 [node name="Player" parent="." instance=ExtResource("1_yjnc3")]
 
 [node name="ScreenShader" parent="Player" instance=ExtResource("1_cuaqy")]
+visible = false
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.43703726, 0.8994434, 0, -0.8994434, 0.43703726, -1.9546016, 5.1081257, 2.2151232)
+light_energy = 4.084
+spot_range = 4096.0
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.0731134, 1.3038737)
+material_override = SubResource("StandardMaterial3D_g0kc6")
+amount = 20
+explosiveness = 0.8
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_0stpr")
+draw_pass_1 = SubResource("QuadMesh_n31mq")
+
+[node name="Decal" type="Decal" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.038780928, 6.1004415, 1.3770976)
+texture_albedo = ExtResource("3_f8ndg")
+texture_normal = ExtResource("5_augfa")
