@@ -7,14 +7,14 @@ extends CanvasLayer
 var tween: Tween
 
 
-@onready var progress_bar: ProgressBar = $ProgressBar
+@onready var progress_bar: TextureProgressBar = $ProgressBar
 @onready var debug_label_1: Label = $DebugLabel1
 @onready var debug_label_2: Label = $DebugLabel2
 @onready var debug_label_3: Label = $DebugLabel3
 @onready var settings_menu: CanvasLayer = $SettingsMenu
 @onready var pause_menu: CanvasLayer = $PauseMenu
 @onready var hit_color_rect: TextureRect = %HitColorRect
-@onready var health_bar: ProgressBar = %HealthBar
+@onready var health_bar: TextureProgressBar = %HealthBar
 
 
 func _ready() -> void:

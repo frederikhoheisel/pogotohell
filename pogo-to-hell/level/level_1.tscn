@@ -1,6 +1,6 @@
-[gd_scene load_steps=21 format=3 uid="uid://34g43aybnmia"]
+[gd_scene load_steps=21 format=3 uid="uid://ld0h6j3c4wye"]
 
-[ext_resource type="PackedScene" uid="uid://do670xin754vl" path="res://level/level_template.tscn" id="1_omx5w"]
+[ext_resource type="PackedScene" path="res://level/level_template.tscn" id="1_omx5w"]
 [ext_resource type="PackedScene" uid="uid://xbhv7p0a8n62" path="res://entities/environment/lava.tscn" id="3_moo38"]
 [ext_resource type="Script" uid="uid://bkatiu30mb52n" path="res://entities/environment/lava.gd" id="3_nokfs"]
 [ext_resource type="PackedScene" uid="uid://c0sjb70mhesg7" path="res://entities/environment/jump_pad.tscn" id="4_nokfs"]
@@ -36,7 +36,7 @@ offsets = PackedFloat32Array(0, 0.7091837, 0.8520408, 1)
 colors = PackedColorArray(0.41876578, 0.034388494, 0.02998038, 1, 0.92156863, 0.02745098, 0.03529412, 1, 0.8227777, 0.8017858, 0.1913023, 1, 1, 1, 1, 1)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_vb5hv"]
-offset = Vector3(424.5143, -2037.6875, -339.61462)
+offset = Vector3(1162.0507, -5577.2266, -929.61615)
 fractal_type = 3
 fractal_octaves = 2
 fractal_lacunarity = 1.4
@@ -110,7 +110,10 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." index="1"]
 environment = SubResource("Environment_moo38")
 
-[node name="Player" parent="." index="5"]
+[node name="ScreenShader" parent="." index="5"]
+visible = true
+
+[node name="Player" parent="." index="6"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 51.067383, 20.535988)
 
 [node name="SolidGeometry" type="CSGCombiner3D" parent="." index="8"]
