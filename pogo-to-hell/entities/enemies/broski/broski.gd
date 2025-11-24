@@ -1,3 +1,4 @@
+class_name Broski
 extends CharacterBody3D
 
 
@@ -12,6 +13,7 @@ extends CharacterBody3D
 @export var loose_player_interval: float = 2.0
 
 
+var shoot_interval: float = 2.0
 var dir_change_interval: float = 2.0
 var origin_pos: Vector3
 var player_spotted: bool = false
@@ -20,19 +22,28 @@ var player: Player
 var circle_direction: Vector3 = Vector3.ZERO
 var time_change_dir: float = 0.0
 var time_loose_player: float = 0.0
+var time_shoot: float = 0.0
 var pieces: PackedScene = preload("res://entities/enemies/broski/broski_pieces.tscn")
+var eye_projectile: PackedScene = preload("res://entities/enemies/broski/eye_projectile.tscn")
 
 
 @onready var animation_player: AnimationPlayer = %AnimationPlayer
 @onready var debug_label: Label3D = $DebugLabel
+@onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
 
 
 func take_damage(amount: int = 1) -> void:
 	health -= amount
 	if health <= 0:
+		get_tree().get_first_node_in_group("SmokeManager").place_smoke(self.global_position + Vector3(0.0, 1.0, 0.0), true, 2.0)
+		audio_stream_player.stream = AudioStreamWAV.load_from_file("res://assets/sounds/enemy_down1.wav")
+		audio_stream_player.volume_db = -6.0
+		audio_stream_player.play()
 		var pieces_scene: Node3D = pieces.instantiate()
 		self.get_parent().add_child(pieces_scene)
 		pieces_scene.transform = self.transform
+		self.hide()
+		await get_tree().create_timer(1.0).timeout
 		self.queue_free()
 
 
@@ -79,6 +90,8 @@ func _physics_process(delta: float) -> void:
 			keep_distance_dir = -dir_to_player
 		
 		desired_velocity = (circle_direction + keep_distance_dir).normalized() * move_speed
+		
+		_shoot_projectile(dir_to_player, delta)
 	else:
 		if self.global_position.distance_to(origin_pos) > origin_distance:
 			circle_direction = origin_pos - self.global_position
@@ -90,6 +103,20 @@ func _physics_process(delta: float) -> void:
 	self.velocity = self.velocity.lerp(desired_velocity, steering_strength * delta)
 	
 	move_and_slide()
+
+
+func _shoot_projectile(dir_to_player: Vector3, delta: float) -> void:
+	time_shoot += delta
+	if time_shoot > shoot_interval:
+		audio_stream_player.stream = AudioStreamWAV.load_from_file("res://assets/sounds/enemy_shot1.wav")
+		audio_stream_player.play()
+		var projectile: Node3D = eye_projectile.instantiate()
+		get_tree().get_first_node_in_group("ProjectileContainer").add_child(projectile)
+		projectile.direction = dir_to_player
+		projectile.global_position = self.global_position + Vector3(0.0, 1.0, 0.0)
+		
+		time_shoot = 0.0
+		shoot_interval = randf_range(1.5, 4.0)
 
 
 func _random_direction() -> Vector3:

@@ -1,0 +1,88 @@
+[gd_scene load_steps=13 format=3 uid="uid://c0sjb70mhesg7"]
+
+[ext_resource type="Script" uid="uid://fypxavxv27ob" path="res://entities/environment/jump_pad.gd" id="1_xdkpd"]
+[ext_resource type="AudioStream" uid="uid://6c8ckc1q0tyr" path="res://assets/sounds/jump1.wav" id="2_k1lny"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rbm6g"]
+albedo_color = Color(0, 1, 0.05490196, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_xdkpd"]
+material = SubResource("StandardMaterial3D_rbm6g")
+top_radius = 0.9
+bottom_radius = 0.9
+height = 0.1
+
+[sub_resource type="Curve" id="Curve_k1lny"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_3knip"]
+curve = SubResource("Curve_k1lny")
+
+[sub_resource type="Curve" id="Curve_4x5x2"]
+_data = [Vector2(0, 0.6067416), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_tv1wh"]
+curve = SubResource("Curve_4x5x2")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_o8ynq"]
+gravity = Vector3(0, 1, 0)
+scale_min = 1.1999999
+scale_max = 1.1999999
+scale_curve = SubResource("CurveTexture_tv1wh")
+alpha_curve = SubResource("CurveTexture_3knip")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vmjbm"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_color = Color(0, 1, 0.23137255, 1)
+
+[sub_resource type="TorusMesh" id="TorusMesh_si43k"]
+material = SubResource("StandardMaterial3D_vmjbm")
+inner_radius = 0.7
+outer_radius = 0.8
+rings = 8
+ring_segments = 4
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_rbm6g"]
+height = 0.2
+radius = 1.0
+
+[node name="JumpPad" type="Node3D"]
+script = ExtResource("1_xdkpd")
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="."]
+use_collision = true
+polygon = PackedVector2Array(0, 0, 0, 0.2, 1, 0.2, 1.2, 0)
+mode = 1
+spin_degrees = 360.0
+spin_sides = 8
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.19787169, 0)
+mesh = SubResource("CylinderMesh_xdkpd")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+lifetime = 1.5
+process_material = SubResource("ParticleProcessMaterial_o8ynq")
+draw_pass_1 = SubResource("TorusMesh_si43k")
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.12229699, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.19868392, 0)
+shape = SubResource("CylinderShape3D_rbm6g")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.29813623, 0)
+light_color = Color(0, 1, 0, 1)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_k1lny")
+volume_db = -16.0
+bus = &"Sounds"
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

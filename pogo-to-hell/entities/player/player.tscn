@@ -1,8 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://cp0aw825yr8om"]
+[gd_scene load_steps=23 format=3 uid="uid://cp0aw825yr8om"]
 
 [ext_resource type="Script" uid="uid://olsf6f01iad6" path="res://entities/player/player.gd" id="1_symyc"]
 [ext_resource type="PackedScene" uid="uid://dhtiycvswaaqb" path="res://entities/player/view_model.tscn" id="2_abrql"]
 [ext_resource type="Script" uid="uid://ce5byukny1pod" path="res://entities/player/shooting.gd" id="3_sglur"]
+[ext_resource type="AudioStream" uid="uid://dfvql5dmwnmhq" path="res://assets/sounds/gunshot1.wav" id="4_bls4j"]
+[ext_resource type="AudioStream" uid="uid://6c8ckc1q0tyr" path="res://assets/sounds/jump1.wav" id="5_fkugw"]
+[ext_resource type="AudioStream" uid="uid://8fcw40yoddt4" path="res://assets/sounds/hurt1.wav" id="6_8fjmc"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_symyc"]
 
@@ -38,6 +41,51 @@ rings = 1
 [sub_resource type="PrismMesh" id="PrismMesh_symyc"]
 size = Vector3(0.1, 0.1, 0.01)
 
+[sub_resource type="Curve" id="Curve_8fjmc"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_qiwj3"]
+curve = SubResource("Curve_8fjmc")
+
+[sub_resource type="Gradient" id="Gradient_26q78"]
+offsets = PackedFloat32Array(0, 0.3888889)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_bectd"]
+gradient = SubResource("Gradient_26q78")
+
+[sub_resource type="Curve" id="Curve_wvtmh"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.21359223, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_7thud"]
+curve = SubResource("Curve_wvtmh")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_a1qjk"]
+emission_shape_scale = Vector3(0.1, 0.1, 0.1)
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector3(0, 1, 0)
+gravity = Vector3(0, 3, 0)
+scale_min = 0.5
+scale_max = 0.5
+scale_curve = SubResource("CurveTexture_7thud")
+color = Color(0.70796657, 0.7079665, 0.7079665, 1)
+color_ramp = SubResource("GradientTexture1D_bectd")
+alpha_curve = SubResource("CurveTexture_qiwj3")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j3ovn"]
+transparency = 1
+vertex_color_use_as_albedo = true
+metallic_specular = 0.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_afbqv"]
+material = SubResource("StandardMaterial3D_j3ovn")
+radius = 0.1
+height = 0.2
+radial_segments = 8
+rings = 4
+
 [node name="Player" type="CharacterBody3D" groups=["Player"]]
 script = ExtResource("1_symyc")
 
@@ -50,7 +98,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Head"]
 unique_name_in_owner = true
-fov = 100.0
 
 [node name="ViewModel" parent="Head/Camera3D" instance=ExtResource("2_abrql")]
 unique_name_in_owner = true
@@ -83,5 +130,29 @@ mesh = SubResource("CylinderMesh_abrql")
 transform = Transform3D(1, 0, 0, 0, 1.1924881e-08, 1, 0, -1, 1.1924881e-08, 0, 0.30007422, -0.008707311)
 mesh = SubResource("PrismMesh_symyc")
 
+[node name="GPUParticles3D" type="GPUParticles3D" parent="LowPivot/pogo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.068459, 0)
+lifetime = 0.8
+process_material = SubResource("ParticleProcessMaterial_a1qjk")
+draw_pass_1 = SubResource("SphereMesh_afbqv")
+
 [node name="Shooting" type="Node3D" parent="."]
 script = ExtResource("3_sglur")
+
+[node name="GunshotAudioPlayer" type="AudioStreamPlayer" parent="Shooting"]
+unique_name_in_owner = true
+stream = ExtResource("4_bls4j")
+bus = &"Sounds"
+
+[node name="RopePos" type="Marker3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.26383358, 1.4508579, 0.056696773)
+
+[node name="JumpAudioPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_fkugw")
+volume_db = -16.0
+bus = &"Sounds"
+
+[node name="HurtAudioPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_8fjmc")
+bus = &"Sounds"

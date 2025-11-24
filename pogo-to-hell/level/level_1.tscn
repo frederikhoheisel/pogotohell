@@ -1,0 +1,997 @@
+[gd_scene load_steps=21 format=3 uid="uid://34g43aybnmia"]
+
+[ext_resource type="PackedScene" uid="uid://do670xin754vl" path="res://level/level_template.tscn" id="1_omx5w"]
+[ext_resource type="PackedScene" uid="uid://xbhv7p0a8n62" path="res://entities/environment/lava.tscn" id="3_moo38"]
+[ext_resource type="Script" uid="uid://bkatiu30mb52n" path="res://entities/environment/lava.gd" id="3_nokfs"]
+[ext_resource type="PackedScene" uid="uid://c0sjb70mhesg7" path="res://entities/environment/jump_pad.tscn" id="4_nokfs"]
+[ext_resource type="PackedScene" uid="uid://dgunwb7odlxau" path="res://entities/enemies/broski/broski.tscn" id="5_jfgjb"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_omx5w"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_lx8gb"]
+sky_material = SubResource("ProceduralSkyMaterial_omx5w")
+
+[sub_resource type="Environment" id="Environment_moo38"]
+background_mode = 1
+sky = SubResource("Sky_lx8gb")
+ambient_light_color = Color(1, 0, 0, 1)
+tonemap_mode = 2
+ssil_enabled = true
+sdfgi_enabled = true
+sdfgi_use_occlusion = true
+sdfgi_y_scale = 2
+glow_enabled = true
+fog_enabled = true
+fog_light_color = Color(0.3231853, 0.16830945, 0.14844668, 1)
+adjustment_enabled = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jfgjb"]
+resource_local_to_scene = true
+size = Vector3(4, 72, 8)
+
+[sub_resource type="Gradient" id="Gradient_l1g64"]
+offsets = PackedFloat32Array(0, 0.7091837, 0.8520408, 1)
+colors = PackedColorArray(0.41876578, 0.034388494, 0.02998038, 1, 0.92156863, 0.02745098, 0.03529412, 1, 0.8227777, 0.8017858, 0.1913023, 1, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_vb5hv"]
+offset = Vector3(424.5143, -2037.6875, -339.61462)
+fractal_type = 3
+fractal_octaves = 2
+fractal_lacunarity = 1.4
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_vndax"]
+resource_local_to_scene = true
+noise = SubResource("FastNoiseLite_vb5hv")
+color_ramp = SubResource("Gradient_l1g64")
+seamless = true
+in_3d_space = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k4ctk"]
+albedo_texture = SubResource("NoiseTexture2D_vndax")
+emission_enabled = true
+emission = Color(0.5019608, 0, 0, 1)
+uv1_scale = Vector3(0.2, 0.2, 0.2)
+uv1_offset = Vector3(2298.9392, -2691.4475, 3057.4502)
+uv1_triplanar = true
+uv1_world_triplanar = true
+texture_filter = 0
+
+[sub_resource type="BoxMesh" id="BoxMesh_skxlf"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_k4ctk")
+size = Vector3(4, 72, 8)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nokfs"]
+resource_local_to_scene = true
+size = Vector3(4, 72, 8)
+
+[sub_resource type="Gradient" id="Gradient_xqo5k"]
+offsets = PackedFloat32Array(0, 0.7091837, 0.8520408, 1)
+colors = PackedColorArray(0.41876578, 0.034388494, 0.02998038, 1, 0.92156863, 0.02745098, 0.03529412, 1, 0.8227777, 0.8017858, 0.1913023, 1, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_m6qrj"]
+offset = Vector3(424.5143, -2037.6875, -339.61462)
+fractal_type = 3
+fractal_octaves = 2
+fractal_lacunarity = 1.4
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_co0wn"]
+resource_local_to_scene = true
+noise = SubResource("FastNoiseLite_m6qrj")
+color_ramp = SubResource("Gradient_xqo5k")
+seamless = true
+in_3d_space = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mo1ng"]
+albedo_texture = SubResource("NoiseTexture2D_co0wn")
+emission_enabled = true
+emission = Color(0.5019608, 0, 0, 1)
+uv1_scale = Vector3(0.2, 0.2, 0.2)
+uv1_offset = Vector3(2298.9392, -2691.4475, 3057.4502)
+uv1_triplanar = true
+uv1_world_triplanar = true
+texture_filter = 0
+
+[sub_resource type="BoxMesh" id="BoxMesh_jfgjb"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_mo1ng")
+size = Vector3(4, 72, 8)
+
+[node name="Level1" instance=ExtResource("1_omx5w")]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." index="0"]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+light_color = Color(1, 0.6887288, 0.63938314, 1)
+light_energy = 0.5
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="1"]
+environment = SubResource("Environment_moo38")
+
+[node name="Player" parent="." index="5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 51.067383, 20.535988)
+
+[node name="SolidGeometry" type="CSGCombiner3D" parent="." index="8"]
+use_collision = true
+
+[node name="Schacht1" type="CSGCombiner3D" parent="SolidGeometry" index="0"]
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="SolidGeometry/Schacht1" index="0"]
+radius = 16.0
+height = 100.0
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="SolidGeometry/Schacht1" index="1"]
+operation = 2
+radius = 14.0
+height = 100.0
+
+[node name="WallObstacals" type="CSGCombiner3D" parent="SolidGeometry/Schacht1" index="2"]
+
+[node name="Obstacal" type="CSGCombiner3D" parent="SolidGeometry/Schacht1/WallObstacals" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5972733, 0, -10.628317)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Schacht1/WallObstacals/Obstacal" index="0"]
+size = Vector3(2, 1, 8)
+
+[node name="Obstacal2" type="CSGCombiner3D" parent="SolidGeometry/Schacht1/WallObstacals" index="1"]
+transform = Transform3D(0.8660254, 0, 0.5, 0, 1, 0, -0.5, 0, 0.8660254, -8.166058, 8.335788, -7.5601263)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Schacht1/WallObstacals/Obstacal2" index="0"]
+size = Vector3(2, 1, 8)
+
+[node name="Obstacal3" type="CSGCombiner3D" parent="SolidGeometry/Schacht1/WallObstacals" index="2"]
+transform = Transform3D(-0.70710677, 0, -0.70710677, 0, 1, 0, 0.70710677, 0, -0.70710677, 8.2915, 8.335786, 5.992784)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Schacht1/WallObstacals/Obstacal3" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2913947, 0, 0.26025772)
+size = Vector3(2, 1, 8)
+
+[node name="Obstacal4" type="CSGCombiner3D" parent="SolidGeometry/Schacht1/WallObstacals" index="3"]
+transform = Transform3D(0.61566144, 0, -0.78801066, 0, 1, 0, 0.78801066, 0, 0.61566144, -8.187416, 19.750608, 5.4073863)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Schacht1/WallObstacals/Obstacal4" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2913947, 0, 0.26025772)
+size = Vector3(2, 1, 8)
+
+[node name="Obstacal5" type="CSGCombiner3D" parent="SolidGeometry/Schacht1/WallObstacals" index="4"]
+transform = Transform3D(0.61566144, 0, -0.78801066, 0, 1, 0, 0.78801066, 0, 0.61566144, 8.596932, 24.09839, -6.445869)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Schacht1/WallObstacals/Obstacal5" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2913947, 0, 0.26025772)
+size = Vector3(2, 1, 8)
+
+[node name="Obstacal6" type="CSGCombiner3D" parent="SolidGeometry/Schacht1/WallObstacals" index="5"]
+transform = Transform3D(-0.8424523, 0, -0.5387707, 0, 1, 0, 0.5387707, 0, -0.8424523, -6.102584, 35.345474, -7.937933)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Schacht1/WallObstacals/Obstacal6" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2913947, 0, 0.26025772)
+size = Vector3(2, 1, 8)
+
+[node name="Deckel" type="CSGCombiner3D" parent="SolidGeometry" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 50, 0)
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="SolidGeometry/Deckel" index="0"]
+radius = 16.0
+radial_segments = 8
+
+[node name="CSGSphere3D2" type="CSGSphere3D" parent="SolidGeometry/Deckel" index="1"]
+operation = 2
+radius = 14.0
+radial_segments = 8
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="SolidGeometry/Deckel" index="2"]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 16)
+radius = 16.0
+height = 32.0
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="SolidGeometry/Deckel" index="3"]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 14)
+operation = 2
+radius = 14.0
+height = 30.0
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="SolidGeometry/Deckel" index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 16)
+size = Vector3(32, 1, 32)
+
+[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="SolidGeometry/Deckel" index="5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -8, 0)
+operation = 2
+radius = 16.0
+height = 16.0
+
+[node name="Boden" type="CSGCombiner3D" parent="SolidGeometry" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -64, 0)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Boden" index="0"]
+size = Vector3(32, 32, 32)
+
+[node name="dildos" type="CSGCombiner3D" parent="SolidGeometry/Boden" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 17.314827, 0)
+
+[node name="dildo" type="CSGCombiner3D" parent="SolidGeometry/Boden/dildos" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.56458, 6.54821, 5.6068506)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="SolidGeometry/Boden/dildos/dildo" index="0"]
+radius = 4.0
+height = 16.0
+cone = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Boden/dildos/dildo" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.7609634, 0)
+operation = 2
+size = Vector3(8, 8, 8)
+
+[node name="dildo2" type="CSGCombiner3D" parent="SolidGeometry/Boden/dildos" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.41208, 13.504597, -3.8367133)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="SolidGeometry/Boden/dildos/dildo2" index="0"]
+radius = 4.0
+height = 32.0
+cone = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Boden/dildos/dildo2" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.943861, 0)
+operation = 2
+size = Vector3(8, 8, 8)
+
+[node name="Obstical7" type="CSGCombiner3D" parent="SolidGeometry/Boden/dildos/dildo2" index="2"]
+transform = Transform3D(0.9659258, 0, -0.25881904, 0, 1, 0, 0.25881904, 0, 0.9659258, -0.7559695, -0.7164879, 4.1246886)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Boden/dildos/dildo2/Obstical7" index="0"]
+size = Vector3(2, 1, 8)
+
+[node name="dildo3" type="CSGCombiner3D" parent="SolidGeometry/Boden/dildos" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.384428, 28.21942, -3.0789876)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="SolidGeometry/Boden/dildos/dildo3" index="0"]
+radius = 4.0
+height = 64.0
+cone = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Boden/dildos/dildo3" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20.010263, 0)
+operation = 2
+size = Vector3(8, 24, 8)
+
+[node name="Obstical8" type="CSGCombiner3D" parent="SolidGeometry/Boden/dildos/dildo3" index="2"]
+transform = Transform3D(0.8278353, 0, 0.5609714, 0, 1, 0, -0.5609714, 0, 0.8278353, 2.1364803, 0.96234703, 3.366963)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Boden/dildos/dildo3/Obstical8" index="0"]
+size = Vector3(2, 1, 8)
+
+[node name="Obstical9" type="CSGCombiner3D" parent="SolidGeometry/Boden/dildos/dildo3" index="3"]
+transform = Transform3D(0.7451968, 0, -0.6668447, 0, 1, 0, 0.6668447, 0, 0.7451968, -3.1309128, -4.4999294, 3.366963)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Boden/dildos/dildo3/Obstical9" index="0"]
+size = Vector3(2, 1, 8)
+
+[node name="Schacht2" type="CSGCombiner3D" parent="SolidGeometry" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -128, -32)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="SolidGeometry/Schacht2" index="0"]
+radius = 16.0
+height = 256.0
+
+[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="SolidGeometry/Schacht2" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -96, 0)
+radius = 32.0
+height = 64.0
+cone = true
+
+[node name="CSGCylinder3D4" type="CSGCylinder3D" parent="SolidGeometry/Schacht2" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -96, 0)
+operation = 2
+radius = 30.0
+height = 62.0
+cone = true
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="SolidGeometry/Schacht2" index="3"]
+operation = 2
+radius = 14.0
+height = 250.0
+
+[node name="Obstacle" type="CSGCombiner3D" parent="SolidGeometry/Schacht2" index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.827106, 0, 0)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Schacht2/Obstacle" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8540726, 0, 0)
+size = Vector3(12, 1, 3)
+
+[node name="Obstacle2" type="CSGCombiner3D" parent="SolidGeometry/Schacht2" index="5"]
+transform = Transform3D(0.64278764, 0, 0.76604444, 0, 1, 0, -0.76604444, 0, 0.64278764, 9.358488, 65.64344, -6.4617767)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Schacht2/Obstacle2" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8540726, 0, 0)
+size = Vector3(12, 1, 3)
+
+[node name="Obstacle3" type="CSGCombiner3D" parent="SolidGeometry/Schacht2" index="6"]
+transform = Transform3D(-0.9612617, 0, 0.27563736, 0, 1, 0, -0.27563736, 0, -0.9612617, -9.452984, 87.4817, -6.4617767)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Schacht2/Obstacle3" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8540726, 0, 0)
+size = Vector3(12, 1, 3)
+
+[node name="Obstacle4" type="CSGCombiner3D" parent="SolidGeometry/Schacht2" index="7"]
+transform = Transform3D(0.43837115, 0, -0.89879405, 0, 1, 0, 0.89879405, 0, 0.43837115, 2.6108541, 38.58358, 10.337654)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Schacht2/Obstacle4" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8540726, 0, 0)
+size = Vector3(12, 1, 3)
+
+[node name="Obstacle5" type="CSGCombiner3D" parent="SolidGeometry/Schacht2" index="8"]
+transform = Transform3D(-0.81915206, 0, -0.57357645, 0, 1, 0, 0.57357645, 0, -0.81915206, -10.104769, 19.883217, 5.488447)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Schacht2/Obstacle5" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8540726, 0, 0)
+size = Vector3(12, 1, 3)
+
+[node name="Obstacle6" type="CSGCombiner3D" parent="SolidGeometry/Schacht2" index="9"]
+transform = Transform3D(-0.78801084, 0, 0.6156614, 0, 1, 0, -0.6156614, 0, -0.78801084, -8.621722, -33.672607, -8.014236)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Schacht2/Obstacle6" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8540726, 0, 0)
+size = Vector3(12, 1, 3)
+
+[node name="Obstacle7" type="CSGCombiner3D" parent="SolidGeometry/Schacht2" index="10"]
+transform = Transform3D(-0.99965733, 0, 0.026176952, 0, 1, 0, -0.026176952, 0, -0.99965733, 6.084137, -57.617996, 6.08)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Schacht2/Obstacle7" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8540726, 0, 0)
+size = Vector3(12, 1, 3)
+
+[node name="dildo4" type="CSGCombiner3D" parent="SolidGeometry/Schacht2" index="11"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0874691, -105.42726, -2.8092613)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="SolidGeometry/Schacht2/dildo4" index="0"]
+radius = 4.0
+height = 64.0
+cone = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Schacht2/dildo4" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20.010263, 0)
+operation = 2
+size = Vector3(8, 24, 8)
+
+[node name="Obstical8" type="CSGCombiner3D" parent="SolidGeometry/Schacht2/dildo4" index="2"]
+transform = Transform3D(0.8278353, 0, 0.5609714, 0, 1, 0, -0.5609714, 0, 0.8278353, 2.1364803, 0.96234703, 3.366963)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Schacht2/dildo4/Obstical8" index="0"]
+size = Vector3(2, 1, 8)
+
+[node name="Obstical9" type="CSGCombiner3D" parent="SolidGeometry/Schacht2/dildo4" index="3"]
+transform = Transform3D(0.7451968, 0, -0.6668447, 0, 1, 0, 0.6668447, 0, 0.7451968, -3.1309128, -4.4999294, 3.366963)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Schacht2/dildo4/Obstical9" index="0"]
+size = Vector3(2, 1, 8)
+
+[node name="dildo5" type="CSGCombiner3D" parent="SolidGeometry/Schacht2" index="12"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.0494, -114.62317, 8.79722)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="SolidGeometry/Schacht2/dildo5" index="0"]
+radius = 4.0
+height = 32.0
+cone = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Schacht2/dildo5" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 13.54631, 0)
+operation = 2
+size = Vector3(8, 24, 8)
+
+[node name="dildo6" type="CSGCombiner3D" parent="SolidGeometry/Schacht2" index="13"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.3822927, -121.65622, 13.97134)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="SolidGeometry/Schacht2/dildo6" index="0"]
+radius = 4.0
+height = 32.0
+cone = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Schacht2/dildo6" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 13.54631, 0)
+operation = 2
+size = Vector3(8, 24, 8)
+
+[node name="dildo7" type="CSGCombiner3D" parent="SolidGeometry/Schacht2" index="14"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.0885935, -121.65622, -12.524139)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="SolidGeometry/Schacht2/dildo7" index="0"]
+radius = 4.0
+height = 32.0
+cone = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Schacht2/dildo7" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 13.54631, 0)
+operation = 2
+size = Vector3(8, 24, 8)
+
+[node name="Schacht3" type="CSGCombiner3D" parent="SolidGeometry" index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32, -202, -32)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="SolidGeometry/Schacht3" index="0"]
+radius = 16.0
+height = 256.0
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="SolidGeometry/Schacht3" index="1"]
+operation = 2
+radius = 14.0
+height = 250.0
+
+[node name="Obstacle8" type="CSGCombiner3D" parent="SolidGeometry/Schacht3" index="2"]
+transform = Transform3D(-0.8113394, 0, -0.58457536, 0, 1, 0, 0.58457536, 0, -0.8113394, -8.911543, 16.382004, 5.4478016)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Schacht3/Obstacle8" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8540726, 0, 0)
+size = Vector3(12, 1, 3)
+
+[node name="Obstacle9" type="CSGCombiner3D" parent="SolidGeometry/Schacht3" index="3"]
+transform = Transform3D(0.7746465, 0, -0.63239443, 0, 1, 0, 0.63239443, 0, 0.7746465, 7.7002525, 43.019394, 8.65493)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Schacht3/Obstacle9" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8540726, 0, 0)
+size = Vector3(12, 1, 3)
+
+[node name="Obstacle10" type="CSGCombiner3D" parent="SolidGeometry/Schacht3" index="4"]
+transform = Transform3D(-0.987568, 0, 0.15719287, 0, 1, 0, -0.15719287, 0, -0.987568, -11.084354, 65.620865, -0.39569092)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Schacht3/Obstacle10" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8540726, 0, 0)
+size = Vector3(12, 1, 3)
+
+[node name="Obstacle11" type="CSGCombiner3D" parent="SolidGeometry/Schacht3" index="5"]
+transform = Transform3D(0.49436677, 0, 0.8692535, 0, 1, 0, -0.8692535, 0, 0.49436677, 4.838604, 90.56551, -9.774643)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Schacht3/Obstacle11" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8540726, 0, 0)
+size = Vector3(12, 1, 3)
+
+[node name="Obstacle12" type="CSGCombiner3D" parent="SolidGeometry/Schacht3" index="6"]
+transform = Transform3D(-0.14696372, 0, -0.98914206, 0, 1, 0, 0.98914206, 0, -0.14696372, -0.993927, 77.87811, 11.042194)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Schacht3/Obstacle12" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8540726, 0, 0)
+size = Vector3(12, 1, 3)
+
+[node name="Obstacle13" type="CSGCombiner3D" parent="SolidGeometry/Schacht3" index="7"]
+transform = Transform3D(0.96774876, 0, -0.25191763, 0, 1, 0, 0.25191763, 0, 0.96774876, 9.020218, -10.210999, 6.7494774)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Schacht3/Obstacle13" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8540726, 0, 0)
+size = Vector3(12, 1, 3)
+
+[node name="Obstacle14" type="CSGCombiner3D" parent="SolidGeometry/Schacht3" index="8"]
+transform = Transform3D(-0.35970336, 0, 0.9330667, 0, 1, 0, -0.9330667, 0, -0.35970336, -0.5239639, -29.250519, -10.498474)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Schacht3/Obstacle14" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8540726, 0, 0)
+size = Vector3(12, 1, 3)
+
+[node name="Obstacle15" type="CSGCombiner3D" parent="SolidGeometry/Schacht3" index="9"]
+transform = Transform3D(-0.75127584, 0, -0.65998816, 0, 1, 0, 0.65998816, 0, -0.75127584, -9.289103, -46.177124, 4.1301765)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Schacht3/Obstacle15" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8540726, 0, 0)
+size = Vector3(12, 1, 3)
+
+[node name="Obstacle16" type="CSGCombiner3D" parent="SolidGeometry/Schacht3" index="10"]
+transform = Transform3D(-0.2850531, 0, -0.95851165, 0, 1, 0, 0.95851165, 0, -0.2850531, -1.3993359, -63.346497, 10.661303)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Schacht3/Obstacle16" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8540726, 0, 0)
+size = Vector3(12, 1, 3)
+
+[node name="Obstacle17" type="CSGCombiner3D" parent="SolidGeometry/Schacht3" index="11"]
+transform = Transform3D(0.9651766, 0, 0.26159915, 0, 1, 0, -0.26159915, 0, 0.9651766, 10.246414, -93.51941, -3.4449158)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Schacht3/Obstacle17" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8540726, 0, 0)
+size = Vector3(12, 1, 3)
+
+[node name="dildo8" type="CSGCombiner3D" parent="SolidGeometry/Schacht3" index="12"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.011325836, -119.28812, 5.419922)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="SolidGeometry/Schacht3/dildo8" index="0"]
+radius = 4.0
+height = 32.0
+cone = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Schacht3/dildo8" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 13.54631, 0)
+operation = 2
+size = Vector3(8, 24, 8)
+
+[node name="Schacht4" type="CSGCombiner3D" parent="SolidGeometry" index="5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -296, -64)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="SolidGeometry/Schacht4" index="0"]
+radius = 16.0
+height = 256.0
+
+[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="SolidGeometry/Schacht4" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, 0)
+radius = 32.0
+height = 64.0
+cone = true
+
+[node name="CSGCylinder3D5" type="CSGCylinder3D" parent="SolidGeometry/Schacht4" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, 0)
+operation = 2
+radius = 30.0
+height = 64.0
+cone = true
+
+[node name="CSGCylinder3D4" type="CSGCylinder3D" parent="SolidGeometry/Schacht4" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, -80, 0)
+radius = 32.0
+height = 96.0
+
+[node name="CSGCylinder3D6" type="CSGCylinder3D" parent="SolidGeometry/Schacht4" index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, -79, 0)
+operation = 2
+radius = 30.0
+height = 94.0
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="SolidGeometry/Schacht4" index="5"]
+operation = 2
+radius = 14.0
+height = 250.0
+
+[node name="Obstacle18" type="CSGCombiner3D" parent="SolidGeometry/Schacht4" index="6"]
+transform = Transform3D(0.9024503, 0, 0.43079424, 0, 1, 0, -0.43079424, 0, 0.9024503, 9.8296585, 69.66762, -1.3677063)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Schacht4/Obstacle18" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8540726, 0, 0)
+size = Vector3(12, 1, 3)
+
+[node name="Obstacle19" type="CSGCombiner3D" parent="SolidGeometry/Schacht4" index="7"]
+transform = Transform3D(-0.34488824, 0, 0.93864393, 0, 1, 0, -0.93864393, 0, -0.34488824, -5.1111164, 49.557236, -9.643883)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Schacht4/Obstacle19" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8540726, 0, 0)
+size = Vector3(12, 1, 3)
+
+[node name="Obstacle20" type="CSGCombiner3D" parent="SolidGeometry/Schacht4" index="8"]
+transform = Transform3D(-0.53799164, 0, -0.8429502, 0, 1, 0, 0.8429502, 0, -0.53799164, -7.439525, 15.777527, 7.5620384)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Schacht4/Obstacle20" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8540726, 0, 0)
+size = Vector3(12, 1, 3)
+
+[node name="Obstacle21" type="CSGCombiner3D" parent="SolidGeometry/Schacht4" index="9"]
+transform = Transform3D(0.9711383, 0, -0.23851696, 0, 1, 0, 0.23851696, 0, 0.9711383, 9.526766, -12.86145, 4.9164734)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Schacht4/Obstacle21" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8540726, 0, 0)
+size = Vector3(12, 1, 3)
+
+[node name="Obstacle22" type="CSGCombiner3D" parent="SolidGeometry/Schacht4" index="10"]
+transform = Transform3D(0.9215113, 0, 0.38835168, 0, 1, 0, -0.38835168, 0, 0.9215113, 5.49014, -40.10669, -12.289047)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Schacht4/Obstacle22" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8540726, 0, 0)
+size = Vector3(12, 1, 3)
+
+[node name="Obstacle24" type="CSGCombiner3D" parent="SolidGeometry/Schacht4" index="11"]
+transform = Transform3D(-0.77905333, 0, 0.6269577, 0, 1, 0, -0.6269577, 0, -0.77905333, -37.300377, -50.0856, -13.711899)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Schacht4/Obstacle24" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8540726, 0, 0)
+size = Vector3(12, 1, 3)
+
+[node name="Obstacle23" type="CSGCombiner3D" parent="SolidGeometry/Schacht4" index="12"]
+transform = Transform3D(0.4333442, 0, -0.9012285, 0, 1, 0, 0.9012285, 0, 0.4333442, -6.6435556, -67.67789, 22.90213)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Schacht4/Obstacle23" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8540726, 0, 0)
+size = Vector3(12, 1, 3)
+
+[node name="Obstacle25" type="CSGCombiner3D" parent="SolidGeometry/Schacht4" index="13"]
+transform = Transform3D(-0.7544121, 0, -0.6564012, 0, 1, 0, 0.6564012, 0, -0.7544121, -34.875404, -81.35565, 19.279636)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Schacht4/Obstacle25" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8540726, 0, 0)
+size = Vector3(12, 1, 3)
+
+[node name="Obstacle26" type="CSGCombiner3D" parent="SolidGeometry/Schacht4" index="14"]
+transform = Transform3D(0.41902456, 0, 0.90797484, 0, 1, 0, -0.90797484, 0, 0.41902456, -10.167917, -94.617615, -25.212738)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Schacht4/Obstacle26" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8540726, 0, 0)
+size = Vector3(12, 1, 3)
+
+[node name="Obstacle27" type="CSGCombiner3D" parent="SolidGeometry/Schacht4" index="15"]
+transform = Transform3D(-0.99403536, 0, 0.1090581, 0, 1, 0, -0.1090581, 0, -0.99403536, -42.775978, -109.022644, 1.1375237)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Schacht4/Obstacle27" index="0"]
+transform = Transform3D(0.8692793, 0, -0.49432117, 0, 1, 0, 0.49432117, 0, 0.8692793, -5.0127296, 0, 15.574379)
+size = Vector3(12, 1, 3)
+
+[node name="dildo9" type="CSGCombiner3D" parent="SolidGeometry/Schacht4" index="16"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.9358463, -121.72217, 19.348995)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="SolidGeometry/Schacht4/dildo9" index="0"]
+radius = 4.0
+height = 32.0
+cone = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Schacht4/dildo9" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 13.54631, 0)
+operation = 2
+size = Vector3(8, 24, 8)
+
+[node name="dildo8" type="CSGCombiner3D" parent="SolidGeometry/Schacht4" index="17"]
+transform = Transform3D(0.5627472, 0, -0.82662904, 0, 1, 0, 0.82662904, 0, 0.5627472, -3.5386457, -110.24924, -8.741661)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="SolidGeometry/Schacht4/dildo8" index="0"]
+radius = 4.0
+height = 64.0
+cone = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Schacht4/dildo8" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20.010263, 0)
+operation = 2
+size = Vector3(8, 24, 8)
+
+[node name="Obstical8" type="CSGCombiner3D" parent="SolidGeometry/Schacht4/dildo8" index="2"]
+transform = Transform3D(0.8278353, 0, 0.5609714, 0, 1, 0, -0.5609714, 0, 0.8278353, 2.1364803, 0.96234703, 3.366963)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Schacht4/dildo8/Obstical8" index="0"]
+size = Vector3(2, 1, 8)
+
+[node name="Obstical9" type="CSGCombiner3D" parent="SolidGeometry/Schacht4/dildo8" index="3"]
+transform = Transform3D(0.7451968, 0, -0.6668447, 0, 1, 0, 0.6668447, 0, 0.7451968, -3.1309128, -4.4999294, 3.366963)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Schacht4/dildo8/Obstical9" index="0"]
+size = Vector3(2, 1, 8)
+
+[node name="dildo10" type="CSGCombiner3D" parent="SolidGeometry/Schacht4" index="18"]
+transform = Transform3D(-0.9510187, 0, 0.30913332, 0, 1, 0, -0.30913332, 0, -0.9510187, -22.706146, -99.09491, 13.956055)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="SolidGeometry/Schacht4/dildo10" index="0"]
+radius = 4.0
+height = 64.0
+cone = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Schacht4/dildo10" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20.010263, 0)
+operation = 2
+size = Vector3(8, 24, 8)
+
+[node name="Obstical8" type="CSGCombiner3D" parent="SolidGeometry/Schacht4/dildo10" index="2"]
+transform = Transform3D(0.8278353, 0, 0.5609714, 0, 1, 0, -0.5609714, 0, 0.8278353, 2.1364803, 0.96234703, 3.366963)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Schacht4/dildo10/Obstical8" index="0"]
+size = Vector3(2, 1, 8)
+
+[node name="Obstical9" type="CSGCombiner3D" parent="SolidGeometry/Schacht4/dildo10" index="3"]
+transform = Transform3D(0.7451968, 0, -0.6668447, 0, 1, 0, 0.6668447, 0, 0.7451968, -3.1309128, -4.4999294, 3.366963)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Schacht4/dildo10/Obstical9" index="0"]
+size = Vector3(2, 1, 8)
+
+[node name="Schacht5" type="CSGCombiner3D" parent="SolidGeometry" index="6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33, -361, -64)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="SolidGeometry/Schacht5" index="0"]
+radius = 16.0
+height = 256.0
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="SolidGeometry/Schacht5" index="1"]
+operation = 2
+radius = 14.0
+height = 250.0
+
+[node name="Obstacle24" type="CSGCombiner3D" parent="SolidGeometry/Schacht5" index="2"]
+transform = Transform3D(-0.3850682, 0, 0.92288804, 0, 1, 0, -0.92288804, 0, -0.3850682, -4.2353554, 90.5477, -9.300697)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Schacht5/Obstacle24" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8540726, 0, 0)
+size = Vector3(12, 1, 3)
+
+[node name="Obstacle25" type="CSGCombiner3D" parent="SolidGeometry/Schacht5" index="3"]
+transform = Transform3D(-0.6815134, 0, -0.73180556, 0, 1, 0, 0.73180556, 0, -0.6815134, -10.4361, 40.874207, 7.276005)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Schacht5/Obstacle25" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8540726, 0, 0)
+size = Vector3(12, 1, 3)
+
+[node name="Obstacle26" type="CSGCombiner3D" parent="SolidGeometry/Schacht5" index="4"]
+transform = Transform3D(0.68751824, 0, -0.726167, 0, 1, 0, 0.726167, 0, 0.68751824, 8.295834, 17.920868, 7.9459267)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Schacht5/Obstacle26" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8540726, 0, 0)
+size = Vector3(12, 1, 3)
+
+[node name="Obstacle27" type="CSGCombiner3D" parent="SolidGeometry/Schacht5" index="5"]
+transform = Transform3D(0.5062598, 0, 0.86238086, 0, 1, 0, -0.86238086, 0, 0.5062598, 7.8966637, -17.293976, -7.319702)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Schacht5/Obstacle27" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8540726, 0, 0)
+size = Vector3(12, 1, 3)
+
+[node name="Obstacle28" type="CSGCombiner3D" parent="SolidGeometry/Schacht5" index="6"]
+transform = Transform3D(-0.9468008, 0, 0.32181984, 0, 1, 0, -0.32181984, 0, -0.9468008, -9.917631, -45.55951, -5.1812363)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Schacht5/Obstacle28" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8540726, 0, 0)
+size = Vector3(12, 1, 3)
+
+[node name="Obstacle29" type="CSGCombiner3D" parent="SolidGeometry/Schacht5" index="7"]
+transform = Transform3D(0.04947704, 0, -0.99877536, 0, 1, 0, 0.99877536, 0, 0.04947704, 2.747757, -68.052155, 11.232731)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Schacht5/Obstacle29" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8540726, 0, 0)
+size = Vector3(12, 1, 3)
+
+[node name="S1-S2" type="CSGCombiner3D" parent="SolidGeometry" index="7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -21, -16)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="SolidGeometry/S1-S2" index="0"]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+radius = 12.0
+height = 7.0
+
+[node name="connection1" type="CSGCylinder3D" parent="SolidGeometry" index="8"]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, -20, -16)
+operation = 2
+radius = 8.0
+height = 12.0
+
+[node name="S2-S3-1" type="CSGCombiner3D" parent="SolidGeometry" index="9"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 16, -103.83376, -32)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="SolidGeometry/S2-S3-1" index="0"]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+radius = 12.0
+height = 7.0
+
+[node name="connection2" type="CSGCylinder3D" parent="SolidGeometry" index="10"]
+transform = Transform3D(-4.371139e-08, -1, -4.371139e-08, 0, -4.371139e-08, 1, -1, 4.371139e-08, 1.9106855e-15, 17, -103.99709, -32)
+operation = 2
+radius = 8.0
+height = 12.0
+
+[node name="S2-S3-2" type="CSGCombiner3D" parent="SolidGeometry" index="11"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 15.838453, -212.4111, -32)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="SolidGeometry/S2-S3-2" index="0"]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+radius = 12.0
+height = 7.0
+
+[node name="connection3" type="CSGCylinder3D" parent="SolidGeometry" index="12"]
+transform = Transform3D(-4.371139e-08, -1, -4.371139e-08, 0, -4.371139e-08, 1, -1, 4.371139e-08, 1.9106855e-15, 17, -212.9971, -32)
+operation = 2
+radius = 8.0
+height = 12.0
+
+[node name="S2-S4" type="CSGCombiner3D" parent="SolidGeometry" index="13"]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, -206.4111, -48.21038)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="SolidGeometry/S2-S4" index="0"]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+radius = 12.0
+height = 8.0
+
+[node name="connection4" type="CSGCylinder3D" parent="SolidGeometry" index="14"]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -0.010846615, -206.55928, -48.755413)
+operation = 2
+radius = 8.0
+height = 12.0
+
+[node name="S3-S5" type="CSGCombiner3D" parent="SolidGeometry" index="15"]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 33, -298.4111, -47.742043)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="SolidGeometry/S3-S5" index="0"]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0)
+radius = 12.0
+height = 8.0
+
+[node name="connection5" type="CSGCylinder3D" parent="SolidGeometry" index="16"]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 32.98915, -298.55927, -48.755413)
+operation = 2
+radius = 8.0
+height = 12.0
+
+[node name="S4-S5" type="CSGCombiner3D" parent="SolidGeometry" index="17"]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 17.056528, -388.4111, -64)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="SolidGeometry/S4-S5" index="0"]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, -2.3739471, 0, 0)
+radius = 12.0
+height = 8.0
+
+[node name="connection6" type="CSGCylinder3D" parent="SolidGeometry" index="18"]
+transform = Transform3D(-4.371139e-08, -1, -4.371139e-08, 0, -4.371139e-08, 1, -1, 4.371139e-08, 1.9106855e-15, 17.000002, -390.5235, -62.655853)
+operation = 2
+radius = 8.0
+height = 12.0
+
+[node name="Lava" type="Node" parent="." index="9"]
+
+[node name="Lava" parent="Lava" index="0" instance=ExtResource("3_moo38")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 56.992, 28.969795)
+width = 8.0
+height = 16.0
+
+[node name="Lava2" parent="Lava" index="1" instance=ExtResource("3_moo38")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 49.8, 28.166)
+width = 32.0
+depth = 2.0
+
+[node name="Lava3" parent="Lava" index="2" instance=ExtResource("3_moo38")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -47.499966, 0)
+width = 32.0
+depth = 32.0
+
+[node name="Lava8" parent="Lava" index="3" instance=ExtResource("3_moo38")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -255.18933, -31.591267)
+width = 51.0
+depth = 51.0
+
+[node name="Lava9" type="Node3D" parent="Lava" index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32, -326.50464, -32.090584)
+script = ExtResource("3_nokfs")
+width = 32.0
+depth = 32.0
+speed = Vector3(5, -24, -4)
+
+[node name="DamageArea" type="Area3D" parent="Lava/Lava9" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Lava/Lava9/DamageArea" index="0"]
+unique_name_in_owner = true
+shape = SubResource("BoxShape3D_jfgjb")
+
+[node name="LavaMesh" type="MeshInstance3D" parent="Lava/Lava9" index="1"]
+unique_name_in_owner = true
+mesh = SubResource("BoxMesh_skxlf")
+
+[node name="Lava12" type="Node3D" parent="Lava" index="5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, -291, -32)
+script = ExtResource("3_nokfs")
+width = 4.0
+height = 72.0
+depth = 8.0
+speed = Vector3(5, -24, -4)
+
+[node name="DamageArea" type="Area3D" parent="Lava/Lava12" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Lava/Lava12/DamageArea" index="0"]
+shape = SubResource("BoxShape3D_nokfs")
+
+[node name="LavaMesh" type="MeshInstance3D" parent="Lava/Lava12" index="1"]
+mesh = SubResource("BoxMesh_jfgjb")
+
+[node name="Lava10" parent="Lava" index="6" instance=ExtResource("3_moo38")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, -422.45667, -65.09058)
+width = 64.0
+depth = 64.0
+
+[node name="Lava11" parent="Lava" index="7" instance=ExtResource("3_moo38")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.910473, -485.3942, -65.09058)
+width = 32.0
+depth = 32.0
+
+[node name="Lava4" parent="Lava" index="8" instance=ExtResource("3_moo38")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.5, 0, 0)
+height = 100.0
+depth = 5.0
+
+[node name="Lava5" parent="Lava" index="9" instance=ExtResource("3_moo38")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.5, 0, 0)
+height = 100.0
+depth = 5.0
+
+[node name="Lava6" parent="Lava" index="10" instance=ExtResource("3_moo38")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.5, 49.8, 12)
+depth = 32.0
+
+[node name="Lava7" parent="Lava" index="11" instance=ExtResource("3_moo38")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.5, 49.8, 12)
+depth = 32.0
+
+[node name="Lava13" parent="Lava" index="12" instance=ExtResource("3_moo38")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.06934166, -338.4193, -55)
+width = 8.0
+height = 164.0
+depth = 8.0
+
+[node name="JumpPads" type="Node" parent="." index="10"]
+
+[node name="JumpPad" parent="JumpPads" index="0" instance=ExtResource("4_nokfs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.6378195, -38.36519, 5.6899)
+
+[node name="JumpPad2" parent="JumpPads" index="1" instance=ExtResource("4_nokfs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.3534565, -25.25872, -3.702069)
+
+[node name="JumpPad3" parent="JumpPads" index="2" instance=ExtResource("4_nokfs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.3380184, -10.466604, -3.1465077)
+
+[node name="JumpPad4" parent="JumpPads" index="3" instance=ExtResource("4_nokfs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.0536327, -17.01863, 2.4050522)
+
+[node name="JumpPad5" parent="JumpPads" index="4" instance=ExtResource("4_nokfs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6015625, -22.482574, 2.4050536)
+
+[node name="JumpPad6" parent="JumpPads" index="5" instance=ExtResource("4_nokfs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.7213936, -33.423855, 2.536193)
+
+[node name="JumpPad7" parent="JumpPads" index="6" instance=ExtResource("4_nokfs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.393568, -248.11581, -18.040375)
+
+[node name="JumpPad8" parent="JumpPads" index="7" instance=ExtResource("4_nokfs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.030093, -248.17265, -44.495995)
+
+[node name="JumpPad9" parent="JumpPads" index="8" instance=ExtResource("4_nokfs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.787084, -241.0924, -23.289333)
+
+[node name="JumpPad10" parent="JumpPads" index="9" instance=ExtResource("4_nokfs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0874393, -225.43587, -34.836452)
+
+[node name="JumpPad11" parent="JumpPads" index="10" instance=ExtResource("4_nokfs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3461077, -231.98036, -29.466507)
+
+[node name="JumpPad12" parent="JumpPads" index="11" instance=ExtResource("4_nokfs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.0342803, -237.45828, -29.473387)
+
+[node name="JumpPad13" parent="JumpPads" index="12" instance=ExtResource("4_nokfs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.977077, -319.76715, -26.578445)
+
+[node name="JumpPad14" parent="JumpPads" index="13" instance=ExtResource("4_nokfs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5076745, -398.27008, -72.749626)
+
+[node name="JumpPad15" parent="JumpPads" index="14" instance=ExtResource("4_nokfs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.1159644, -404.81317, -66.51368)
+
+[node name="JumpPad16" parent="JumpPads" index="15" instance=ExtResource("4_nokfs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.782609, -410.21008, -73.7424)
+
+[node name="JumpPad17" parent="JumpPads" index="16" instance=ExtResource("4_nokfs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.369638, -404.5456, -75.071175)
+
+[node name="JumpPad18" parent="JumpPads" index="17" instance=ExtResource("4_nokfs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.175135, -399.122, -53.637844)
+
+[node name="JumpPad19" parent="JumpPads" index="18" instance=ExtResource("4_nokfs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.478575, -393.6671, -56.65513)
+
+[node name="JumpPad20" parent="JumpPads" index="19" instance=ExtResource("4_nokfs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.682518, -387.1142, -50.063232)
+
+[node name="JumpPad21" parent="JumpPads" index="20" instance=ExtResource("4_nokfs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.973908, -416.22565, -44.65356)
+
+[node name="Enemies" type="Node" parent="." index="11"]
+
+[node name="Broski" parent="Enemies" index="0" instance=ExtResource("5_jfgjb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.86430216, -230.2139, -27.264055)
+
+[node name="Broski2" parent="Enemies" index="1" instance=ExtResource("5_jfgjb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.40247, -314.02066, -34.420532)
+
+[node name="Broski3" parent="Enemies" index="2" instance=ExtResource("5_jfgjb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.985195, -314.02066, -34.420532)
+
+[node name="Broski4" parent="Enemies" index="3" instance=ExtResource("5_jfgjb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.191578, -394.468, -74.17603)
+
+[node name="Broski5" parent="Enemies" index="4" instance=ExtResource("5_jfgjb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.4476748, -394.468, -66.421974)
+
+[node name="Broski6" parent="Enemies" index="5" instance=ExtResource("5_jfgjb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.8300905, -394.468, -65.9354)
+
+[node name="Broski7" parent="Enemies" index="6" instance=ExtResource("5_jfgjb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.0468445, -394.468, -58.321304)
+
+[node name="Broski8" parent="Enemies" index="7" instance=ExtResource("5_jfgjb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.790216, -389.00558, -59.195976)
+
+[node name="Broski9" parent="Enemies" index="8" instance=ExtResource("5_jfgjb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.860054, -389.00558, -50.20412)
+
+[connection signal="body_entered" from="Lava/Lava9/DamageArea" to="Lava/Lava9" method="_on_damage_area_body_entered"]
+[connection signal="body_exited" from="Lava/Lava9/DamageArea" to="Lava/Lava9" method="_on_damage_area_body_exited"]
+[connection signal="body_entered" from="Lava/Lava12/DamageArea" to="Lava/Lava12" method="_on_damage_area_body_entered"]
+[connection signal="body_exited" from="Lava/Lava12/DamageArea" to="Lava/Lava12" method="_on_damage_area_body_exited"]

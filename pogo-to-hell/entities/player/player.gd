@@ -2,18 +2,24 @@ class_name Player
 extends CharacterBody3D
 
 
+signal damage_taken
+
+
 const JUMP_VELOCITY = 7.5
 
 
-var look_sensitivity: float = 0.005
+@export var health: int = 20
 
-var ground_speed: float = 3.0
-var ground_accel: float = 14.0
-var ground_decel: float = 10.0
+
+var look_sensitivity: float = 0.001
+
+var ground_speed: float = 2.0
+var ground_accel: float = 10.0
+var ground_decel: float = 5.0
 var ground_friction: float = 3.0
 
 var air_accel: float = 14.0
-var air_move_speed: float = 3.0
+var air_move_speed: float = 8.0
 var air_speed_cap: float = 1.5
 
 var wall_normal: Vector3 = Vector3.ZERO
@@ -31,10 +37,25 @@ var jump_buffer_timer: float = 0.0
 
 var wish_dir: Vector3 = Vector3.ZERO
 
+var rope: Path3D
+var is_grappling: bool = false
+var grapple_point: Vector3
+var grapple_speed: float = 20.0
+var grapple_acceleration: float = 10.0
+var max_grapple_distance: float = 50.0
 
+
+@onready var rope_pos: Marker3D = %RopePos
 @onready var head: Node3D = $Head
 @onready var pogo: Node3D = $LowPivot/pogo
 @onready var low_pivot: Node3D = $LowPivot
+@onready var audio_stream_player: AudioStreamPlayer = $JumpAudioPlayer
+@onready var hurt_audio_player: AudioStreamPlayer = $HurtAudioPlayer
+@onready var gpu_particles_3d: GPUParticles3D = $LowPivot/pogo/GPUParticles3D
+
+
+func _ready() -> void:
+	rope = get_tree().get_first_node_in_group("Rope")
 
 
 func _handle_jump(delta: float) -> void:
@@ -48,7 +69,8 @@ func _handle_jump(delta: float) -> void:
 		jump_buffer_timer = 0.0
 	
 	if jump_buffered:
-		if is_on_floor() or on_wall:
+		if (is_on_floor() or on_wall) and not is_grappling:
+			audio_stream_player.play()
 			self.velocity = Vector3(
 					self.velocity.x + wall_normal.x * JUMP_VELOCITY, 
 					JUMP_VELOCITY, 
@@ -139,7 +161,10 @@ func _rotate_head_and_pogo(delta: float) -> void:
 		pogo.global_rotation.y = yaw
 		#pogo.global_rotation.y = move_toward(pogo.global_rotation.y, yaw, delta * 3.0) # Tylko jedno w głowie mam
 		pogo.global_rotation.z = move_toward(pogo.global_rotation.z, (PI / 8.0) * Vector3.LEFT.dot(n_local), delta * 3.0)
-		
+		gpu_particles_3d.emitting = true
+	else:
+		gpu_particles_3d.emitting = false
+	
 	# rotate the pogo when on ground and charging jump
 	if self.is_on_floor() and jump_strength > 0.1 and not (self.is_on_wall() or on_wall):
 		var input_dir: Vector2 = Input.get_vector("left", "right", "forward", "backward").normalized()
@@ -168,6 +193,29 @@ func _unhandled_input(event: InputEvent) -> void:
 			self.rotate_y(-event.relative.x * look_sensitivity)
 			%Camera3D.rotate_x(-event.relative.y * look_sensitivity)
 			%Camera3D.rotation.x = clamp(%Camera3D.rotation.x, deg_to_rad(-90), deg_to_rad(90))
+
+
+func _handle_grapple(delta: float) -> void:
+	var to_hook: Vector3 = grapple_point - self.global_position
+	var distance: float = to_hook.length()
+	
+	if distance < 2.0 or distance > max_grapple_distance:
+		is_grappling = false
+		rope.is_grappling = false
+		return
+	
+	
+	rope.start_point = rope_pos.global_position
+	rope.dir = (self.transform.basis * Vector3.FORWARD).normalized()
+	rope.end_point = grapple_point
+	rope.is_grappling = true
+	
+	var dir: Vector3 = to_hook.normalized()
+	
+	velocity += get_gravity() * delta
+	
+	var target_velocity: Vector3 = dir * grapple_speed
+	self.velocity = self.velocity.lerp(target_velocity, grapple_acceleration * delta)
 
 
 func _physics_process(delta: float) -> void:
@@ -201,9 +249,18 @@ func _physics_process(delta: float) -> void:
 		on_wall = false
 		wall_normal = Vector3.ZERO
 	
-	if is_on_floor():
-		_handle_ground_physics(delta)
+	if is_grappling:
+		_handle_grapple(delta)
 	else:
-		_handle_air_physics(delta)
+		if is_on_floor():
+			_handle_ground_physics(delta)
+		else:
+			_handle_air_physics(delta)
 	
 	move_and_slide()
+
+
+func take_damage(amount: int) -> void:
+	hurt_audio_player.play()
+	health -= amount
+	damage_taken.emit()

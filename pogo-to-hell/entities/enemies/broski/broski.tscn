@@ -1,7 +1,9 @@
-[gd_scene load_steps=12 format=4 uid="uid://dgunwb7odlxau"]
+[gd_scene load_steps=14 format=4 uid="uid://dgunwb7odlxau"]
 
 [ext_resource type="Script" uid="uid://b82mwo8ld2i5r" path="res://entities/enemies/broski/broski.gd" id="1_faoro"]
 [ext_resource type="Texture2D" uid="uid://bjl3dufpisdld" path="res://assets/models/broski_Material.png" id="1_ji8ac"]
+[ext_resource type="PackedScene" uid="uid://4ndkdayx6bsf" path="res://ui/Screen_shader.tscn" id="3_7gvho"]
+[ext_resource type="AudioStream" uid="uid://70sgeog8tua0" path="res://assets/sounds/enemy_shot1.wav" id="4_bpemi"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ocpe1"]
 resource_name = "Material.001"
@@ -2391,6 +2393,7 @@ unique_name_in_owner = true
 libraries = {
 &"": SubResource("AnimationLibrary_7ixva")
 }
+speed_scale = 2.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
@@ -2399,6 +2402,7 @@ shape = SubResource("CylinderShape3D_faoro")
 [node name="DetectionArea" type="Area3D" parent="."]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea"]
+visible = false
 shape = SubResource("SphereShape3D_faoro")
 
 [node name="DebugLabel" type="Label3D" parent="."]
@@ -2408,6 +2412,14 @@ pixel_size = 0.01
 billboard = 2
 render_priority = 2
 text = "Hallo"
+
+[node name="ScreenShader" parent="." instance=ExtResource("3_7gvho")]
+visible = false
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_bpemi")
+volume_db = -16.0
+bus = &"Sounds"
 
 [connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]

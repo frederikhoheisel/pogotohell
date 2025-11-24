@@ -1,0 +1,28 @@
+[gd_scene load_steps=7 format=3 uid="uid://do670xin754vl"]
+
+[ext_resource type="Script" uid="uid://blpvtdqouubfu" path="res://level/decal_manager.gd" id="1_n048p"]
+[ext_resource type="Script" uid="uid://jvbi6xcci22" path="res://level/smoke_manager.gd" id="2_3nqco"]
+[ext_resource type="PackedScene" uid="uid://4ndkdayx6bsf" path="res://ui/Screen_shader.tscn" id="2_ncs4x"]
+[ext_resource type="PackedScene" uid="uid://cp0aw825yr8om" path="res://entities/player/player.tscn" id="3_10jyf"]
+[ext_resource type="PackedScene" uid="uid://c1mxi56rrm2c4" path="res://ui/hud.tscn" id="4_f16jj"]
+[ext_resource type="PackedScene" uid="uid://dmt2idq2abk3y" path="res://entities/effects/grapple_rope.tscn" id="5_8s6kw"]
+
+[node name="LevelTemplate" type="Node3D"]
+
+[node name="DecalManager" type="Node" parent="." groups=["DecalManager"]]
+script = ExtResource("1_n048p")
+
+[node name="SmokeManager" type="Node" parent="." groups=["SmokeManager"]]
+script = ExtResource("2_3nqco")
+
+[node name="ProjectileContainer" type="Node" parent="." groups=["ProjectileContainer"]]
+
+[node name="ScreenShader" parent="." instance=ExtResource("2_ncs4x")]
+visible = false
+
+[node name="Player" parent="." instance=ExtResource("3_10jyf")]
+
+[node name="Hud" parent="." node_paths=PackedStringArray("player") instance=ExtResource("4_f16jj")]
+player = NodePath("../Player")
+
+[node name="GrappleRope" parent="." instance=ExtResource("5_8s6kw")]
