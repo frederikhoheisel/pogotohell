@@ -1,24 +1,24 @@
 [gd_scene load_steps=6 format=3 uid="uid://c6a73cp73lk2s"]
 
-[ext_resource type="FontFile" uid="uid://ksfnpkei2fwm" path="res://assets/merchant-copy/Merchant Copy.ttf" id="1_7b0px"]
-[ext_resource type="Script" uid="uid://p37xdte3r0eu" path="res://ui/score.gd" id="1_phtbq"]
+[ext_resource type="Script" uid="uid://p37xdte3r0eu" path="res://ui/score_line.gd" id="1_k360r"]
+[ext_resource type="FontFile" uid="uid://ksfnpkei2fwm" path="res://assets/merchant-copy/Merchant Copy.ttf" id="2_arnyd"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_1enrn"]
-font = ExtResource("1_7b0px")
+font = ExtResource("2_arnyd")
 font_size = 32
 
 [sub_resource type="LabelSettings" id="LabelSettings_17cat"]
-font = ExtResource("1_7b0px")
+font = ExtResource("2_arnyd")
 font_size = 32
 
 [sub_resource type="LabelSettings" id="LabelSettings_pmdpq"]
-font = ExtResource("1_7b0px")
+font = ExtResource("2_arnyd")
 font_size = 32
 
 [node name="Score" type="HBoxContainer"]
 texture_filter = 1
 alignment = 1
-script = ExtResource("1_phtbq")
+script = ExtResource("1_k360r")
 
 [node name="PlaceLabel" type="Label" parent="."]
 custom_minimum_size = Vector2(64, 0)
