@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://d4baqm2niu2b0"]
+[gd_scene load_steps=11 format=3 uid="uid://d4baqm2niu2b0"]
 
 [ext_resource type="Script" uid="uid://c345mgnsemfif" path="res://ui/settings_menu.gd" id="1_xutny"]
-[ext_resource type="Material" uid="uid://c7n6hmrhx0x1n" path="res://ui/crosshair.tres" id="2_xutny"]
+[ext_resource type="FontFile" uid="uid://ksfnpkei2fwm" path="res://assets/merchant-copy/Merchant Copy.ttf" id="2_a6yft"]
+[ext_resource type="Material" path="res://ui/crosshair.tres" id="2_xutny"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xutny"]
 bg_color = Color(0.15294118, 0.15294118, 0.15294118, 1)
@@ -21,17 +22,22 @@ expand_margin_right = 32.0
 expand_margin_bottom = 32.0
 
 [sub_resource type="LabelSettings" id="LabelSettings_xutny"]
-font_size = 24
-outline_size = 4
+font = ExtResource("2_a6yft")
+font_size = 96
+font_color = Color(0.3882353, 0.003921569, 0.003921569, 1)
+outline_size = 8
 outline_color = Color(0, 0, 0, 1)
 stacked_outline_count = 1
-stacked_outline_0/size = 1
-stacked_outline_0/color = Color(1, 1, 1, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_a6yft"]
-font_size = 20
+font = ExtResource("2_a6yft")
+font_size = 48
 outline_size = 4
 outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_2ty5h"]
+font = ExtResource("2_a6yft")
+font_size = 32
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2ty5h"]
 bg_color = Color(0.80049086, 0.8004908, 0.8004906, 1)
@@ -49,14 +55,28 @@ shadow_size = 4
 shadow_offset = Vector2(2, 2)
 anti_aliasing = false
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a6yft"]
-bg_color = Color(0.15294118, 0.15294118, 0.15294118, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tog15"]
+content_margin_left = 4.0
+content_margin_top = 2.0
+content_margin_right = 4.0
+content_margin_bottom = 2.0
+bg_color = Color(0.5686275, 0.22352941, 0.015686275, 1)
+draw_center = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ap6h8"]
+content_margin_left = 4.0
+content_margin_top = 2.0
+content_margin_right = 4.0
+content_margin_bottom = 2.0
+bg_color = Color(0.67259455, 0.2702953, 0.023984034, 1)
+draw_center = false
 
 [node name="SettingsMenu" type="CanvasLayer"]
 process_mode = 3
 script = ExtResource("1_xutny")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
+texture_filter = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -81,6 +101,7 @@ mouse_filter = 2
 theme_override_constants/separation = 32
 
 [node name="SettingsLabel" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer"]
+texture_filter = 1
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 24
@@ -93,6 +114,7 @@ vertical_alignment = 1
 layout_mode = 2
 
 [node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/Audio"]
+texture_filter = 1
 layout_mode = 2
 text = "AUDIO VOLUMES"
 label_settings = SubResource("LabelSettings_a6yft")
@@ -102,14 +124,18 @@ horizontal_alignment = 1
 layout_mode = 2
 
 [node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/Audio/Master"]
+texture_filter = 1
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Master"
+label_settings = SubResource("LabelSettings_2ty5h")
 
 [node name="MasterVolume" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/Audio/Master"]
 unique_name_in_owner = true
+texture_filter = 1
 layout_mode = 2
 text = "50"
+label_settings = SubResource("LabelSettings_2ty5h")
 
 [node name="MasterSlider" type="HSlider" parent="MarginContainer/PanelContainer/VBoxContainer/Audio/Master"]
 unique_name_in_owner = true
@@ -123,11 +149,13 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Music"
+label_settings = SubResource("LabelSettings_2ty5h")
 
 [node name="MusicVolume" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/Audio/Music"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "50"
+label_settings = SubResource("LabelSettings_2ty5h")
 
 [node name="MusicSlider" type="HSlider" parent="MarginContainer/PanelContainer/VBoxContainer/Audio/Music"]
 unique_name_in_owner = true
@@ -141,11 +169,13 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Sounds"
+label_settings = SubResource("LabelSettings_2ty5h")
 
 [node name="SoundsVolume" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/Audio/Sounds"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "50"
+label_settings = SubResource("LabelSettings_2ty5h")
 
 [node name="SoundsSlider" type="HSlider" parent="MarginContainer/PanelContainer/VBoxContainer/Audio/Sounds"]
 unique_name_in_owner = true
@@ -168,6 +198,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Fullscreen"
+label_settings = SubResource("LabelSettings_2ty5h")
 
 [node name="CheckBox" type="CheckBox" parent="MarginContainer/PanelContainer/VBoxContainer/Video/Fullscreen"]
 layout_mode = 2
@@ -179,6 +210,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Vsync"
+label_settings = SubResource("LabelSettings_2ty5h")
 
 [node name="CheckBox" type="CheckBox" parent="MarginContainer/PanelContainer/VBoxContainer/Video/Vsync"]
 layout_mode = 2
@@ -190,9 +222,12 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Shadow Quality"
+label_settings = SubResource("LabelSettings_2ty5h")
 
 [node name="ShadowButton" type="OptionButton" parent="MarginContainer/PanelContainer/VBoxContainer/Video/Shadows"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_a6yft")
+theme_override_font_sizes/font_size = 32
 selected = 0
 item_count = 3
 popup/item_0/text = "low"
@@ -209,9 +244,12 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 text = "MSAA"
+label_settings = SubResource("LabelSettings_2ty5h")
 
 [node name="CheckBox" type="OptionButton" parent="MarginContainer/PanelContainer/VBoxContainer/Video/AA"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_a6yft")
+theme_override_font_sizes/font_size = 32
 selected = 2
 item_count = 4
 popup/item_0/text = "disabled"
@@ -240,6 +278,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.3
 text = "Sensitivity"
+label_settings = SubResource("LabelSettings_2ty5h")
 
 [node name="SensitivityLabel" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/Controls/Sensitivity"]
 unique_name_in_owner = true
@@ -247,6 +286,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.2
 text = "50"
+label_settings = SubResource("LabelSettings_2ty5h")
 horizontal_alignment = 1
 
 [node name="SensitivityHSlider" type="HSlider" parent="MarginContainer/PanelContainer/VBoxContainer/Controls/Sensitivity"]
@@ -321,6 +361,7 @@ alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 text = "use inverse screen color"
+label_settings = SubResource("LabelSettings_2ty5h")
 
 [node name="CheckBox" type="CheckBox" parent="MarginContainer/PanelContainer/VBoxContainer/Crosshair/InverseColor"]
 unique_name_in_owner = true
@@ -340,12 +381,14 @@ mouse_filter = 2
 layout_mode = 2
 size_flags_horizontal = 3
 text = "length"
+label_settings = SubResource("LabelSettings_2ty5h")
 
 [node name="LengthLabel" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/Crosshair/Length"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "0.1"
+label_settings = SubResource("LabelSettings_2ty5h")
 horizontal_alignment = 2
 
 [node name="LenghtHSlider" type="HSlider" parent="MarginContainer/PanelContainer/VBoxContainer/Crosshair/Length"]
@@ -364,12 +407,14 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_horizontal = 3
 text = "thickness"
+label_settings = SubResource("LabelSettings_2ty5h")
 
 [node name="ThickLabel" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/Crosshair/Thickness"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "0.1"
+label_settings = SubResource("LabelSettings_2ty5h")
 horizontal_alignment = 2
 
 [node name="ThickHSlider" type="HSlider" parent="MarginContainer/PanelContainer/VBoxContainer/Crosshair/Thickness"]
@@ -388,12 +433,14 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_horizontal = 3
 text = "gap"
+label_settings = SubResource("LabelSettings_2ty5h")
 
 [node name="GapLabel" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/Crosshair/Gap"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "0.1"
+label_settings = SubResource("LabelSettings_2ty5h")
 horizontal_alignment = 2
 
 [node name="GapHSlider" type="HSlider" parent="MarginContainer/PanelContainer/VBoxContainer/Crosshair/Gap"]
@@ -410,13 +457,15 @@ size_flags_vertical = 3
 [node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/Crosshair/Halo"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "halo"
+text = "outline"
+label_settings = SubResource("LabelSettings_2ty5h")
 
 [node name="HaloLabel" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/Crosshair/Halo"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "0.1"
+label_settings = SubResource("LabelSettings_2ty5h")
 horizontal_alignment = 2
 
 [node name="HaloHSlider" type="HSlider" parent="MarginContainer/PanelContainer/VBoxContainer/Crosshair/Halo"]
@@ -431,11 +480,11 @@ custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 3
-theme_override_styles/normal = SubResource("StyleBoxFlat_a6yft")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_a6yft")
-theme_override_styles/hover = SubResource("StyleBoxFlat_a6yft")
-theme_override_styles/disabled = SubResource("StyleBoxFlat_a6yft")
-theme_override_styles/focus = SubResource("StyleBoxFlat_a6yft")
+theme_override_colors/font_color = Color(0.3882353, 0.003921569, 0.003921569, 1)
+theme_override_fonts/font = ExtResource("2_a6yft")
+theme_override_font_sizes/font_size = 96
+theme_override_styles/normal = SubResource("StyleBoxFlat_tog15")
+theme_override_styles/hover = SubResource("StyleBoxFlat_ap6h8")
 text = "RETURN"
 
 [connection signal="value_changed" from="MarginContainer/PanelContainer/VBoxContainer/Audio/Master/MasterSlider" to="." method="_on_master_slider_value_changed"]

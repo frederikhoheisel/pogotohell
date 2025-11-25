@@ -1,15 +1,17 @@
-[gd_scene load_steps=13 format=3 uid="uid://c1mxi56rrm2c4"]
+[gd_scene load_steps=15 format=3 uid="uid://c1mxi56rrm2c4"]
 
 [ext_resource type="Script" uid="uid://d2iuqmxdbt7ko" path="res://ui/hud.gd" id="1_rbyyf"]
 [ext_resource type="Texture2D" uid="uid://qwci8cyvit6n" path="res://assets/textures/healthbar_over.png" id="2_1v5rv"]
-[ext_resource type="Material" uid="uid://c7n6hmrhx0x1n" path="res://ui/crosshair.tres" id="2_7ihmi"]
+[ext_resource type="Material" path="res://ui/crosshair.tres" id="2_7ihmi"]
 [ext_resource type="Texture2D" uid="uid://c7b1trek5ddhb" path="res://assets/textures/pogo_under.png" id="2_srpbi"]
-[ext_resource type="PackedScene" uid="uid://ch062xtce311c" path="res://ui/pause_menu.tscn" id="3_546lt"]
+[ext_resource type="PackedScene" uid="uid://nsma4il6xv2c" path="res://ui/pause_menu.tscn" id="3_546lt"]
 [ext_resource type="Texture2D" uid="uid://b1c6nam34xb1n" path="res://assets/textures/healthbar.png" id="3_q43x7"]
 [ext_resource type="Texture2D" uid="uid://cmdj4bawg1kcs" path="res://assets/textures/pogo_over.png" id="3_spcu4"]
 [ext_resource type="PackedScene" uid="uid://d4baqm2niu2b0" path="res://ui/settings_menu.tscn" id="4_7ihmi"]
 [ext_resource type="Texture2D" uid="uid://cb038omud8v8g" path="res://assets/textures/grapple.png" id="9_ff8ar"]
 [ext_resource type="Texture2D" uid="uid://4u10e5vulxg6" path="res://assets/textures/grapple_over.png" id="10_m0eg6"]
+[ext_resource type="PackedScene" uid="uid://dm5ci2dtw1i86" path="res://ui/intro.tscn" id="11_m0eg6"]
+[ext_resource type="PackedScene" uid="uid://dfsrp31sctbms" path="res://ui/main_menu.tscn" id="12_b00kl"]
 
 [sub_resource type="Gradient" id="Gradient_7ihmi"]
 offsets = PackedFloat32Array(0.20588236, 1)
@@ -119,9 +121,19 @@ texture = SubResource("GradientTexture2D_en2x2")
 layer = 2
 visible = false
 
+[node name="Intro" parent="." instance=ExtResource("11_m0eg6")]
+visible = false
+
+[node name="MainMenu" parent="." instance=ExtResource("12_b00kl")]
+visible = false
+
 [node name="SettingsMenu" parent="." instance=ExtResource("4_7ihmi")]
 layer = 2
 visible = false
 
 [connection signal="settings_pressed" from="PauseMenu" to="." method="_on_pause_menu_settings_pressed"]
+[connection signal="intro_finished" from="Intro" to="." method="_on_intro_intro_finished"]
+[connection signal="credits" from="MainMenu" to="." method="_on_main_menu_credits"]
+[connection signal="start_game" from="MainMenu" to="." method="_on_main_menu_start_game"]
+[connection signal="start_options" from="MainMenu" to="." method="_on_main_menu_start_options"]
 [connection signal="settings_disabled" from="SettingsMenu" to="." method="_on_pause_menu_settings_pressed"]

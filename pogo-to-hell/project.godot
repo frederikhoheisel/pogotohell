@@ -16,6 +16,10 @@ config/features=PackedStringArray("4.5", "Forward Plus")
 boot_splash/image="uid://b1fueo11nyip8"
 config/icon="res://icon.svg"
 
+[autoload]
+
+Globals="*res://globals/globals.gd"
+
 [display]
 
 window/vsync/vsync_mode=0
