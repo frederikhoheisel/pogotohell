@@ -1,0 +1,185 @@
+[gd_scene load_steps=26 format=3 uid="uid://bn6cpkhc8i567"]
+
+[ext_resource type="VoxelGIData" uid="uid://tabxh1nvawko" path="res://level/test.VoxelGI_data.res" id="1_kbbmk"]
+[ext_resource type="Script" uid="uid://blpvtdqouubfu" path="res://level/decal_manager.gd" id="2_rfry1"]
+[ext_resource type="PackedScene" uid="uid://4ndkdayx6bsf" path="res://ui/Screen_shader.tscn" id="3_ihskd"]
+[ext_resource type="PackedScene" uid="uid://cp0aw825yr8om" path="res://entities/player/player.tscn" id="4_7bj41"]
+[ext_resource type="PackedScene" uid="uid://c1mxi56rrm2c4" path="res://ui/hud.tscn" id="5_fa52h"]
+[ext_resource type="PackedScene" uid="uid://dgunwb7odlxau" path="res://entities/enemies/broski/broski.tscn" id="6_ew0hj"]
+[ext_resource type="PackedScene" uid="uid://xbhv7p0a8n62" path="res://entities/environment/lava.tscn" id="7_ibi7k"]
+[ext_resource type="PackedScene" uid="uid://c0sjb70mhesg7" path="res://entities/environment/jump_pad.tscn" id="8_reqf3"]
+[ext_resource type="PackedScene" path="res://entities/effects/grapple_rope.tscn" id="9_58fxw"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dlp0f"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_8abgs"]
+sky_material = SubResource("ProceduralSkyMaterial_dlp0f")
+
+[sub_resource type="Environment" id="Environment_sywkh"]
+background_mode = 2
+sky = SubResource("Sky_8abgs")
+ambient_light_source = 2
+tonemap_mode = 3
+glow_enabled = true
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_ilowo"]
+
+[sub_resource type="Gradient" id="Gradient_ilowo"]
+colors = PackedColorArray(0.2376962, 0.2135131, 0.09805807, 1, 0.74509805, 0.38039216, 0.30980393, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_dlp0f"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_8abgs"]
+noise = SubResource("FastNoiseLite_dlp0f")
+color_ramp = SubResource("Gradient_ilowo")
+seamless = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sywkh"]
+albedo_texture = SubResource("NoiseTexture2D_8abgs")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_dlp0f"]
+material = SubResource("StandardMaterial3D_sywkh")
+size = Vector2(100, 100)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dlp0f"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_8abgs"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_sywkh"]
+noise = SubResource("FastNoiseLite_8abgs")
+seamless = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8abgs"]
+albedo_texture = SubResource("NoiseTexture2D_sywkh")
+uv1_scale = Vector3(0.395, 0.395, 0.395)
+uv1_triplanar = true
+texture_filter = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ea25h"]
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(0.6163502, 0.40273786, 0.23353666, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yihe8"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rsfpr"]
+albedo_color = Color(1, 0, 1, 1)
+
+[node name="Test" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_sywkh")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="VoxelGI" type="VoxelGI" parent="."]
+size = Vector3(200, 200, 200)
+data = ExtResource("1_kbbmk")
+
+[node name="DecalManager" type="Node" parent="." groups=["DecalManager"]]
+script = ExtResource("2_rfry1")
+
+[node name="ProjectileContainer" type="Node" parent="." groups=["ProjectileContainer"]]
+
+[node name="ScreenShader" parent="." instance=ExtResource("3_ihskd")]
+
+[node name="Player" parent="." instance=ExtResource("4_7bj41")]
+
+[node name="Boden" type="StaticBody3D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Boden"]
+shape = SubResource("WorldBoundaryShape3D_ilowo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Boden"]
+mesh = SubResource("PlaneMesh_dlp0f")
+metadata/_edit_lock_ = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.901042, 5.5101852, -10)
+use_collision = true
+size = Vector3(8.765, 23.63, 1.555)
+material = SubResource("StandardMaterial3D_dlp0f")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.111571, 11)
+use_collision = true
+size = Vector3(8.765, 23.63, 1.555)
+material = SubResource("StandardMaterial3D_8abgs")
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+use_collision = true
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.333275, 32.134727, 3.4200249)
+use_collision = true
+radius = 7.924
+height = 69.805
+sides = 32
+cone = true
+material = SubResource("StandardMaterial3D_ea25h")
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.880604, 37.923904, 3.5417252)
+operation = 2
+radius = 3.972
+height = 100.0
+sides = 32
+material = SubResource("StandardMaterial3D_yihe8")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(0.8366592, 0.5477238, 0, -0.5477238, 0.8366592, 0, 0, 0, 1, -22.538738, 35.015736, 0)
+operation = 2
+size = Vector3(20, 10, 20)
+material = SubResource("StandardMaterial3D_rsfpr")
+
+[node name="Hud" parent="." node_paths=PackedStringArray("player") instance=ExtResource("5_fa52h")]
+player = NodePath("../Player")
+
+[node name="Broski" parent="." instance=ExtResource("6_ew0hj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.2507896, 1.9227862, 0)
+health = 1
+
+[node name="Broski2" parent="." instance=ExtResource("6_ew0hj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.29644, 6.260816, 4.774279)
+
+[node name="Broski5" parent="." instance=ExtResource("6_ew0hj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.29644, 6.260816, 4.774279)
+health = 1
+
+[node name="Broski3" parent="." instance=ExtResource("6_ew0hj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.680133, 7.7973304, -8.696688)
+health = 1
+
+[node name="Broski4" parent="." instance=ExtResource("6_ew0hj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.839625, 6.83164, 5.8490496)
+health = 1
+
+[node name="Lava" parent="." instance=ExtResource("7_ibi7k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.267266, 0.0010927916, 9.604513)
+width = 10.685
+height = 0.255
+depth = 12.93
+
+[node name="Lava2" parent="." instance=ExtResource("7_ibi7k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.398676, 5.069364, 10.97179)
+width = 0.25
+height = 10.32
+depth = 1.3
+
+[node name="Lava3" parent="." instance=ExtResource("7_ibi7k")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -3.09975, 5.069364, 10.229024)
+width = 0.195
+height = 10.32
+depth = 1.3
+speed = Vector3(-2.515, -27.79, 10.755)
+
+[node name="JumpPad" parent="." instance=ExtResource("8_reqf3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.069355, 0, -1.6298418)
+
+[node name="GrappleRope" parent="." instance=ExtResource("9_58fxw")]
