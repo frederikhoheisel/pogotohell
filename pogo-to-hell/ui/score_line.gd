@@ -16,5 +16,5 @@ extends HBoxContainer
 func _ready() -> void:
 	place_label.text = str(place)
 	name_label.text = score_name
-	time_label.text = str(time)
+	time_label.text = "%0.2fs" %time
 	score_label.text = str(score)

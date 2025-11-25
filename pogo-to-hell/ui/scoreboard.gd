@@ -1,6 +1,8 @@
 extends CanvasLayer
 
 
+var score: int
+var time: float
 var score_scene: PackedScene = preload("res://ui/score_line.tscn")
 
 
@@ -9,18 +11,18 @@ var score_scene: PackedScene = preload("res://ui/score_line.tscn")
 
 func update_score() -> void:
 	var place: int = 1
-	for score in Globals.leaderboard:
+	for score_line in Globals.leaderboard:
 		var s: HBoxContainer = score_scene.instantiate()
 		s.place = place
-		s.score_name = score[0]
-		s.time = score[1]
-		s.score = score[2]
+		s.score_name = score_line[0]
+		s.time = score_line[1]
+		s.score = score_line[2]
 		score_container.add_child(s)
 		place += 1
 
 
 func _on_enter_name_name_entered(score_name: String) -> void:
-	Globals.add_to_leaderboard(score_name, 0.0, 10)
+	Globals.add_to_leaderboard(score_name, time, score)
 	update_score()
 
 

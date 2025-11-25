@@ -228,6 +228,7 @@ label_settings = SubResource("LabelSettings_2ty5h")
 
 [node name="CheckBox" type="CheckBox" parent="MarginContainer/PanelContainer/VBoxContainer/Video/ScreenShader"]
 layout_mode = 2
+button_pressed = true
 
 [node name="Shadows" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/Video"]
 layout_mode = 2
