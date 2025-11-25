@@ -5,6 +5,7 @@ extends CanvasLayer
 
 
 var tween: Tween
+var time: float = 0.0
 
 
 @onready var progress_bar: TextureProgressBar = $ProgressBar
@@ -18,6 +19,7 @@ var tween: Tween
 @onready var hit_color_rect: TextureRect = %HitColorRect
 @onready var health_bar: TextureProgressBar = %HealthBar
 @onready var grapple_bar: TextureProgressBar = %GrappleBar
+@onready var timer: Label = %Timer
 
 
 func _ready() -> void:
@@ -42,13 +44,17 @@ func _input(event: InputEvent) -> void:
 		get_tree().paused = pause_menu.paused
 
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	health_bar.value = player.health
 	progress_bar.value = player.jump_strength * 100.0
 	grapple_bar.value = player.get_node("Shooting").grapple_time * 2.0
 	debug_label_1.text = "player speed:  " + str(player.velocity.length())
 	debug_label_2.text = "grapple_time:  " + str(player.get_node("Shooting").grapple_time)
 	debug_label_3.text = "fps:  " + str(Engine.get_frames_per_second())
+	
+	if not get_tree().paused:
+		time += delta
+		timer.text = "%0.2fs" %time
 
 
 func _on_pause_menu_settings_pressed(toggled_on: bool) -> void:

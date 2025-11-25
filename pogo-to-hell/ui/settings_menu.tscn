@@ -111,6 +111,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Audio" type="VBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer"]
+layout_direction = 2
 layout_mode = 2
 
 [node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/Audio"]
@@ -190,6 +191,7 @@ layout_mode = 2
 text = "VIDEO"
 label_settings = SubResource("LabelSettings_a6yft")
 horizontal_alignment = 1
+uppercase = true
 
 [node name="Fullscreen" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/Video"]
 layout_mode = 2
@@ -213,6 +215,18 @@ text = "Vsync"
 label_settings = SubResource("LabelSettings_2ty5h")
 
 [node name="CheckBox" type="CheckBox" parent="MarginContainer/PanelContainer/VBoxContainer/Video/Vsync"]
+layout_mode = 2
+
+[node name="ScreenShader" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/Video"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/Video/ScreenShader"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Outline Shader"
+label_settings = SubResource("LabelSettings_2ty5h")
+
+[node name="CheckBox" type="CheckBox" parent="MarginContainer/PanelContainer/VBoxContainer/Video/ScreenShader"]
 layout_mode = 2
 
 [node name="Shadows" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/Video"]
@@ -481,6 +495,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(0.3882353, 0.003921569, 0.003921569, 1)
+theme_override_constants/outline_size = 8
 theme_override_fonts/font = ExtResource("2_a6yft")
 theme_override_font_sizes/font_size = 96
 theme_override_styles/normal = SubResource("StyleBoxFlat_tog15")
@@ -492,6 +507,7 @@ text = "RETURN"
 [connection signal="value_changed" from="MarginContainer/PanelContainer/VBoxContainer/Audio/Sounds/SoundsSlider" to="." method="_on_sounds_slider_value_changed"]
 [connection signal="toggled" from="MarginContainer/PanelContainer/VBoxContainer/Video/Fullscreen/CheckBox" to="." method="_on_fs_toggled"]
 [connection signal="toggled" from="MarginContainer/PanelContainer/VBoxContainer/Video/Vsync/CheckBox" to="." method="_on_vsync_toggled"]
+[connection signal="toggled" from="MarginContainer/PanelContainer/VBoxContainer/Video/ScreenShader/CheckBox" to="." method="_on_outline_check_box_toggled"]
 [connection signal="item_selected" from="MarginContainer/PanelContainer/VBoxContainer/Video/Shadows/ShadowButton" to="." method="_on_shadow_button_item_selected"]
 [connection signal="item_selected" from="MarginContainer/PanelContainer/VBoxContainer/Video/AA/CheckBox" to="." method="_on_check_box_item_selected"]
 [connection signal="value_changed" from="MarginContainer/PanelContainer/VBoxContainer/Controls/Sensitivity/SensitivityHSlider" to="." method="_on_sensitivity_h_slider_value_changed"]

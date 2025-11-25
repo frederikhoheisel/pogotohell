@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://lwbfiwaigua3"]
+[gd_scene load_steps=36 format=3 uid="uid://lwbfiwaigua3"]
 
 [ext_resource type="PackedScene" uid="uid://cp0aw825yr8om" path="res://entities/player/player.tscn" id="1_dlp0f"]
 [ext_resource type="VoxelGIData" uid="uid://tabxh1nvawko" path="res://level/test.VoxelGI_data.res" id="1_ea25h"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://bkatiu30mb52n" path="res://entities/environment/lava.gd" id="8_3ljfu"]
 [ext_resource type="PackedScene" uid="uid://c0sjb70mhesg7" path="res://entities/environment/jump_pad.tscn" id="8_wp51n"]
 [ext_resource type="PackedScene" uid="uid://dmt2idq2abk3y" path="res://entities/effects/grapple_rope.tscn" id="9_c2sbp"]
+[ext_resource type="PackedScene" uid="uid://dbljcly3auhal" path="res://environment/door.tscn" id="12_pwqg8"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dlp0f"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -82,7 +83,7 @@ offsets = PackedFloat32Array(0, 0.7091837, 0.8520408, 1)
 colors = PackedColorArray(0.41876578, 0.034388494, 0.02998038, 1, 0.92156863, 0.02745098, 0.03529412, 1, 0.8227777, 0.8017858, 0.1913023, 1, 1, 1, 1, 1)
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_o28ph"]
-offset = Vector3(-3449.8052, -13184.127, -2629.3542)
+offset = Vector3(-5702.7275, -21796.691, -4346.805)
 fractal_type = 3
 fractal_octaves = 2
 fractal_lacunarity = 1.4
@@ -201,22 +202,7 @@ size = Vector3(18, 10, 18)
 material = SubResource("StandardMaterial3D_wp51n")
 
 [node name="Broski" parent="." instance=ExtResource("6_rsfpr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.2507896, 1.9227862, 0)
-health = 1
-
-[node name="Broski2" parent="." instance=ExtResource("6_rsfpr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.29644, 6.260816, 4.774279)
-
-[node name="Broski5" parent="." instance=ExtResource("6_rsfpr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.29644, 6.260816, 4.774279)
-health = 1
-
-[node name="Broski3" parent="." instance=ExtResource("6_rsfpr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.680133, 7.7973304, -8.696688)
-health = 1
-
-[node name="Broski4" parent="." instance=ExtResource("6_rsfpr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.839625, 6.83164, 5.8490496)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.241419, 1.9227862, -14.678205)
 health = 1
 
 [node name="Lava" parent="." instance=ExtResource("7_dshje")]
@@ -254,6 +240,10 @@ mesh = SubResource("BoxMesh_2f0qc")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.069355, 0, -1.6298418)
 
 [node name="GrappleRope" parent="." instance=ExtResource("9_c2sbp")]
+
+[node name="Door" parent="." node_paths=PackedStringArray("enemies") instance=ExtResource("12_pwqg8")]
+transform = Transform3D(-8.859285, 0, 4.638218, 0, 10, 0, -4.638218, 0, -8.859285, -19.086243, 2.3252635, -8.710096)
+enemies = [NodePath("../Broski")]
 
 [connection signal="body_entered" from="Lava3/DamageArea" to="Lava3" method="_on_damage_area_body_entered"]
 [connection signal="body_exited" from="Lava3/DamageArea" to="Lava3" method="_on_damage_area_body_exited"]
