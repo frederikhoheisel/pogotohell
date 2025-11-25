@@ -52,11 +52,11 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." index="1"]
 environment = SubResource("Environment_moo38")
 
-[node name="ScreenShader" parent="." index="5" groups=["ScreenShader"]]
+[node name="ScreenShader" parent="." index="5"]
 visible = true
 
 [node name="Player" parent="." index="6"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 51.067383, 20.535988)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.07703, -352.22665, -55.635845)
 
 [node name="SolidGeometry" type="CSGCombiner3D" parent="." index="8"]
 use_collision = true

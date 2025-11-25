@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://c1mxi56rrm2c4"]
+[gd_scene load_steps=19 format=3 uid="uid://c1mxi56rrm2c4"]
 
 [ext_resource type="Script" uid="uid://d2iuqmxdbt7ko" path="res://ui/hud.gd" id="1_rbyyf"]
 [ext_resource type="Texture2D" uid="uid://qwci8cyvit6n" path="res://assets/textures/healthbar_over.png" id="2_1v5rv"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://dfsrp31sctbms" path="res://ui/main_menu.tscn" id="12_b00kl"]
 [ext_resource type="FontFile" uid="uid://ksfnpkei2fwm" path="res://assets/merchant-copy/Merchant Copy.ttf" id="13_so1yu"]
 [ext_resource type="PackedScene" uid="uid://b35b84wr65abm" path="res://ui/scoreboard.tscn" id="14_65xic"]
+[ext_resource type="PackedScene" uid="uid://dgquavm7mg2ka" path="res://ui/score_overview.tscn" id="15_mp5xd"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_65xic"]
 font = ExtResource("13_so1yu")
@@ -157,7 +158,8 @@ visible = false
 
 [node name="Scoreboard" parent="." instance=ExtResource("14_65xic")]
 visible = false
-[node name="ScoreOverview" parent="." instance=ExtResource("11_m0eg6")]
+
+[node name="ScoreOverview" parent="." instance=ExtResource("15_mp5xd")]
 
 [connection signal="settings_pressed" from="PauseMenu" to="." method="_on_pause_menu_settings_pressed"]
 [connection signal="intro_finished" from="Intro" to="." method="_on_intro_intro_finished"]
