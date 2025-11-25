@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://dbljcly3auhal"]
+
+[ext_resource type="PackedScene" uid="uid://caotgl20w278a" path="res://assets/models/skull.fbx" id="1_are4n"]
+[ext_resource type="Script" uid="uid://dc0aueo73hca3" path="res://environment/door.gd" id="1_jehm5"]
+[ext_resource type="PackedScene" uid="uid://7ev4ypheug5o" path="res://assets/models/jaw.fbx" id="2_jehm5"]
+
+[node name="Door" type="Node3D"]
+script = ExtResource("1_jehm5")
+
+[node name="skull" parent="." instance=ExtResource("1_are4n")]
+
+[node name="Armature" parent="skull" index="0"]
+transform = Transform3D(100, -1.9852333e-21, -8.67773e-29, 0, -4.3711384e-06, 99.99999, -1.9852335e-21, -99.99999, -4.3711384e-06, 0, 0, 0)
+
+[node name="Skeleton3D" parent="skull/Armature" index="0"]
+bones/0/position = Vector3(0, 0, 0.010564434)
+bones/0/rotation = Quaternion(0.50000006, 0.5, -0.5, 0.50000006)
+
+[node name="jaw" parent="." instance=ExtResource("2_jehm5")]
+
+[node name="Armature_001" parent="jaw" index="0"]
+transform = Transform3D(100, -1.9852333e-21, -8.67773e-29, 0, -4.3711384e-06, 99.99999, -1.9852335e-21, -99.99999, -4.3711384e-06, 0, 0, 0)
+
+[node name="Skeleton3D" parent="jaw/Armature_001" index="0"]
+bones/0/position = Vector3(0, 0, 0)
+bones/0/rotation = Quaternion(0.7071068, 0, -4.647789e-11, 0.7071067)
+
+[editable path="skull"]
+[editable path="jaw"]

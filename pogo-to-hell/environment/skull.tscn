@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://brgvg8il4tpd5"]
+
+[ext_resource type="PackedScene" uid="uid://caotgl20w278a" path="res://assets/models/skull.fbx" id="1_3gbtd"]
+
+[node name="skull" instance=ExtResource("1_3gbtd")]
+
+[node name="Armature" parent="." index="0"]
+transform = Transform3D(100, -1.9852333e-21, -8.67773e-29, 0, -4.3711384e-06, 99.99999, -1.9852335e-21, -99.99999, -4.3711384e-06, 0, 0, 0)
