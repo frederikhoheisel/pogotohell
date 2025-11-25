@@ -11,6 +11,6 @@ material = SubResource("ShaderMaterial_xa4i0")
 flip_faces = true
 size = Vector2(2, 2)
 
-[node name="ScreenShader" type="MeshInstance3D"]
+[node name="ScreenShader" type="MeshInstance3D" groups=["ScreenShader"]]
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_3javi")

@@ -95,3 +95,7 @@ func _on_main_menu_start_options() -> void:
 
 func _on_main_menu_credits() -> void:
 	pass # TODO
+
+
+func show_scoreboard() -> void:
+	pass

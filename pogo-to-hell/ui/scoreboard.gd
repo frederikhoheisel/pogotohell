@@ -1,7 +1,7 @@
 extends CanvasLayer
 
 
-var score_scene: PackedScene = preload("res://ui/score.tscn")
+var score_scene: PackedScene = preload("res://ui/score_line.tscn")
 
 
 @onready var score_container: VBoxContainer = $MarginContainer/PanelContainer/VBoxContainer/VBoxContainer
