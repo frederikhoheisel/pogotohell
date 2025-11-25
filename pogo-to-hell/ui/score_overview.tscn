@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://dgquavm7mg2ka"]
+[gd_scene load_steps=16 format=3 uid="uid://dgquavm7mg2ka"]
 
-[ext_resource type="Script" uid="uid://d1usx3urotjwu" path="res://ui/score.gd" id="1_hktr4"]
+[ext_resource type="Script" path="res://ui/score.gd" id="1_hktr4"]
 [ext_resource type="Texture2D" uid="uid://dhr28q0tquetv" path="res://assets/textures/combo_bar.png" id="2_6ukhi"]
+[ext_resource type="FontFile" uid="uid://ksfnpkei2fwm" path="res://assets/merchant-copy/Merchant Copy.ttf" id="3_d62kx"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6ukhi"]
 atlas = ExtResource("2_6ukhi")
@@ -14,6 +15,42 @@ region = Rect2(0, 40, 200, 20)
 [sub_resource type="AtlasTexture" id="AtlasTexture_2xaf4"]
 atlas = ExtResource("2_6ukhi")
 region = Rect2(0, 0, 200, 20)
+
+[sub_resource type="LabelSettings" id="LabelSettings_2xaf4"]
+font = ExtResource("3_d62kx")
+font_size = 48
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_yddx6"]
+font = ExtResource("3_d62kx")
+font_size = 48
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_df06u"]
+font = ExtResource("3_d62kx")
+font_size = 48
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_1w24l"]
+font = ExtResource("3_d62kx")
+font_size = 48
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_7dmpp"]
+font = ExtResource("3_d62kx")
+font_size = 48
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_d62kx"]
+font = ExtResource("3_d62kx")
+font_size = 48
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="Animation" id="Animation_6ukhi"]
 length = 0.001
@@ -31,6 +68,7 @@ _data = {
 script = ExtResource("1_hktr4")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
+texture_filter = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -55,18 +93,20 @@ layout_mode = 2
 [node name="Score" type="Label" parent="VBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(100, 30)
 layout_mode = 2
-size_flags_horizontal = 0
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 15
-text = "Score: "
+text = "Score:"
+label_settings = SubResource("LabelSettings_2xaf4")
 
 [node name="TotalScore" type="Label" parent="VBoxContainer/HBoxContainer2"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 20
 text = "0"
+label_settings = SubResource("LabelSettings_yddx6")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -76,6 +116,7 @@ custom_minimum_size = Vector2(100, 30)
 layout_mode = 2
 theme_override_font_sizes/font_size = 15
 text = "Combo:"
+label_settings = SubResource("LabelSettings_df06u")
 
 [node name="Current_Combo" type="Label" parent="VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
@@ -84,6 +125,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 20
 text = "0"
+label_settings = SubResource("LabelSettings_1w24l")
 
 [node name="Multiplier" type="Label" parent="VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
@@ -92,11 +134,13 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 20
 text = "x 0"
+label_settings = SubResource("LabelSettings_7dmpp")
 
 [node name="Current_Trick" type="Label" parent="VBoxContainer"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 theme_override_font_sizes/font_size = 25
+label_settings = SubResource("LabelSettings_d62kx")
 
 [node name="ComboTimer" type="Timer" parent="."]
 wait_time = 3.0

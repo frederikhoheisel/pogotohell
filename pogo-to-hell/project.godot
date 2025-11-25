@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Pogo to Hell"
-run/main_scene="uid://lwbfiwaigua3"
+run/main_scene="uid://ld0h6j3c4wye"
 config/features=PackedStringArray("4.5", "Forward Plus")
 boot_splash/image="uid://b1fueo11nyip8"
 config/icon="res://icon.svg"

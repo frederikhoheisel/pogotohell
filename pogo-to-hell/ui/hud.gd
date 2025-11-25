@@ -6,6 +6,7 @@ extends CanvasLayer
 
 var tween: Tween
 var time: float = 0.0
+var pausable: bool = false
 
 
 @onready var progress_bar: TextureProgressBar = $ProgressBar
@@ -16,6 +17,8 @@ var time: float = 0.0
 @onready var pause_menu: CanvasLayer = $PauseMenu
 @onready var intro: CanvasLayer = $Intro
 @onready var main_menu: CanvasLayer = $MainMenu
+@onready var scoreboard: CanvasLayer = $Scoreboard
+@onready var score_overview: CanvasLayer = $ScoreOverview
 @onready var hit_color_rect: TextureRect = %HitColorRect
 @onready var health_bar: TextureProgressBar = %HealthBar
 @onready var grapple_bar: TextureProgressBar = %GrappleBar
@@ -33,6 +36,8 @@ func _ready() -> void:
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
+		if not pausable:
+			return
 		if settings_menu.visible:
 			settings_menu.visible = false
 			return
@@ -48,9 +53,10 @@ func _process(delta: float) -> void:
 	health_bar.value = player.health
 	progress_bar.value = player.jump_strength * 100.0
 	grapple_bar.value = player.get_node("Shooting").grapple_time * 2.0
-	debug_label_1.text = "player speed:  " + str(player.velocity.length())
-	debug_label_2.text = "grapple_time:  " + str(player.get_node("Shooting").grapple_time)
-	debug_label_3.text = "fps:  " + str(Engine.get_frames_per_second())
+	
+	#debug_label_1.text = "player speed:  " + str(player.velocity.length())
+	#debug_label_2.text = "grapple_time:  " + str(player.get_node("Shooting").grapple_time)
+	#debug_label_3.text = "fps:  " + str(Engine.get_frames_per_second())
 	
 	if not get_tree().paused:
 		time += delta
@@ -80,6 +86,7 @@ func _on_intro_intro_finished() -> void:
 	get_tree().paused = false
 	pause_menu.hide()
 	intro.hide()
+	pausable = true
 
 
 func _on_main_menu_start_game() -> void:
@@ -98,4 +105,8 @@ func _on_main_menu_credits() -> void:
 
 
 func show_scoreboard() -> void:
-	pass
+	pausable = false
+	get_tree().paused = true
+	scoreboard.show()
+	scoreboard.time = time
+	scoreboard.score = score_overview.total_score

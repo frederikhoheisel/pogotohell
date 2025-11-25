@@ -85,16 +85,19 @@ texture_under = ExtResource("9_ff8ar")
 texture_progress = ExtResource("10_m0eg6")
 
 [node name="DebugLabel1" type="Label" parent="."]
+visible = false
 offset_right = 40.0
 offset_bottom = 23.0
 
 [node name="DebugLabel2" type="Label" parent="."]
+visible = false
 offset_left = 1.0
 offset_top = 32.0
 offset_right = 41.0
 offset_bottom = 55.0
 
 [node name="DebugLabel3" type="Label" parent="."]
+visible = false
 offset_left = 1.0
 offset_top = 63.0
 offset_right = 41.0

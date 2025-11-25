@@ -56,7 +56,7 @@ environment = SubResource("Environment_moo38")
 visible = true
 
 [node name="Player" parent="." index="6"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.07703, -352.22665, -55.635845)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.8410149, 50.76644, 21.715511)
 
 [node name="SolidGeometry" type="CSGCombiner3D" parent="." index="8"]
 use_collision = true
