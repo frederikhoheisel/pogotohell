@@ -1,0 +1,110 @@
+[gd_scene load_steps=9 format=3 uid="uid://dgquavm7mg2ka"]
+
+[ext_resource type="Script" uid="uid://d1usx3urotjwu" path="res://ui/score.gd" id="1_hktr4"]
+[ext_resource type="Texture2D" uid="uid://dhr28q0tquetv" path="res://assets/textures/combo_bar.png" id="2_6ukhi"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6ukhi"]
+atlas = ExtResource("2_6ukhi")
+region = Rect2(0, 20, 200, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d62kx"]
+atlas = ExtResource("2_6ukhi")
+region = Rect2(0, 40, 200, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2xaf4"]
+atlas = ExtResource("2_6ukhi")
+region = Rect2(0, 0, 200, 20)
+
+[sub_resource type="Animation" id="Animation_6ukhi"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_hktr4"]
+resource_name = "increase_points"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_d62kx"]
+_data = {
+&"RESET": SubResource("Animation_6ukhi"),
+&"increase_points": SubResource("Animation_hktr4")
+}
+
+[node name="ScoreOverview" type="CanvasLayer" groups=["Score"]]
+script = ExtResource("1_hktr4")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -144.0
+offset_right = 144.0
+offset_bottom = 171.0
+grow_horizontal = 2
+
+[node name="ComboTimoutBar" type="TextureProgressBar" parent="VBoxContainer"]
+texture_filter = 3
+layout_mode = 2
+size_flags_horizontal = 4
+max_value = 3.0
+step = 0.001
+texture_under = SubResource("AtlasTexture_6ukhi")
+texture_over = SubResource("AtlasTexture_d62kx")
+texture_progress = SubResource("AtlasTexture_2xaf4")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Score" type="Label" parent="VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(100, 30)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 15
+text = "Score: "
+
+[node name="TotalScore" type="Label" parent="VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "0"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Combo" type="Label" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 30)
+layout_mode = 2
+theme_override_font_sizes/font_size = 15
+text = "Combo:"
+
+[node name="Current_Combo" type="Label" parent="VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
+text = "0"
+
+[node name="Multiplier" type="Label" parent="VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 20
+text = "x 0"
+
+[node name="Current_Trick" type="Label" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+
+[node name="ComboTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_d62kx")
+}
+
+[connection signal="timeout" from="ComboTimer" to="." method="_on_combo_timer_timeout"]
