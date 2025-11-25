@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://ld0h6j3c4wye"]
+[gd_scene load_steps=9 format=3 uid="uid://ld0h6j3c4wye"]
 
-[ext_resource type="PackedScene" uid="uid://do670xin754vl" path="res://level/level_template.tscn" id="1_omx5w"]
+[ext_resource type="PackedScene" path="res://level/level_template.tscn" id="1_omx5w"]
 [ext_resource type="PackedScene" uid="uid://xbhv7p0a8n62" path="res://entities/environment/lava.tscn" id="3_moo38"]
 [ext_resource type="PackedScene" uid="uid://c0sjb70mhesg7" path="res://entities/environment/jump_pad.tscn" id="4_nokfs"]
 [ext_resource type="PackedScene" uid="uid://dgunwb7odlxau" path="res://entities/enemies/broski/broski.tscn" id="5_jfgjb"]
+[ext_resource type="PackedScene" uid="uid://b86cgeujtg7pl" path="res://entities/environment/hell_sign.tscn" id="5_l1g64"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_omx5w"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -914,3 +915,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.790216, -389.00558, -59.1
 
 [node name="Broski9" parent="Enemies" index="8" instance=ExtResource("5_jfgjb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.860054, -389.00558, -50.20412)
+
+[node name="HellSign" parent="." index="13" instance=ExtResource("5_l1g64")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 55.702538, -10.076866)

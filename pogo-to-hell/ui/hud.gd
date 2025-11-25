@@ -13,6 +13,8 @@ var tween: Tween
 @onready var debug_label_3: Label = $DebugLabel3
 @onready var settings_menu: CanvasLayer = $SettingsMenu
 @onready var pause_menu: CanvasLayer = $PauseMenu
+@onready var intro: CanvasLayer = $Intro
+@onready var main_menu: CanvasLayer = $MainMenu
 @onready var hit_color_rect: TextureRect = %HitColorRect
 @onready var health_bar: TextureProgressBar = %HealthBar
 @onready var grapple_bar: TextureProgressBar = %GrappleBar
@@ -21,6 +23,10 @@ var tween: Tween
 func _ready() -> void:
 	player.damage_taken.connect(_on_player_damage)
 	player.player_died.connect(_on_player_died)
+	
+	if Globals.show_main_menu:
+		get_tree().paused = true
+		main_menu.show()
 
 
 func _input(event: InputEvent) -> void:
@@ -60,4 +66,26 @@ func _on_player_damage() -> void:
 
 
 func _on_player_died() -> void:
-	pass
+	Globals.show_main_menu = false
+	get_tree().call_deferred("reload_current_scene")
+
+
+func _on_intro_intro_finished() -> void:
+	get_tree().paused = false
+	pause_menu.hide()
+	intro.hide()
+
+
+func _on_main_menu_start_game() -> void:
+	main_menu.hide()
+	pause_menu.show()
+	intro.show()
+	intro.start()
+
+
+func _on_main_menu_start_options() -> void:
+	settings_menu.visible = true
+
+
+func _on_main_menu_credits() -> void:
+	pass # TODO
