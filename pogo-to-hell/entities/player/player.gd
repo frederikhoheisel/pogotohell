@@ -291,4 +291,3 @@ func take_damage(amount: int) -> void:
 	get_tree().get_first_node_in_group("Score").end_combo()
 	if health <= 0:
 		player_died.emit()
-		get_tree().call_deferred("reload_current_scene")
