@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://c1mxi56rrm2c4"]
+[gd_scene load_steps=14 format=3 uid="uid://c1mxi56rrm2c4"]
 
 [ext_resource type="Script" uid="uid://d2iuqmxdbt7ko" path="res://ui/hud.gd" id="1_rbyyf"]
 [ext_resource type="Texture2D" uid="uid://qwci8cyvit6n" path="res://assets/textures/healthbar_over.png" id="2_1v5rv"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://d4baqm2niu2b0" path="res://ui/settings_menu.tscn" id="4_7ihmi"]
 [ext_resource type="Texture2D" uid="uid://cb038omud8v8g" path="res://assets/textures/grapple.png" id="9_ff8ar"]
 [ext_resource type="Texture2D" uid="uid://4u10e5vulxg6" path="res://assets/textures/grapple_over.png" id="10_m0eg6"]
+[ext_resource type="PackedScene" uid="uid://dgquavm7mg2ka" path="res://ui/score_overview.tscn" id="11_m0eg6"]
 
 [sub_resource type="Gradient" id="Gradient_7ihmi"]
 offsets = PackedFloat32Array(0.20588236, 1)
@@ -122,6 +123,8 @@ visible = false
 [node name="SettingsMenu" parent="." instance=ExtResource("4_7ihmi")]
 layer = 2
 visible = false
+
+[node name="ScoreOverview" parent="." instance=ExtResource("11_m0eg6")]
 
 [connection signal="settings_pressed" from="PauseMenu" to="." method="_on_pause_menu_settings_pressed"]
 [connection signal="settings_disabled" from="SettingsMenu" to="." method="_on_pause_menu_settings_pressed"]

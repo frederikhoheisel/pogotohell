@@ -23,7 +23,7 @@ func _process(delta: float) -> void:
 func _on_area_3d_body_entered(body: Node3D) -> void:
 	if time < 0.1:
 		return
-	if body.has_method("take_damage"):
+	if body.is_in_group("Player"):
 		body.take_damage(1)
 		self.queue_free()
 

@@ -47,6 +47,7 @@ var max_grapple_distance: float = 50.0
 
 var pogo_material: Material
 
+var was_in_air: bool
 
 @onready var rope_pos: Marker3D = %RopePos
 @onready var head: Node3D = $Head
@@ -89,12 +90,20 @@ func _handle_jump(delta: float) -> void:
 			jump_buffered = false
 			jump_strength = 0.0
 			time_since_last_jump = 0.0
-		
+			if was_in_air: 
+				get_tree().get_first_node_in_group("Score").jump()
+			was_in_air = false
+		else: 
+			was_in_air = true
 		if jump_buffer_timer > jump_buffer_time:
 			jump_buffered = false
 			jump_strength = 0.0
 		
 		jump_buffer_timer += delta
+	
+	if is_on_floor() or on_wall or is_grappling:
+		get_tree().get_first_node_in_group("Score").in_air = false
+	else: get_tree().get_first_node_in_group("Score").in_air = true
 
 
 func _handle_ground_physics(delta) -> void:
@@ -279,7 +288,7 @@ func take_damage(amount: int) -> void:
 	hurt_audio_player.play()
 	health -= amount
 	damage_taken.emit()
-	
+	get_tree().get_first_node_in_group("Score").end_combo()
 	if health <= 0:
 		player_died.emit()
 		get_tree().call_deferred("reload_current_scene")
