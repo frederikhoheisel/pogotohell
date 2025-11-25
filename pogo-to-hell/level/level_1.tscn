@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://ld0h6j3c4wye"]
+[gd_scene load_steps=12 format=3 uid="uid://ld0h6j3c4wye"]
 
 [ext_resource type="PackedScene" path="res://level/level_template.tscn" id="1_omx5w"]
 [ext_resource type="PackedScene" uid="uid://xbhv7p0a8n62" path="res://entities/environment/lava.tscn" id="3_moo38"]
 [ext_resource type="PackedScene" uid="uid://c0sjb70mhesg7" path="res://entities/environment/jump_pad.tscn" id="4_nokfs"]
 [ext_resource type="PackedScene" uid="uid://dgunwb7odlxau" path="res://entities/enemies/broski/broski.tscn" id="5_jfgjb"]
 [ext_resource type="PackedScene" uid="uid://b86cgeujtg7pl" path="res://entities/environment/hell_sign.tscn" id="5_l1g64"]
+[ext_resource type="PackedScene" uid="uid://dbljcly3auhal" path="res://environment/door.tscn" id="6_l1g64"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_omx5w"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -27,6 +28,19 @@ fog_enabled = true
 fog_light_color = Color(0.3231853, 0.16830945, 0.14844668, 1)
 adjustment_enabled = true
 
+[sub_resource type="GDScript" id="GDScript_l1g64"]
+script/source = "extends Area3D
+
+
+func _on_body_entered(body: Node3D) -> void:
+	if body is Player:
+		get_tree().get_first_node_in_group(\"HUD\").show_scoreboard()
+"
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_l1g64"]
+height = 20.0
+radius = 16.0
+
 [node name="Level1" instance=ExtResource("1_omx5w")]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." index="0"]
@@ -38,7 +52,7 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." index="1"]
 environment = SubResource("Environment_moo38")
 
-[node name="ScreenShader" parent="." index="5"]
+[node name="ScreenShader" parent="." index="5" groups=["ScreenShader"]]
 visible = true
 
 [node name="Player" parent="." index="6"]
@@ -615,16 +629,16 @@ transform = Transform3D(0.7451968, 0, -0.6668447, 0, 1, 0, 0.6668447, 0, 0.74519
 size = Vector3(2, 1, 8)
 
 [node name="Schacht5" type="CSGCombiner3D" parent="SolidGeometry" index="6"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33, -361, -64)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33, -770, -64)
 
 [node name="CSGCylinder3D" type="CSGCylinder3D" parent="SolidGeometry/Schacht5" index="0"]
 radius = 16.0
-height = 256.0
+height = 1024.0
 
 [node name="CSGCylinder3D2" type="CSGCylinder3D" parent="SolidGeometry/Schacht5" index="1"]
 operation = 2
 radius = 14.0
-height = 250.0
+height = 1020.0
 
 [node name="Obstacle24" type="CSGCombiner3D" parent="SolidGeometry/Schacht5" index="2"]
 transform = Transform3D(-0.3850682, 0, 0.92288804, 0, 1, 0, -0.92288804, 0, -0.3850682, -4.2353554, 90.5477, -9.300697)
@@ -633,35 +647,70 @@ transform = Transform3D(-0.3850682, 0, 0.92288804, 0, 1, 0, -0.92288804, 0, -0.3
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8540726, 0, 0)
 size = Vector3(12, 1, 3)
 
-[node name="Obstacle25" type="CSGCombiner3D" parent="SolidGeometry/Schacht5" index="3"]
+[node name="Obstacle30" type="CSGCombiner3D" parent="SolidGeometry/Schacht5" index="3"]
+transform = Transform3D(-0.96565396, 0, 0.25983074, 0, 1, 0, -0.25983074, 0, -0.96565396, -10.482847, 363.3341, -4.908676)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Schacht5/Obstacle30" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8540726, 0, 0)
+size = Vector3(12, 1, 3)
+
+[node name="Obstacle34" type="CSGCombiner3D" parent="SolidGeometry/Schacht5" index="4"]
+transform = Transform3D(0.44272655, 0, -0.89665663, 0, 1, 0, 0.89665663, 0, 0.44272655, 3.353878, 417.26456, 8.559963)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Schacht5/Obstacle34" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8540726, 0, 0)
+size = Vector3(12, 1, 3)
+
+[node name="Obstacle31" type="CSGCombiner3D" parent="SolidGeometry/Schacht5" index="5"]
+transform = Transform3D(0.7920768, 0, 0.61042124, 0, 1, 0, -0.61042124, 0, 0.7920768, 10.787445, 328.24918, -3.2677307)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Schacht5/Obstacle31" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8540726, 0, 0)
+size = Vector3(12, 1, 3)
+
+[node name="Obstacle32" type="CSGCombiner3D" parent="SolidGeometry/Schacht5" index="6"]
+transform = Transform3D(0.07154927, 0, -0.99743694, 0, 1, 0, 0.99743694, 0, 0.07154927, 1.5339432, 235.63391, 11.110992)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Schacht5/Obstacle32" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8540726, 0, 0)
+size = Vector3(12, 1, 3)
+
+[node name="Obstacle33" type="CSGCombiner3D" parent="SolidGeometry/Schacht5" index="7"]
+transform = Transform3D(-0.96444654, 0, 0.2642774, 0, 1, 0, -0.2642774, 0, -0.96444654, -12.251396, 145.07532, -3.167923)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Schacht5/Obstacle33" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8540726, 0, 0)
+size = Vector3(12, 1, 3)
+
+[node name="Obstacle25" type="CSGCombiner3D" parent="SolidGeometry/Schacht5" index="8"]
 transform = Transform3D(-0.6815134, 0, -0.73180556, 0, 1, 0, 0.73180556, 0, -0.6815134, -10.4361, 40.874207, 7.276005)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Schacht5/Obstacle25" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8540726, 0, 0)
 size = Vector3(12, 1, 3)
 
-[node name="Obstacle26" type="CSGCombiner3D" parent="SolidGeometry/Schacht5" index="4"]
+[node name="Obstacle26" type="CSGCombiner3D" parent="SolidGeometry/Schacht5" index="9"]
 transform = Transform3D(0.68751824, 0, -0.726167, 0, 1, 0, 0.726167, 0, 0.68751824, 8.295834, 17.920868, 7.9459267)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Schacht5/Obstacle26" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8540726, 0, 0)
 size = Vector3(12, 1, 3)
 
-[node name="Obstacle27" type="CSGCombiner3D" parent="SolidGeometry/Schacht5" index="5"]
+[node name="Obstacle27" type="CSGCombiner3D" parent="SolidGeometry/Schacht5" index="10"]
 transform = Transform3D(0.5062598, 0, 0.86238086, 0, 1, 0, -0.86238086, 0, 0.5062598, 7.8966637, -17.293976, -7.319702)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Schacht5/Obstacle27" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8540726, 0, 0)
 size = Vector3(12, 1, 3)
 
-[node name="Obstacle28" type="CSGCombiner3D" parent="SolidGeometry/Schacht5" index="6"]
+[node name="Obstacle28" type="CSGCombiner3D" parent="SolidGeometry/Schacht5" index="11"]
 transform = Transform3D(-0.9468008, 0, 0.32181984, 0, 1, 0, -0.32181984, 0, -0.9468008, -9.917631, -45.55951, -5.1812363)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Schacht5/Obstacle28" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8540726, 0, 0)
 size = Vector3(12, 1, 3)
 
-[node name="Obstacle29" type="CSGCombiner3D" parent="SolidGeometry/Schacht5" index="7"]
+[node name="Obstacle29" type="CSGCombiner3D" parent="SolidGeometry/Schacht5" index="12"]
 transform = Transform3D(0.04947704, 0, -0.99877536, 0, 1, 0, 0.99877536, 0, 0.04947704, 2.747757, -68.052155, 11.232731)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="SolidGeometry/Schacht5/Obstacle29" index="0"]
@@ -779,41 +828,36 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, -422.45667, -65.09058)
 width = 64.0
 depth = 64.0
 
-[node name="Lava11" parent="Lava" index="5" instance=ExtResource("3_moo38")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.910473, -485.3942, -65.09058)
-width = 32.0
-depth = 32.0
-
-[node name="Lava4" parent="Lava" index="6" instance=ExtResource("3_moo38")]
+[node name="Lava4" parent="Lava" index="5" instance=ExtResource("3_moo38")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.5, 0, 0)
 height = 100.0
 depth = 5.0
 
-[node name="Lava5" parent="Lava" index="7" instance=ExtResource("3_moo38")]
+[node name="Lava5" parent="Lava" index="6" instance=ExtResource("3_moo38")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.5, 0, 0)
 height = 100.0
 depth = 5.0
 
-[node name="Lava6" parent="Lava" index="8" instance=ExtResource("3_moo38")]
+[node name="Lava6" parent="Lava" index="7" instance=ExtResource("3_moo38")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.5, 49.8, 12)
 depth = 32.0
 
-[node name="Lava7" parent="Lava" index="9" instance=ExtResource("3_moo38")]
+[node name="Lava7" parent="Lava" index="8" instance=ExtResource("3_moo38")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.5, 49.8, 12)
 depth = 32.0
 
-[node name="Lava13" parent="Lava" index="10" instance=ExtResource("3_moo38")]
+[node name="Lava13" parent="Lava" index="9" instance=ExtResource("3_moo38")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.06934166, -338.4193, -55)
 width = 8.0
 height = 168.0
 depth = 8.0
 
-[node name="Lava9" parent="Lava" index="11" instance=ExtResource("3_moo38")]
+[node name="Lava9" parent="Lava" index="10" instance=ExtResource("3_moo38")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32, -326.505, -32)
 width = 32.0
 depth = 32.0
 
-[node name="Lava12" parent="Lava" index="12" instance=ExtResource("3_moo38")]
+[node name="Lava12" parent="Lava" index="11" instance=ExtResource("3_moo38")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22, -291, -32)
 width = 4.0
 height = 72.0
@@ -916,5 +960,28 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.790216, -389.00558, -59.1
 [node name="Broski9" parent="Enemies" index="8" instance=ExtResource("5_jfgjb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.860054, -389.00558, -50.20412)
 
-[node name="HellSign" parent="." index="13" instance=ExtResource("5_l1g64")]
+[node name="Doors" type="Node" parent="." index="12"]
+
+[node name="Door" parent="Doors" index="0" node_paths=PackedStringArray("enemies") instance=ExtResource("6_l1g64")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 18.722054, -215.54027, -31.613697)
+enemies = [NodePath("../../Enemies/Broski")]
+
+[node name="Door3" parent="Doors" index="1" node_paths=PackedStringArray("enemies") instance=ExtResource("6_l1g64")]
+transform = Transform3D(-4.371139e-07, 0, 10, 0, 10, 0, -10, 0, -4.371139e-07, -0.12628222, -208.43138, -51.25961)
+enemies = [NodePath("../../Enemies/Broski")]
+
+[node name="Door2" parent="Doors" index="2" node_paths=PackedStringArray("enemies") instance=ExtResource("6_l1g64")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 18.170322, -392.6833, -62.7108)
+enemies = [NodePath("../../Enemies/Broski4"), NodePath("../../Enemies/Broski5"), NodePath("../../Enemies/Broski6"), NodePath("../../Enemies/Broski7"), NodePath("../../Enemies/Broski8"), NodePath("../../Enemies/Broski9")]
+
+[node name="HellSign" parent="." index="14" instance=ExtResource("5_l1g64")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 55.702538, -10.076866)
+
+[node name="FinishArea" type="Area3D" parent="." index="15"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.62788, -1230.9432, -63.663727)
+script = SubResource("GDScript_l1g64")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FinishArea" index="0"]
+shape = SubResource("CylinderShape3D_l1g64")
+
+[connection signal="body_entered" from="FinishArea" to="FinishArea" method="_on_body_entered"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://c1mxi56rrm2c4"]
+[gd_scene load_steps=18 format=3 uid="uid://c1mxi56rrm2c4"]
 
 [ext_resource type="Script" uid="uid://d2iuqmxdbt7ko" path="res://ui/hud.gd" id="1_rbyyf"]
 [ext_resource type="Texture2D" uid="uid://qwci8cyvit6n" path="res://assets/textures/healthbar_over.png" id="2_1v5rv"]
@@ -12,6 +12,14 @@
 [ext_resource type="Texture2D" uid="uid://4u10e5vulxg6" path="res://assets/textures/grapple_over.png" id="10_m0eg6"]
 [ext_resource type="PackedScene" uid="uid://dm5ci2dtw1i86" path="res://ui/intro.tscn" id="11_m0eg6"]
 [ext_resource type="PackedScene" uid="uid://dfsrp31sctbms" path="res://ui/main_menu.tscn" id="12_b00kl"]
+[ext_resource type="FontFile" uid="uid://ksfnpkei2fwm" path="res://assets/merchant-copy/Merchant Copy.ttf" id="13_so1yu"]
+[ext_resource type="PackedScene" uid="uid://b35b84wr65abm" path="res://ui/scoreboard.tscn" id="14_65xic"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_65xic"]
+font = ExtResource("13_so1yu")
+font_size = 48
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="Gradient" id="Gradient_7ihmi"]
 offsets = PackedFloat32Array(0.20588236, 1)
@@ -23,7 +31,7 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 metadata/_snap_enabled = true
 
-[node name="Hud" type="CanvasLayer"]
+[node name="Hud" type="CanvasLayer" groups=["HUD"]]
 process_mode = 3
 script = ExtResource("1_rbyyf")
 
@@ -60,9 +68,9 @@ texture_progress = ExtResource("3_q43x7")
 unique_name_in_owner = true
 texture_filter = 1
 anchors_preset = -1
-anchor_left = 0.94
+anchor_left = 0.06
 anchor_top = 0.4
-anchor_right = 0.94
+anchor_right = 0.06
 anchor_bottom = 0.4
 offset_left = -64.0
 offset_top = -32.0
@@ -90,6 +98,22 @@ offset_left = 1.0
 offset_top = 63.0
 offset_right = 41.0
 offset_bottom = 86.0
+
+[node name="Timer" type="Label" parent="."]
+unique_name_in_owner = true
+texture_filter = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.95
+anchor_right = 0.5
+anchor_bottom = 0.95
+offset_left = -42.5
+offset_top = -33.0
+offset_right = 42.5
+grow_horizontal = 2
+grow_vertical = 0
+text = "0.01s"
+label_settings = SubResource("LabelSettings_65xic")
 
 [node name="Crosshair" type="ColorRect" parent="."]
 material = ExtResource("2_7ihmi")
@@ -131,6 +155,8 @@ visible = false
 layer = 2
 visible = false
 
+[node name="Scoreboard" parent="." instance=ExtResource("14_65xic")]
+visible = false
 [node name="ScoreOverview" parent="." instance=ExtResource("11_m0eg6")]
 
 [connection signal="settings_pressed" from="PauseMenu" to="." method="_on_pause_menu_settings_pressed"]

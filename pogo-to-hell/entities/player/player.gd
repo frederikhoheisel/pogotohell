@@ -43,7 +43,7 @@ var is_grappling: bool = false
 var grapple_point: Vector3
 var grapple_speed: float = 20.0
 var grapple_acceleration: float = 10.0
-var max_grapple_distance: float = 50.0
+var max_grapple_distance: float = 100.0
 
 var pogo_material: Material
 

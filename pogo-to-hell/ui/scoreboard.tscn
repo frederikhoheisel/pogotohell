@@ -1,0 +1,150 @@
+[gd_scene load_steps=12 format=3 uid="uid://b35b84wr65abm"]
+
+[ext_resource type="Script" uid="uid://codewegf0jwdi" path="res://ui/scoreboard.gd" id="1_1enrn"]
+[ext_resource type="FontFile" uid="uid://ksfnpkei2fwm" path="res://assets/merchant-copy/Merchant Copy.ttf" id="1_qjve3"]
+[ext_resource type="PackedScene" uid="uid://cougpl72erks0" path="res://ui/enter_name.tscn" id="3_1enrn"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vcswh"]
+bg_color = Color(0.15294118, 0.15294118, 0.15294118, 1)
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0.06879826, 0.06879829, 0.068798244, 1)
+border_blend = true
+corner_radius_top_left = 32
+corner_radius_top_right = 32
+corner_radius_bottom_right = 32
+corner_radius_bottom_left = 32
+expand_margin_left = 32.0
+expand_margin_top = 32.0
+expand_margin_right = 32.0
+expand_margin_bottom = 32.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_d7rl5"]
+font = ExtResource("1_qjve3")
+font_size = 96
+font_color = Color(0.3882353, 0.003921569, 0.003921569, 1)
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+stacked_outline_count = 1
+
+[sub_resource type="LabelSettings" id="LabelSettings_1enrn"]
+font = ExtResource("1_qjve3")
+font_size = 32
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_17cat"]
+font = ExtResource("1_qjve3")
+font_size = 32
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_pmdpq"]
+font = ExtResource("1_qjve3")
+font_size = 32
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_2hyv8"]
+font = ExtResource("1_qjve3")
+font_size = 32
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d7rl5"]
+content_margin_left = 4.0
+content_margin_top = 2.0
+content_margin_right = 4.0
+content_margin_bottom = 2.0
+bg_color = Color(0.5686275, 0.22352941, 0.015686275, 1)
+draw_center = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1enrn"]
+content_margin_left = 4.0
+content_margin_top = 2.0
+content_margin_right = 4.0
+content_margin_bottom = 2.0
+bg_color = Color(0.67259455, 0.2702953, 0.023984034, 1)
+draw_center = false
+
+[node name="Scoreboard" type="CanvasLayer"]
+layer = 2
+script = ExtResource("1_1enrn")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer"]
+custom_minimum_size = Vector2(640, 256)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_vcswh")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 32
+
+[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "SCOREBOARD"
+label_settings = SubResource("LabelSettings_d7rl5")
+horizontal_alignment = 1
+uppercase = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Header" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label4" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/VBoxContainer/Header"]
+layout_mode = 2
+text = "Place"
+label_settings = SubResource("LabelSettings_1enrn")
+
+[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/VBoxContainer/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Name"
+label_settings = SubResource("LabelSettings_17cat")
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/VBoxContainer/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Time"
+label_settings = SubResource("LabelSettings_pmdpq")
+horizontal_alignment = 1
+
+[node name="Label3" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/VBoxContainer/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Score"
+label_settings = SubResource("LabelSettings_2hyv8")
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="MarginContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.3882353, 0.003921569, 0.003921569, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("1_qjve3")
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxFlat_d7rl5")
+theme_override_styles/hover = SubResource("StyleBoxFlat_1enrn")
+text = "MENU"
+
+[node name="EnterName" parent="MarginContainer" instance=ExtResource("3_1enrn")]
+layout_mode = 2
+
+[connection signal="pressed" from="MarginContainer/PanelContainer/VBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="name_entered" from="MarginContainer/EnterName" to="." method="_on_enter_name_name_entered"]
