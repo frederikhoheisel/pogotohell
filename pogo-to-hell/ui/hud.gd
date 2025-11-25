@@ -87,6 +87,7 @@ func _on_intro_intro_finished() -> void:
 	pause_menu.hide()
 	intro.hide()
 	pausable = true
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 
 func _on_main_menu_start_game() -> void:
@@ -110,3 +111,4 @@ func show_scoreboard() -> void:
 	scoreboard.show()
 	scoreboard.time = time
 	scoreboard.score = score_overview.total_score
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)

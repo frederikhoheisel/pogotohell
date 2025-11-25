@@ -945,20 +945,74 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.985195, -314.02066, -34.42
 [node name="Broski4" parent="Enemies" index="3" instance=ExtResource("5_jfgjb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.191578, -394.468, -74.17603)
 
-[node name="Broski5" parent="Enemies" index="4" instance=ExtResource("5_jfgjb")]
+[node name="Broski19" parent="Enemies" index="4" instance=ExtResource("5_jfgjb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.52166, -394.468, -74.64208)
+
+[node name="Broski21" parent="Enemies" index="5" instance=ExtResource("5_jfgjb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.837034, -394.468, -70.36959)
+
+[node name="Broski22" parent="Enemies" index="6" instance=ExtResource("5_jfgjb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.735435, -319.24936, -60.538742)
+
+[node name="Broski23" parent="Enemies" index="7" instance=ExtResource("5_jfgjb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35.735435, -319.24936, -69.95052)
+
+[node name="Broski24" parent="Enemies" index="8" instance=ExtResource("5_jfgjb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39.546497, -299.39377, -66.35879)
+
+[node name="Broski25" parent="Enemies" index="9" instance=ExtResource("5_jfgjb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39.546497, -279.9713, -66.35879)
+
+[node name="Broski26" parent="Enemies" index="10" instance=ExtResource("5_jfgjb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37.029728, -272.59708, -69.260254)
+
+[node name="Broski27" parent="Enemies" index="11" instance=ExtResource("5_jfgjb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.590729, -272.59708, -62.739174)
+
+[node name="Broski20" parent="Enemies" index="12" instance=ExtResource("5_jfgjb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.52166, -394.468, -68.783356)
+
+[node name="Broski5" parent="Enemies" index="13" instance=ExtResource("5_jfgjb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.4476748, -394.468, -66.421974)
 
-[node name="Broski6" parent="Enemies" index="5" instance=ExtResource("5_jfgjb")]
+[node name="Broski6" parent="Enemies" index="14" instance=ExtResource("5_jfgjb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.8300905, -394.468, -65.9354)
 
-[node name="Broski7" parent="Enemies" index="6" instance=ExtResource("5_jfgjb")]
+[node name="Broski7" parent="Enemies" index="15" instance=ExtResource("5_jfgjb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.0468445, -394.468, -58.321304)
 
-[node name="Broski8" parent="Enemies" index="7" instance=ExtResource("5_jfgjb")]
+[node name="Broski8" parent="Enemies" index="16" instance=ExtResource("5_jfgjb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.790216, -389.00558, -59.195976)
 
-[node name="Broski9" parent="Enemies" index="8" instance=ExtResource("5_jfgjb")]
+[node name="Broski9" parent="Enemies" index="17" instance=ExtResource("5_jfgjb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.860054, -389.00558, -50.20412)
+
+[node name="Broski10" parent="Enemies" index="18" instance=ExtResource("5_jfgjb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3722202, -34.39568, -2.9878054)
+
+[node name="Broski11" parent="Enemies" index="19" instance=ExtResource("5_jfgjb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5731485, -22.379787, -29.084078)
+
+[node name="Broski12" parent="Enemies" index="20" instance=ExtResource("5_jfgjb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12432122, -144.90086, -25.87308)
+
+[node name="Broski13" parent="Enemies" index="21" instance=ExtResource("5_jfgjb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.462262, -240.51747, -25.87308)
+
+[node name="Broski14" parent="Enemies" index="22" instance=ExtResource("5_jfgjb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.0614858, -236.51968, -19.696964)
+
+[node name="Broski15" parent="Enemies" index="23" instance=ExtResource("5_jfgjb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.164436, -236.51968, -19.696964)
+
+[node name="Broski16" parent="Enemies" index="24" instance=ExtResource("5_jfgjb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.41159, -209.0384, -29.65142)
+
+[node name="Broski17" parent="Enemies" index="25" instance=ExtResource("5_jfgjb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.6907005, -210.8964, -65.87331)
+
+[node name="Broski18" parent="Enemies" index="26" instance=ExtResource("5_jfgjb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0649853, -245.81436, -65.87331)
 
 [node name="Doors" type="Node" parent="." index="12"]
 
