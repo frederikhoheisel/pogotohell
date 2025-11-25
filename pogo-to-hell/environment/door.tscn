@@ -1,8 +1,25 @@
-[gd_scene load_steps=4 format=3 uid="uid://dbljcly3auhal"]
+[gd_scene load_steps=7 format=3 uid="uid://dbljcly3auhal"]
 
 [ext_resource type="PackedScene" uid="uid://caotgl20w278a" path="res://assets/models/skull.fbx" id="1_are4n"]
 [ext_resource type="Script" uid="uid://dc0aueo73hca3" path="res://environment/door.gd" id="1_jehm5"]
 [ext_resource type="PackedScene" uid="uid://7ev4ypheug5o" path="res://assets/models/jaw.fbx" id="2_jehm5"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jehm5"]
+albedo_color = Color(1, 0, 0, 1)
+emission_enabled = true
+emission = Color(1, 0, 0, 1)
+emission_energy_multiplier = 10.0
+emission_operator = 1
+
+[sub_resource type="SphereMesh" id="SphereMesh_275g2"]
+material = SubResource("StandardMaterial3D_jehm5")
+radius = 0.001
+height = 0.002
+radial_segments = 4
+rings = 2
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_jehm5"]
+radius = 0.7
 
 [node name="Door" type="Node3D"]
 script = ExtResource("1_jehm5")
@@ -12,9 +29,32 @@ script = ExtResource("1_jehm5")
 [node name="Armature" parent="skull" index="0"]
 transform = Transform3D(100, -1.9852333e-21, -8.67773e-29, 0, -4.3711384e-06, 99.99999, -1.9852335e-21, -99.99999, -4.3711384e-06, 0, 0, 0)
 
-[node name="Skeleton3D" parent="skull/Armature" index="0"]
-bones/0/position = Vector3(0, 0, 0.010564434)
-bones/0/rotation = Quaternion(0.50000006, 0.5, -0.5, 0.50000006)
+[node name="BoneAttachment3D" type="BoneAttachment3D" parent="skull/Armature/Skeleton3D" index="1"]
+transform = Transform3D(1, 0, 0, 0, -1.1920928e-07, -0.9999999, 0, 0.9999999, -1.1920928e-07, 0, -1.1920928e-09, 0.009999999)
+bone_name = "Bone_end"
+bone_idx = 1
+
+[node name="OmniLight3D" type="OmniLight3D" parent="skull/Armature/Skeleton3D/BoneAttachment3D"]
+transform = Transform3D(0.01, 0, 9.8607613e-32, 1.469368e-39, 0.010000003, -1.6653345e-16, -1.1093356e-31, 1.6653345e-16, 0.010000003, -0.006221312, -0.005494949, -0.0019928506)
+light_color = Color(1, 0, 0, 1)
+light_energy = 10.0
+omni_range = 10.0
+omni_attenuation = 2.0
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="skull/Armature/Skeleton3D/BoneAttachment3D"]
+transform = Transform3D(0.01, 0, 1.1093356e-31, 2.938736e-39, 0.010000003, -1.6653345e-16, -1.2325952e-31, 1.6653345e-16, 0.010000003, -0.0060221315, -0.005494949, 0.002008557)
+light_color = Color(1, 0, 0, 1)
+light_energy = 10.0
+omni_range = 10.0
+omni_attenuation = 2.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="skull/Armature/Skeleton3D/BoneAttachment3D"]
+transform = Transform3D(1, 0, 0, 2.8211864e-37, 1, 0, -9.466331e-30, 0, 1, -0.0046350523, -0.005436641, -0.002065255)
+mesh = SubResource("SphereMesh_275g2")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="skull/Armature/Skeleton3D/BoneAttachment3D"]
+transform = Transform3D(1, 0, 0, 2.8211864e-37, 1, 0, -1.2621775e-29, 0, 1, -0.0046350523, -0.005436641, 0.0019183046)
+mesh = SubResource("SphereMesh_275g2")
 
 [node name="jaw" parent="." instance=ExtResource("2_jehm5")]
 
@@ -22,8 +62,14 @@ bones/0/rotation = Quaternion(0.50000006, 0.5, -0.5, 0.50000006)
 transform = Transform3D(100, -1.9852333e-21, -8.67773e-29, 0, -4.3711384e-06, 99.99999, -1.9852335e-21, -99.99999, -4.3711384e-06, 0, 0, 0)
 
 [node name="Skeleton3D" parent="jaw/Armature_001" index="0"]
-bones/0/position = Vector3(0, 0, 0)
-bones/0/rotation = Quaternion(0.7071068, 0, -4.647789e-11, 0.7071067)
+bones/0/rotation = Quaternion(0.7071066, -0.00041213646, 0.0004121364, 0.7071067)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.074784756, 0.20732594, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("SphereShape3D_jehm5")
 
 [editable path="skull"]
 [editable path="jaw"]

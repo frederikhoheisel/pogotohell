@@ -113,3 +113,7 @@ func _on_sounds_slider_value_changed(value: float) -> void:
 	%SoundsVolume.text = str(value as int)
 	AudioServer.set_bus_volume_db(2, linear_to_db(value * 0.04))
 	AudioServer.set_bus_mute(2, value * 0.1 < 0.01)
+
+
+func _on_outline_check_box_toggled(toggled_on: bool) -> void:
+	get_tree().get_first_node_in_group("ScreenShader").visible = toggled_on
