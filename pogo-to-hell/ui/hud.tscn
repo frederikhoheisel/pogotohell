@@ -157,6 +157,7 @@ visible = false
 
 [node name="Scoreboard" parent="." instance=ExtResource("14_65xic")]
 visible = false
+[node name="ScoreOverview" parent="." instance=ExtResource("11_m0eg6")]
 
 [connection signal="settings_pressed" from="PauseMenu" to="." method="_on_pause_menu_settings_pressed"]
 [connection signal="intro_finished" from="Intro" to="." method="_on_intro_intro_finished"]

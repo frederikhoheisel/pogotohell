@@ -36,6 +36,7 @@ var blood_expl_particles:  PackedScene = preload("res://entities/effects/blood_e
 func take_damage(amount: int = 1) -> void:
 	health -= amount
 	if health <= 0:
+		get_tree().get_first_node_in_group("Score").increase_combo(true)
 		$Bleeding.stop_bleeding()
 		#get_tree().get_first_node_in_group("SmokeManager").place_smoke(self.global_position + Vector3(0.0, 1.0, 0.0), true, 2.0)
 		get_tree().get_first_node_in_group("SmokeManager").place_blood_expl(self.global_position)
@@ -48,7 +49,9 @@ func take_damage(amount: int = 1) -> void:
 		self.hide()
 		await get_tree().create_timer(1.0).timeout
 		self.queue_free()
+		return
 	$Bleeding.start_bleeding()
+	get_tree().get_first_node_in_group("Score").increase_combo(false)
 
 func _ready() -> void:
 	animation_player.play("idle")
