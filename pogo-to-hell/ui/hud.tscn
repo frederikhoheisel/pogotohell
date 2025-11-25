@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://d2iuqmxdbt7ko" path="res://ui/hud.gd" id="1_rbyyf"]
 [ext_resource type="Texture2D" uid="uid://qwci8cyvit6n" path="res://assets/textures/healthbar_over.png" id="2_1v5rv"]
-[ext_resource type="Material" uid="uid://c7n6hmrhx0x1n" path="res://ui/crosshair.tres" id="2_7ihmi"]
+[ext_resource type="Material" path="res://ui/crosshair.tres" id="2_7ihmi"]
 [ext_resource type="Texture2D" uid="uid://c7b1trek5ddhb" path="res://assets/textures/pogo_under.png" id="2_srpbi"]
 [ext_resource type="PackedScene" uid="uid://nsma4il6xv2c" path="res://ui/pause_menu.tscn" id="3_546lt"]
 [ext_resource type="Texture2D" uid="uid://b1c6nam34xb1n" path="res://assets/textures/healthbar.png" id="3_q43x7"]
@@ -14,7 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://dfsrp31sctbms" path="res://ui/main_menu.tscn" id="12_b00kl"]
 [ext_resource type="FontFile" uid="uid://ksfnpkei2fwm" path="res://assets/merchant-copy/Merchant Copy.ttf" id="13_so1yu"]
 [ext_resource type="PackedScene" uid="uid://b35b84wr65abm" path="res://ui/scoreboard.tscn" id="14_65xic"]
-[ext_resource type="PackedScene" path="res://ui/score_overview.tscn" id="15_mp5xd"]
+[ext_resource type="PackedScene" uid="uid://dgquavm7mg2ka" path="res://ui/score_overview.tscn" id="15_mp5xd"]
 [ext_resource type="AudioStream" uid="uid://dydo35krnwmey" path="res://assets/sounds/pogo_to_hell_soundtrack.wav" id="16_u6vop"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_65xic"]
