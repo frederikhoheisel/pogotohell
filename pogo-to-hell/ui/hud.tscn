@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://d2iuqmxdbt7ko" path="res://ui/hud.gd" id="1_rbyyf"]
 [ext_resource type="Texture2D" uid="uid://qwci8cyvit6n" path="res://assets/textures/healthbar_over.png" id="2_1v5rv"]
-[ext_resource type="Material" path="res://ui/crosshair.tres" id="2_7ihmi"]
+[ext_resource type="Material" uid="uid://c7n6hmrhx0x1n" path="res://ui/crosshair.tres" id="2_7ihmi"]
 [ext_resource type="Texture2D" uid="uid://c7b1trek5ddhb" path="res://assets/textures/pogo_under.png" id="2_srpbi"]
 [ext_resource type="PackedScene" uid="uid://nsma4il6xv2c" path="res://ui/pause_menu.tscn" id="3_546lt"]
 [ext_resource type="Texture2D" uid="uid://b1c6nam34xb1n" path="res://assets/textures/healthbar.png" id="3_q43x7"]
@@ -86,16 +86,19 @@ texture_under = ExtResource("9_ff8ar")
 texture_progress = ExtResource("10_m0eg6")
 
 [node name="DebugLabel1" type="Label" parent="."]
-visible = false
-offset_right = 40.0
-offset_bottom = 23.0
+texture_filter = 1
+anchors_preset = -1
+offset_left = 64.0
+offset_top = 64.0
+text = "hi"
+label_settings = SubResource("LabelSettings_65xic")
 
 [node name="DebugLabel2" type="Label" parent="."]
-visible = false
 offset_left = 1.0
 offset_top = 32.0
 offset_right = 41.0
 offset_bottom = 55.0
+text = "time"
 
 [node name="DebugLabel3" type="Label" parent="."]
 visible = false

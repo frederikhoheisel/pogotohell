@@ -19,9 +19,9 @@ var ground_accel: float = 10.0
 var ground_decel: float = 5.0
 var ground_friction: float = 3.0
 
-var air_accel: float = 14.0
-var air_move_speed: float = 8.0
-var air_speed_cap: float = 1.5
+var air_accel: float = 20.0
+var air_move_speed: float = 10.0
+var air_speed_cap: float = 8.5
 
 var wall_normal: Vector3 = Vector3.ZERO
 var wall_pos: Vector3 = Vector3.ZERO
@@ -33,8 +33,16 @@ var jump_strength: float = 0.0
 var jump_cooldown: float = 1.0 # damit man nicht an Wänden kleben bleibt nachdem man gesprungen ist; wenn man ändern will muss man das auch irgendwo im code anpassen xd speghetti style
 var time_since_last_jump: float = 0.0
 var jump_buffered: bool = false
-var jump_buffer_time: float = 0.2
+var jump_buffer_time: float = 0.5
 var jump_buffer_timer: float = 0.0
+var jump_counter: int = 0
+var jump_strength_base: float = 4.0
+var jump_strength_base_increase: float = 8.0
+var jump_counter_mult: float = 0.2
+var jump_max_combo: int = 4
+
+var is_ground_pound: bool = false
+var pound_velocity: float = 30.0
 
 var wish_dir: Vector3 = Vector3.ZERO
 
@@ -55,7 +63,7 @@ var was_in_air: bool
 @onready var low_pivot: Node3D = $LowPivot
 @onready var audio_stream_player: AudioStreamPlayer = $JumpAudioPlayer
 @onready var hurt_audio_player: AudioStreamPlayer = $HurtAudioPlayer
-@onready var gpu_particles_3d: GPUParticles3D = $LowPivot/pogo/GPUParticles3D
+@onready var smoke_particles: GPUParticles3D = $LowPivot/pogo/GPUParticles3D
 
 
 func _ready() -> void:
@@ -106,6 +114,38 @@ func _handle_jump(delta: float) -> void:
 	else: get_tree().get_first_node_in_group("Score").in_air = true
 
 
+func _handle_new_jump(delta: float) -> void:
+	time_since_last_jump += delta
+	if self.is_on_wall() or self.is_on_floor():
+		audio_stream_player.play()
+		time_since_last_jump = 0.0
+		
+		var jump_power: float = jump_strength_base
+		if Input.is_action_pressed("jump"):
+			if jump_counter <= jump_max_combo:
+				jump_counter = jump_max_combo if jump_counter >= jump_max_combo else jump_counter + 1
+				jump_power += jump_strength_base_increase * jump_counter * jump_counter_mult
+		else:
+			jump_counter = 0
+		
+		self.velocity = Vector3(
+					self.velocity.x + wall_normal.x * jump_power * 5.0, 
+					jump_power, 
+					self.velocity.z + wall_normal.z * jump_power * 5.0
+			)
+		
+		# emit smoke
+		smoke_particles.restart()
+	
+	#if Input.is_action_just_released("jump") or Input.is_action_just_released("jump"):
+		#jump_buffered = true
+		#jump_buffer_timer = 0.0
+	#
+	#jump_buffer_timer += delta
+	#if jump_buffer_timer > jump_buffer_time:
+		#jump_buffered = false
+
+
 func _handle_ground_physics(delta) -> void:
 	var cur_speed_in_wish_dir: float = self.velocity.dot(wish_dir)
 	var add_speed_till_cap: float = ground_speed - cur_speed_in_wish_dir
@@ -127,7 +167,7 @@ func _handle_ground_physics(delta) -> void:
 
 
 func _handle_air_physics(delta: float) -> void:
-	velocity += get_gravity() * delta
+	self.velocity += get_gravity() * delta
 	
 	var cur_speed_in_wish_dir: float = self.velocity.dot(wish_dir)
 	var capped_speed: float = min((air_move_speed * wish_dir).length(), air_speed_cap)
@@ -152,11 +192,21 @@ func _handle_air_physics(delta: float) -> void:
 		self.velocity.x = clampf(self.velocity.x, jump_strength - 1.0, 1.0 - jump_strength)
 		self.velocity.y = clampf(self.velocity.y, jump_strength - 1.5, 1.0 - jump_strength)
 		self.velocity.z = clampf(self.velocity.z, jump_strength - 1.0, 1.0 - jump_strength)
+
+
+
+func _handle_new_air_physics(delta) -> void:
+	self.velocity.y += get_gravity().y * delta
 	
-	if is_on_wall():
-		on_wall = true
-		wall_normal = get_wall_normal().normalized() # normalized just in case idk
-		wall_pos = self.global_position
+	#var wish_accel: Vector3 = wish_dir * air_move_speed * delta
+	
+	var wish_velocity: Vector3 = ((air_accel - 1.0) / air_accel) * self.velocity + (1.0 / air_accel) * wish_dir.normalized() * air_move_speed
+	self.velocity = Vector3(wish_velocity.x, self.velocity.y, wish_velocity.z)
+	
+	#if velocity.length() >= air_speed_cap:
+	#	var limited_velocity: Vector3 = Vector3(self.velocity.x, 0.0, self.velocity.z).normalized() * air_speed_cap
+	#	self.velocity = Vector3(limited_velocity.x, self.velocity.y, limited_velocity.z)
+	#self.velocity = self.velocity.move_toward(Vector3(0.0, self.velocity.y, 0.0), delta * air_accel)
 
 
 func _rotate_head_and_pogo(delta: float) -> void:
@@ -174,9 +224,6 @@ func _rotate_head_and_pogo(delta: float) -> void:
 		pogo.global_rotation.y = yaw
 		#pogo.global_rotation.y = move_toward(pogo.global_rotation.y, yaw, delta * 3.0) # Tylko jedno w głowie mam
 		pogo.global_rotation.z = move_toward(pogo.global_rotation.z, (PI / 8.0) * Vector3.LEFT.dot(n_local), delta * 3.0)
-		gpu_particles_3d.emitting = true
-	else:
-		gpu_particles_3d.emitting = false
 	
 	# rotate the pogo when on ground and charging jump
 	if self.is_on_floor() and jump_strength > 0.1 and not (self.is_on_wall() or on_wall):
@@ -235,9 +282,13 @@ func _handle_grapple(delta: float) -> void:
 
 
 func _physics_process(delta: float) -> void:
+	if self.is_on_wall():
+		on_wall = true
+		wall_normal = get_wall_normal().normalized() # normalized just in case idk
+		wall_pos = self.global_position
 	# Handle jump and wall jump (je aufgeladener der Sprung ist, desto mehr klingy ist man an der wand)
-	_handle_jump(delta)
-	
+	#_handle_jump(delta)
+	_handle_new_jump(delta)
 	_rotate_head_and_pogo(delta)
 	
 	# move down camera when charging jump
@@ -247,11 +298,12 @@ func _physics_process(delta: float) -> void:
 	$LowPivot/pogo/MeshInstance3D.mesh.material.albedo_color = Color(1.0, 1.0 - jump_strength, 1.0 - jump_strength)
 	pogo.scale.y = 1.0 - jump_strength * 0.5
 	
+	
+	# make pogo transparent when looking down #TODO: delete oder stark abändern, wenns mainly nach oben geht braucht man es nicht und sieht kacke aus
 	var forward: Vector3 = -%Camera3D.global_transform.basis.z
 	var dot_down = forward.dot(Vector3.DOWN)
 	var t = clamp((dot_down - 0.6) / (1.0 - 0.6), 0.0, 1.0)
 	var target_alpha = lerp(1.0, 0.35, t)
-	
 	pogo_material.albedo_color.a = target_alpha
 	
 	# shake poko
@@ -266,11 +318,11 @@ func _physics_process(delta: float) -> void:
 	# Get the input direction and handle the movement/deceleration.
 	var input_dir: Vector2 = Input.get_vector("left", "right", "forward", "backward").normalized()
 	
-	wish_dir = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)) * clamp(time_since_last_jump, 0.0, jump_cooldown)
+	wish_dir = (transform.basis * Vector3(input_dir.x, 0.0, input_dir.y)) * clamp(time_since_last_jump, 0.0, jump_cooldown)
 	
 	# not on wall anymore
 	if on_wall and abs((self.global_position - wall_pos).dot(wall_normal)) > max_wall_dist or is_on_floor():
-		on_wall = false
+		on_wall = false 
 		wall_normal = Vector3.ZERO
 	
 	if is_grappling:
@@ -279,7 +331,8 @@ func _physics_process(delta: float) -> void:
 		if is_on_floor():
 			_handle_ground_physics(delta)
 		else:
-			_handle_air_physics(delta)
+			#_handle_air_physics(delta)
+			_handle_new_air_physics(delta)
 	
 	move_and_slide()
 

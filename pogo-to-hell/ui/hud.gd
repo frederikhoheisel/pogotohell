@@ -54,8 +54,8 @@ func _process(delta: float) -> void:
 	progress_bar.value = player.jump_strength * 100.0
 	grapple_bar.value = player.get_node("Shooting").grapple_time * 2.0
 	
-	#debug_label_1.text = "player speed:  " + str(player.velocity.length())
-	#debug_label_2.text = "grapple_time:  " + str(player.get_node("Shooting").grapple_time)
+	debug_label_1.text = "jump counter:  " + str(player.jump_counter)
+	debug_label_2.text = "jump_time:  " + str(player.time_since_last_jump)
 	#debug_label_3.text = "fps:  " + str(Engine.get_frames_per_second())
 	
 	if not get_tree().paused:
