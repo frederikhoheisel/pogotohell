@@ -32,7 +32,7 @@ material = SubResource("StandardMaterial3D_8fjmc")
 size = Vector3(0.1, 0.1, 0.01)
 
 [sub_resource type="Curve" id="Curve_8fjmc"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0.3146068), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="CurveTexture" id="CurveTexture_qiwj3"]
@@ -52,11 +52,14 @@ point_count = 3
 curve = SubResource("Curve_wvtmh")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_a1qjk"]
-emission_shape_scale = Vector3(0.1, 0.1, 0.1)
+emission_shape_scale = Vector3(0.3, 0.1, 0.3)
 emission_shape = 1
 emission_sphere_radius = 1.0
 direction = Vector3(0, 1, 0)
-gravity = Vector3(0, 3, 0)
+spread = 90.0
+initial_velocity_min = 0.5
+initial_velocity_max = 0.5
+gravity = Vector3(0, 2, 0)
 scale_min = 0.5
 scale_max = 0.5
 scale_curve = SubResource("CurveTexture_7thud")
@@ -71,8 +74,8 @@ metallic_specular = 0.0
 
 [sub_resource type="SphereMesh" id="SphereMesh_afbqv"]
 material = SubResource("StandardMaterial3D_j3ovn")
-radius = 0.1
-height = 0.2
+radius = 0.2
+height = 0.4
 radial_segments = 8
 rings = 4
 
@@ -122,7 +125,10 @@ mesh = SubResource("PrismMesh_symyc")
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="LowPivot/pogo"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.068459, 0)
-lifetime = 0.8
+emitting = false
+amount = 32
+one_shot = true
+explosiveness = 1.0
 process_material = SubResource("ParticleProcessMaterial_a1qjk")
 draw_pass_1 = SubResource("SphereMesh_afbqv")
 
