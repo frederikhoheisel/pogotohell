@@ -128,10 +128,11 @@ func _handle_new_jump(delta: float) -> void:
 		else:
 			jump_counter = 0
 		
+		
 		self.velocity = Vector3(
-					self.velocity.x + wall_normal.x * jump_power * 5.0, 
-					jump_power, 
-					self.velocity.z + wall_normal.z * jump_power * 5.0
+					self.velocity.x + wall_normal.x * jump_power, 
+					jump_power if not self.is_on_wall() else jump_power * 0.3, 
+					self.velocity.z + wall_normal.z * jump_power
 			)
 		
 		# emit smoke
@@ -200,7 +201,7 @@ func _handle_new_air_physics(delta) -> void:
 	
 	#var wish_accel: Vector3 = wish_dir * air_move_speed * delta
 	
-	var wish_velocity: Vector3 = ((air_accel - 1.0) / air_accel) * self.velocity + (1.0 / air_accel) * wish_dir.normalized() * air_move_speed
+	var wish_velocity: Vector3 = ((air_accel - 1.0) / air_accel) * self.velocity + (1.0 / air_accel) * wish_dir * air_move_speed
 	self.velocity = Vector3(wish_velocity.x, self.velocity.y, wish_velocity.z)
 	
 	#if velocity.length() >= air_speed_cap:

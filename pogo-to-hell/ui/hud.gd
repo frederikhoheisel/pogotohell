@@ -56,7 +56,7 @@ func _process(delta: float) -> void:
 	
 	debug_label_1.text = "jump counter:  " + str(player.jump_counter)
 	debug_label_2.text = "jump_time:  " + str(player.time_since_last_jump)
-	#debug_label_3.text = "fps:  " + str(Engine.get_frames_per_second())
+	debug_label_3.text = "wish speed:  " + str(player.wish_dir.length())
 	
 	if not get_tree().paused:
 		time += delta

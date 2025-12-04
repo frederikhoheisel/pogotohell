@@ -1,8 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://d4baqm2niu2b0"]
+[gd_scene load_steps=17 format=3 uid="uid://d4baqm2niu2b0"]
 
 [ext_resource type="Script" uid="uid://c345mgnsemfif" path="res://ui/settings_menu.gd" id="1_xutny"]
 [ext_resource type="FontFile" uid="uid://ksfnpkei2fwm" path="res://assets/merchant-copy/Merchant Copy.ttf" id="2_a6yft"]
-[ext_resource type="Material" path="res://ui/crosshair.tres" id="2_xutny"]
+[ext_resource type="Material" uid="uid://c7n6hmrhx0x1n" path="res://ui/crosshair.tres" id="2_xutny"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xutny"]
 bg_color = Color(0.15294118, 0.15294118, 0.15294118, 1)
@@ -12,10 +12,6 @@ border_width_right = 8
 border_width_bottom = 8
 border_color = Color(0.06879826, 0.06879829, 0.068798244, 1)
 border_blend = true
-corner_radius_top_left = 32
-corner_radius_top_right = 32
-corner_radius_bottom_right = 32
-corner_radius_bottom_left = 32
 expand_margin_left = 32.0
 expand_margin_top = 32.0
 expand_margin_right = 32.0
@@ -29,15 +25,63 @@ outline_size = 8
 outline_color = Color(0, 0, 0, 1)
 stacked_outline_count = 1
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_23nap"]
+bg_color = Color(0.2231029, 0.2231029, 0.22310284, 1)
+draw_center = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s4y56"]
+draw_center = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_842n5"]
+content_margin_left = 4.0
+content_margin_top = 2.0
+content_margin_right = 4.0
+content_margin_bottom = 2.0
+bg_color = Color(0.11858138, 0.11858138, 0.11858138, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c02je"]
+content_margin_left = 10.0
+content_margin_top = 4.0
+content_margin_right = 10.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.3)
+border_width_left = 1
+border_width_right = 1
+border_color = Color(0.175, 0.175, 0.175, 1)
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3ohmf"]
+content_margin_left = 10.0
+content_margin_top = 4.0
+content_margin_right = 10.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+border_width_top = 5
+border_color = Color(0.3882353, 0.003921569, 0.003921569, 1)
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5wabm"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 0.7490196)
+draw_center = false
+corner_detail = 5
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_2ty5h"]
+font = ExtResource("2_a6yft")
+font_size = 32
+
 [sub_resource type="LabelSettings" id="LabelSettings_a6yft"]
 font = ExtResource("2_a6yft")
 font_size = 48
 outline_size = 4
 outline_color = Color(0, 0, 0, 1)
-
-[sub_resource type="LabelSettings" id="LabelSettings_2ty5h"]
-font = ExtResource("2_a6yft")
-font_size = 32
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2ty5h"]
 bg_color = Color(0.80049086, 0.8004908, 0.8004906, 1)
@@ -60,7 +104,6 @@ content_margin_left = 4.0
 content_margin_top = 2.0
 content_margin_right = 4.0
 content_margin_bottom = 2.0
-bg_color = Color(0.5686275, 0.22352941, 0.015686275, 1)
 draw_center = false
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ap6h8"]
@@ -89,232 +132,90 @@ theme_override_constants/margin_bottom = 64
 
 [node name="PanelContainer" type="PanelContainer" parent="MarginContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxFlat_xutny")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
 mouse_filter = 2
 theme_override_constants/separation = 32
 
 [node name="SettingsLabel" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer"]
 texture_filter = 1
 layout_mode = 2
-size_flags_vertical = 3
+size_flags_vertical = 1
 theme_override_font_sizes/font_size = 24
 text = "SETTINGS"
 label_settings = SubResource("LabelSettings_xutny")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Audio" type="VBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer"]
-layout_direction = 2
+[node name="TabContainer" type="TabContainer" parent="MarginContainer/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 400)
 layout_mode = 2
-
-[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/Audio"]
-texture_filter = 1
-layout_mode = 2
-text = "AUDIO VOLUMES"
-label_settings = SubResource("LabelSettings_a6yft")
-horizontal_alignment = 1
-
-[node name="Master" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/Audio"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/Audio/Master"]
-texture_filter = 1
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Master"
-label_settings = SubResource("LabelSettings_2ty5h")
-
-[node name="MasterVolume" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/Audio/Master"]
-unique_name_in_owner = true
-texture_filter = 1
-layout_mode = 2
-text = "50"
-label_settings = SubResource("LabelSettings_2ty5h")
-
-[node name="MasterSlider" type="HSlider" parent="MarginContainer/PanelContainer/VBoxContainer/Audio/Master"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(256, 0)
-layout_mode = 2
-
-[node name="Music" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/Audio"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/Audio/Music"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Music"
-label_settings = SubResource("LabelSettings_2ty5h")
-
-[node name="MusicVolume" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/Audio/Music"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "50"
-label_settings = SubResource("LabelSettings_2ty5h")
-
-[node name="MusicSlider" type="HSlider" parent="MarginContainer/PanelContainer/VBoxContainer/Audio/Music"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(256, 0)
-layout_mode = 2
-
-[node name="Sounds" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/Audio"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/Audio/Sounds"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Sounds"
-label_settings = SubResource("LabelSettings_2ty5h")
-
-[node name="SoundsVolume" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/Audio/Sounds"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "50"
-label_settings = SubResource("LabelSettings_2ty5h")
-
-[node name="SoundsSlider" type="HSlider" parent="MarginContainer/PanelContainer/VBoxContainer/Audio/Sounds"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(256, 0)
-layout_mode = 2
-
-[node name="Video" type="VBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/Video"]
-layout_mode = 2
-text = "VIDEO"
-label_settings = SubResource("LabelSettings_a6yft")
-horizontal_alignment = 1
-uppercase = true
-
-[node name="Fullscreen" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/Video"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/Video/Fullscreen"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Fullscreen"
-label_settings = SubResource("LabelSettings_2ty5h")
-
-[node name="CheckBox" type="CheckBox" parent="MarginContainer/PanelContainer/VBoxContainer/Video/Fullscreen"]
-layout_mode = 2
-
-[node name="Vsync" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/Video"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/Video/Vsync"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Vsync"
-label_settings = SubResource("LabelSettings_2ty5h")
-
-[node name="CheckBox" type="CheckBox" parent="MarginContainer/PanelContainer/VBoxContainer/Video/Vsync"]
-layout_mode = 2
-
-[node name="ScreenShader" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/Video"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/Video/ScreenShader"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Outline Shader"
-label_settings = SubResource("LabelSettings_2ty5h")
-
-[node name="CheckBox" type="CheckBox" parent="MarginContainer/PanelContainer/VBoxContainer/Video/ScreenShader"]
-layout_mode = 2
-button_pressed = true
-
-[node name="Shadows" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/Video"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/Video/Shadows"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Shadow Quality"
-label_settings = SubResource("LabelSettings_2ty5h")
-
-[node name="ShadowButton" type="OptionButton" parent="MarginContainer/PanelContainer/VBoxContainer/Video/Shadows"]
-layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/tab_separation = 16
+theme_override_constants/outline_size = 8
 theme_override_fonts/font = ExtResource("2_a6yft")
-theme_override_font_sizes/font_size = 32
-selected = 0
-item_count = 3
-popup/item_0/text = "low"
-popup/item_0/id = 0
-popup/item_1/text = "medium"
-popup/item_1/id = 1
-popup/item_2/text = "high"
-popup/item_2/id = 2
+theme_override_font_sizes/font_size = 64
+theme_override_styles/panel = SubResource("StyleBoxFlat_23nap")
+theme_override_styles/tabbar_background = SubResource("StyleBoxFlat_s4y56")
+theme_override_styles/tab_unselected = SubResource("StyleBoxFlat_842n5")
+theme_override_styles/tab_hovered = SubResource("StyleBoxFlat_c02je")
+theme_override_styles/tab_selected = SubResource("StyleBoxFlat_3ohmf")
+theme_override_styles/tab_focus = SubResource("StyleBoxFlat_5wabm")
+tab_alignment = 1
+current_tab = 0
 
-[node name="AA" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/Video"]
+[node name="GAME" type="TabBar" parent="MarginContainer/PanelContainer/VBoxContainer/TabContainer"]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/PanelContainer/VBoxContainer/TabContainer/GAME"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="Controls" type="VBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/TabContainer/GAME/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Sensitivity" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/TabContainer/GAME/MarginContainer/Controls"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/Video/AA"]
+[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/TabContainer/GAME/MarginContainer/Controls/Sensitivity"]
+custom_minimum_size = Vector2(144, 0)
 layout_mode = 2
-size_flags_horizontal = 3
-text = "MSAA"
-label_settings = SubResource("LabelSettings_2ty5h")
-
-[node name="CheckBox" type="OptionButton" parent="MarginContainer/PanelContainer/VBoxContainer/Video/AA"]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("2_a6yft")
-theme_override_font_sizes/font_size = 32
-selected = 2
-item_count = 4
-popup/item_0/text = "disabled"
-popup/item_0/id = 0
-popup/item_1/text = "2x"
-popup/item_1/id = 1
-popup/item_2/text = "4x"
-popup/item_2/id = 2
-popup/item_3/text = "8x"
-popup/item_3/id = 3
-
-[node name="Controls" type="VBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/Controls"]
-layout_mode = 2
-text = "CONTROLS"
-label_settings = SubResource("LabelSettings_a6yft")
-horizontal_alignment = 1
-
-[node name="Sensitivity" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/Controls"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/Controls/Sensitivity"]
-layout_mode = 2
-size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.3
 text = "Sensitivity"
 label_settings = SubResource("LabelSettings_2ty5h")
 
-[node name="SensitivityLabel" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/Controls/Sensitivity"]
+[node name="SensitivityLabel" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/TabContainer/GAME/MarginContainer/Controls/Sensitivity"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(44, 0)
 layout_mode = 2
-size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.2
 text = "50"
 label_settings = SubResource("LabelSettings_2ty5h")
 horizontal_alignment = 1
 
-[node name="SensitivityHSlider" type="HSlider" parent="MarginContainer/PanelContainer/VBoxContainer/Controls/Sensitivity"]
+[node name="SensitivityHSlider" type="HSlider" parent="MarginContainer/PanelContainer/VBoxContainer/TabContainer/GAME/MarginContainer/Controls/Sensitivity"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Crosshair" type="VBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer"]
+[node name="Crosshair" type="VBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/TabContainer/GAME/MarginContainer/Controls"]
 layout_mode = 2
 mouse_filter = 2
 alignment = 1
 
-[node name="CrosshairLabel3" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/Crosshair"]
+[node name="CrosshairLabel3" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/TabContainer/GAME/MarginContainer/Controls/Crosshair"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 20
@@ -323,14 +224,14 @@ label_settings = SubResource("LabelSettings_a6yft")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="PreviewColor" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/Crosshair"]
+[node name="PreviewColor" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/TabContainer/GAME/MarginContainer/Controls/Crosshair"]
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
 theme_override_constants/separation = 32
 alignment = 1
 
-[node name="Panel" type="PanelContainer" parent="MarginContainer/PanelContainer/VBoxContainer/Crosshair/PreviewColor"]
+[node name="Panel" type="PanelContainer" parent="MarginContainer/PanelContainer/VBoxContainer/TabContainer/GAME/MarginContainer/Controls/Crosshair/PreviewColor"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -339,7 +240,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_2ty5h")
 
-[node name="Crosshair" type="ColorRect" parent="MarginContainer/PanelContainer/VBoxContainer/Crosshair/PreviewColor/Panel"]
+[node name="Crosshair" type="ColorRect" parent="MarginContainer/PanelContainer/VBoxContainer/TabContainer/GAME/MarginContainer/Controls/Crosshair/PreviewColor/Panel"]
 unique_name_in_owner = true
 material = ExtResource("2_xutny")
 custom_minimum_size = Vector2(64, 64)
@@ -349,7 +250,7 @@ size_flags_vertical = 4
 mouse_filter = 2
 mouse_default_cursor_shape = 3
 
-[node name="ColorPicker" type="ColorPicker" parent="MarginContainer/PanelContainer/VBoxContainer/Crosshair/PreviewColor"]
+[node name="ColorPicker" type="ColorPicker" parent="MarginContainer/PanelContainer/VBoxContainer/TabContainer/GAME/MarginContainer/Controls/Crosshair/PreviewColor"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(256, 0)
 layout_mode = 2
@@ -366,19 +267,19 @@ color_modes_visible = false
 hex_visible = false
 presets_visible = false
 
-[node name="InverseColor" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/Crosshair"]
+[node name="InverseColor" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/TabContainer/GAME/MarginContainer/Controls/Crosshair"]
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
 alignment = 1
 
-[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/Crosshair/InverseColor"]
+[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/TabContainer/GAME/MarginContainer/Controls/Crosshair/InverseColor"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "use inverse screen color"
 label_settings = SubResource("LabelSettings_2ty5h")
 
-[node name="CheckBox" type="CheckBox" parent="MarginContainer/PanelContainer/VBoxContainer/Crosshair/InverseColor"]
+[node name="CheckBox" type="CheckBox" parent="MarginContainer/PanelContainer/VBoxContainer/TabContainer/GAME/MarginContainer/Controls/Crosshair/InverseColor"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_stretch_ratio = 0.6
@@ -387,114 +288,308 @@ mouse_default_cursor_shape = 3
 alignment = 1
 icon_alignment = 1
 
-[node name="Length" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/Crosshair"]
+[node name="Length" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/TabContainer/GAME/MarginContainer/Controls/Crosshair"]
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
 
-[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/Crosshair/Length"]
+[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/TabContainer/GAME/MarginContainer/Controls/Crosshair/Length"]
+custom_minimum_size = Vector2(144, 0)
 layout_mode = 2
-size_flags_horizontal = 3
 text = "length"
 label_settings = SubResource("LabelSettings_2ty5h")
 
-[node name="LengthLabel" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/Crosshair/Length"]
+[node name="LengthLabel" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/TabContainer/GAME/MarginContainer/Controls/Crosshair/Length"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(44, 0)
 layout_mode = 2
-size_flags_horizontal = 3
 text = "0.1"
 label_settings = SubResource("LabelSettings_2ty5h")
 horizontal_alignment = 2
 
-[node name="LenghtHSlider" type="HSlider" parent="MarginContainer/PanelContainer/VBoxContainer/Crosshair/Length"]
+[node name="LenghtHSlider" type="HSlider" parent="MarginContainer/PanelContainer/VBoxContainer/TabContainer/GAME/MarginContainer/Controls/Crosshair/Length"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(256, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 1
 size_flags_stretch_ratio = 4.0
 mouse_default_cursor_shape = 3
 
-[node name="Thickness" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/Crosshair"]
+[node name="Thickness" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/TabContainer/GAME/MarginContainer/Controls/Crosshair"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/Crosshair/Thickness"]
+[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/TabContainer/GAME/MarginContainer/Controls/Crosshair/Thickness"]
+custom_minimum_size = Vector2(144, 0)
 layout_mode = 2
-size_flags_horizontal = 3
 text = "thickness"
 label_settings = SubResource("LabelSettings_2ty5h")
 
-[node name="ThickLabel" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/Crosshair/Thickness"]
+[node name="ThickLabel" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/TabContainer/GAME/MarginContainer/Controls/Crosshair/Thickness"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(44, 0)
 layout_mode = 2
-size_flags_horizontal = 3
 text = "0.1"
 label_settings = SubResource("LabelSettings_2ty5h")
 horizontal_alignment = 2
 
-[node name="ThickHSlider" type="HSlider" parent="MarginContainer/PanelContainer/VBoxContainer/Crosshair/Thickness"]
+[node name="ThickHSlider" type="HSlider" parent="MarginContainer/PanelContainer/VBoxContainer/TabContainer/GAME/MarginContainer/Controls/Crosshair/Thickness"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(256, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 1
 size_flags_stretch_ratio = 4.0
 mouse_default_cursor_shape = 3
 
-[node name="Gap" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/Crosshair"]
+[node name="Gap" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/TabContainer/GAME/MarginContainer/Controls/Crosshair"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/Crosshair/Gap"]
+[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/TabContainer/GAME/MarginContainer/Controls/Crosshair/Gap"]
+custom_minimum_size = Vector2(144, 0)
 layout_mode = 2
-size_flags_horizontal = 3
 text = "gap"
 label_settings = SubResource("LabelSettings_2ty5h")
 
-[node name="GapLabel" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/Crosshair/Gap"]
+[node name="GapLabel" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/TabContainer/GAME/MarginContainer/Controls/Crosshair/Gap"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(44, 0)
 layout_mode = 2
-size_flags_horizontal = 3
 text = "0.1"
 label_settings = SubResource("LabelSettings_2ty5h")
 horizontal_alignment = 2
 
-[node name="GapHSlider" type="HSlider" parent="MarginContainer/PanelContainer/VBoxContainer/Crosshair/Gap"]
+[node name="GapHSlider" type="HSlider" parent="MarginContainer/PanelContainer/VBoxContainer/TabContainer/GAME/MarginContainer/Controls/Crosshair/Gap"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(256, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 1
 mouse_default_cursor_shape = 3
 
-[node name="Halo" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/Crosshair"]
+[node name="Halo" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/TabContainer/GAME/MarginContainer/Controls/Crosshair"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/Crosshair/Halo"]
+[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/TabContainer/GAME/MarginContainer/Controls/Crosshair/Halo"]
+custom_minimum_size = Vector2(144, 0)
 layout_mode = 2
-size_flags_horizontal = 3
 text = "outline"
 label_settings = SubResource("LabelSettings_2ty5h")
 
-[node name="HaloLabel" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/Crosshair/Halo"]
+[node name="HaloLabel" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/TabContainer/GAME/MarginContainer/Controls/Crosshair/Halo"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(44, 0)
 layout_mode = 2
-size_flags_horizontal = 3
 text = "0.1"
 label_settings = SubResource("LabelSettings_2ty5h")
 horizontal_alignment = 2
 
-[node name="HaloHSlider" type="HSlider" parent="MarginContainer/PanelContainer/VBoxContainer/Crosshair/Halo"]
+[node name="HaloHSlider" type="HSlider" parent="MarginContainer/PanelContainer/VBoxContainer/TabContainer/GAME/MarginContainer/Controls/Crosshair/Halo"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(256, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 1
 mouse_default_cursor_shape = 3
+
+[node name="VIDEO-DISPLAY" type="TabBar" parent="MarginContainer/PanelContainer/VBoxContainer/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/PanelContainer/VBoxContainer/TabContainer/VIDEO-DISPLAY"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="Video" type="VBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/TabContainer/VIDEO-DISPLAY/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Fullscreen" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/TabContainer/VIDEO-DISPLAY/MarginContainer/Video"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/TabContainer/VIDEO-DISPLAY/MarginContainer/Video/Fullscreen"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Fullscreen"
+label_settings = SubResource("LabelSettings_2ty5h")
+
+[node name="CheckBox" type="CheckBox" parent="MarginContainer/PanelContainer/VBoxContainer/TabContainer/VIDEO-DISPLAY/MarginContainer/Video/Fullscreen"]
+layout_mode = 2
+
+[node name="Vsync" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/TabContainer/VIDEO-DISPLAY/MarginContainer/Video"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/TabContainer/VIDEO-DISPLAY/MarginContainer/Video/Vsync"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Vsync"
+label_settings = SubResource("LabelSettings_2ty5h")
+
+[node name="CheckBox" type="CheckBox" parent="MarginContainer/PanelContainer/VBoxContainer/TabContainer/VIDEO-DISPLAY/MarginContainer/Video/Vsync"]
+layout_mode = 2
+
+[node name="ScreenShader" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/TabContainer/VIDEO-DISPLAY/MarginContainer/Video"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/TabContainer/VIDEO-DISPLAY/MarginContainer/Video/ScreenShader"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Outline Shader"
+label_settings = SubResource("LabelSettings_2ty5h")
+
+[node name="CheckBox" type="CheckBox" parent="MarginContainer/PanelContainer/VBoxContainer/TabContainer/VIDEO-DISPLAY/MarginContainer/Video/ScreenShader"]
+layout_mode = 2
+button_pressed = true
+
+[node name="Shadows" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/TabContainer/VIDEO-DISPLAY/MarginContainer/Video"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/TabContainer/VIDEO-DISPLAY/MarginContainer/Video/Shadows"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Shadow Quality"
+label_settings = SubResource("LabelSettings_2ty5h")
+
+[node name="ShadowButton" type="OptionButton" parent="MarginContainer/PanelContainer/VBoxContainer/TabContainer/VIDEO-DISPLAY/MarginContainer/Video/Shadows"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_a6yft")
+theme_override_font_sizes/font_size = 32
+selected = 0
+item_count = 3
+popup/item_0/text = "low"
+popup/item_0/id = 0
+popup/item_1/text = "medium"
+popup/item_1/id = 1
+popup/item_2/text = "high"
+popup/item_2/id = 2
+
+[node name="AA" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/TabContainer/VIDEO-DISPLAY/MarginContainer/Video"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/TabContainer/VIDEO-DISPLAY/MarginContainer/Video/AA"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "MSAA"
+label_settings = SubResource("LabelSettings_2ty5h")
+
+[node name="CheckBox" type="OptionButton" parent="MarginContainer/PanelContainer/VBoxContainer/TabContainer/VIDEO-DISPLAY/MarginContainer/Video/AA"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_a6yft")
+theme_override_font_sizes/font_size = 32
+selected = 2
+item_count = 4
+popup/item_0/text = "disabled"
+popup/item_0/id = 0
+popup/item_1/text = "2x"
+popup/item_1/id = 1
+popup/item_2/text = "4x"
+popup/item_2/id = 2
+popup/item_3/text = "8x"
+popup/item_3/id = 3
+
+[node name="AUDIO" type="TabBar" parent="MarginContainer/PanelContainer/VBoxContainer/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/PanelContainer/VBoxContainer/TabContainer/AUDIO"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="Audio" type="VBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/TabContainer/AUDIO/MarginContainer"]
+layout_direction = 2
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="Master" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/TabContainer/AUDIO/MarginContainer/Audio"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/TabContainer/AUDIO/MarginContainer/Audio/Master"]
+texture_filter = 1
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+text = "Master"
+label_settings = SubResource("LabelSettings_2ty5h")
+
+[node name="MasterVolume" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/TabContainer/AUDIO/MarginContainer/Audio/Master"]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 2
+text = "50"
+label_settings = SubResource("LabelSettings_2ty5h")
+
+[node name="MasterSlider" type="HSlider" parent="MarginContainer/PanelContainer/VBoxContainer/TabContainer/AUDIO/MarginContainer/Audio/Master"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Music" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/TabContainer/AUDIO/MarginContainer/Audio"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/TabContainer/AUDIO/MarginContainer/Audio/Music"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+text = "Music"
+label_settings = SubResource("LabelSettings_2ty5h")
+
+[node name="MusicVolume" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/TabContainer/AUDIO/MarginContainer/Audio/Music"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "50"
+label_settings = SubResource("LabelSettings_2ty5h")
+
+[node name="MusicSlider" type="HSlider" parent="MarginContainer/PanelContainer/VBoxContainer/TabContainer/AUDIO/MarginContainer/Audio/Music"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Sounds" type="HBoxContainer" parent="MarginContainer/PanelContainer/VBoxContainer/TabContainer/AUDIO/MarginContainer/Audio"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/TabContainer/AUDIO/MarginContainer/Audio/Sounds"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+text = "Sounds"
+label_settings = SubResource("LabelSettings_2ty5h")
+
+[node name="SoundsVolume" type="Label" parent="MarginContainer/PanelContainer/VBoxContainer/TabContainer/AUDIO/MarginContainer/Audio/Sounds"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "50"
+label_settings = SubResource("LabelSettings_2ty5h")
+
+[node name="SoundsSlider" type="HSlider" parent="MarginContainer/PanelContainer/VBoxContainer/TabContainer/AUDIO/MarginContainer/Audio/Sounds"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="ReturnButton" type="Button" parent="MarginContainer/PanelContainer/VBoxContainer"]
 custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 3
 theme_override_colors/font_color = Color(0.3882353, 0.003921569, 0.003921569, 1)
 theme_override_constants/outline_size = 8
 theme_override_fonts/font = ExtResource("2_a6yft")
@@ -503,19 +598,19 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_tog15")
 theme_override_styles/hover = SubResource("StyleBoxFlat_ap6h8")
 text = "RETURN"
 
-[connection signal="value_changed" from="MarginContainer/PanelContainer/VBoxContainer/Audio/Master/MasterSlider" to="." method="_on_master_slider_value_changed"]
-[connection signal="value_changed" from="MarginContainer/PanelContainer/VBoxContainer/Audio/Music/MusicSlider" to="." method="_on_music_slider_value_changed"]
-[connection signal="value_changed" from="MarginContainer/PanelContainer/VBoxContainer/Audio/Sounds/SoundsSlider" to="." method="_on_sounds_slider_value_changed"]
-[connection signal="toggled" from="MarginContainer/PanelContainer/VBoxContainer/Video/Fullscreen/CheckBox" to="." method="_on_fs_toggled"]
-[connection signal="toggled" from="MarginContainer/PanelContainer/VBoxContainer/Video/Vsync/CheckBox" to="." method="_on_vsync_toggled"]
-[connection signal="toggled" from="MarginContainer/PanelContainer/VBoxContainer/Video/ScreenShader/CheckBox" to="." method="_on_outline_check_box_toggled"]
-[connection signal="item_selected" from="MarginContainer/PanelContainer/VBoxContainer/Video/Shadows/ShadowButton" to="." method="_on_shadow_button_item_selected"]
-[connection signal="item_selected" from="MarginContainer/PanelContainer/VBoxContainer/Video/AA/CheckBox" to="." method="_on_check_box_item_selected"]
-[connection signal="value_changed" from="MarginContainer/PanelContainer/VBoxContainer/Controls/Sensitivity/SensitivityHSlider" to="." method="_on_sensitivity_h_slider_value_changed"]
-[connection signal="color_changed" from="MarginContainer/PanelContainer/VBoxContainer/Crosshair/PreviewColor/ColorPicker" to="." method="_on_color_picker_color_changed"]
-[connection signal="toggled" from="MarginContainer/PanelContainer/VBoxContainer/Crosshair/InverseColor/CheckBox" to="." method="_on_inverse_color_toggled"]
-[connection signal="value_changed" from="MarginContainer/PanelContainer/VBoxContainer/Crosshair/Length/LenghtHSlider" to="." method="_on_lenght_h_slider_value_changed"]
-[connection signal="value_changed" from="MarginContainer/PanelContainer/VBoxContainer/Crosshair/Thickness/ThickHSlider" to="." method="_on_thick_h_slider_value_changed"]
-[connection signal="value_changed" from="MarginContainer/PanelContainer/VBoxContainer/Crosshair/Gap/GapHSlider" to="." method="_on_gap_h_slider_value_changed"]
-[connection signal="value_changed" from="MarginContainer/PanelContainer/VBoxContainer/Crosshair/Halo/HaloHSlider" to="." method="_on_halo_h_slider_value_changed"]
+[connection signal="value_changed" from="MarginContainer/PanelContainer/VBoxContainer/TabContainer/GAME/MarginContainer/Controls/Sensitivity/SensitivityHSlider" to="." method="_on_sensitivity_h_slider_value_changed"]
+[connection signal="color_changed" from="MarginContainer/PanelContainer/VBoxContainer/TabContainer/GAME/MarginContainer/Controls/Crosshair/PreviewColor/ColorPicker" to="." method="_on_color_picker_color_changed"]
+[connection signal="toggled" from="MarginContainer/PanelContainer/VBoxContainer/TabContainer/GAME/MarginContainer/Controls/Crosshair/InverseColor/CheckBox" to="." method="_on_inverse_color_toggled"]
+[connection signal="value_changed" from="MarginContainer/PanelContainer/VBoxContainer/TabContainer/GAME/MarginContainer/Controls/Crosshair/Length/LenghtHSlider" to="." method="_on_lenght_h_slider_value_changed"]
+[connection signal="value_changed" from="MarginContainer/PanelContainer/VBoxContainer/TabContainer/GAME/MarginContainer/Controls/Crosshair/Thickness/ThickHSlider" to="." method="_on_thick_h_slider_value_changed"]
+[connection signal="value_changed" from="MarginContainer/PanelContainer/VBoxContainer/TabContainer/GAME/MarginContainer/Controls/Crosshair/Gap/GapHSlider" to="." method="_on_gap_h_slider_value_changed"]
+[connection signal="value_changed" from="MarginContainer/PanelContainer/VBoxContainer/TabContainer/GAME/MarginContainer/Controls/Crosshair/Halo/HaloHSlider" to="." method="_on_halo_h_slider_value_changed"]
+[connection signal="toggled" from="MarginContainer/PanelContainer/VBoxContainer/TabContainer/VIDEO-DISPLAY/MarginContainer/Video/Fullscreen/CheckBox" to="." method="_on_fs_toggled"]
+[connection signal="toggled" from="MarginContainer/PanelContainer/VBoxContainer/TabContainer/VIDEO-DISPLAY/MarginContainer/Video/Vsync/CheckBox" to="." method="_on_vsync_toggled"]
+[connection signal="toggled" from="MarginContainer/PanelContainer/VBoxContainer/TabContainer/VIDEO-DISPLAY/MarginContainer/Video/ScreenShader/CheckBox" to="." method="_on_outline_check_box_toggled"]
+[connection signal="item_selected" from="MarginContainer/PanelContainer/VBoxContainer/TabContainer/VIDEO-DISPLAY/MarginContainer/Video/Shadows/ShadowButton" to="." method="_on_shadow_button_item_selected"]
+[connection signal="item_selected" from="MarginContainer/PanelContainer/VBoxContainer/TabContainer/VIDEO-DISPLAY/MarginContainer/Video/AA/CheckBox" to="." method="_on_check_box_item_selected"]
+[connection signal="value_changed" from="MarginContainer/PanelContainer/VBoxContainer/TabContainer/AUDIO/MarginContainer/Audio/Master/MasterSlider" to="." method="_on_master_slider_value_changed"]
+[connection signal="value_changed" from="MarginContainer/PanelContainer/VBoxContainer/TabContainer/AUDIO/MarginContainer/Audio/Music/MusicSlider" to="." method="_on_music_slider_value_changed"]
+[connection signal="value_changed" from="MarginContainer/PanelContainer/VBoxContainer/TabContainer/AUDIO/MarginContainer/Audio/Sounds/SoundsSlider" to="." method="_on_sounds_slider_value_changed"]
 [connection signal="pressed" from="MarginContainer/PanelContainer/VBoxContainer/ReturnButton" to="." method="_on_button_pressed"]
