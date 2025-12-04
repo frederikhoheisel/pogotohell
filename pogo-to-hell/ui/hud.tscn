@@ -87,7 +87,6 @@ texture_progress = ExtResource("10_m0eg6")
 
 [node name="DebugLabel1" type="Label" parent="."]
 texture_filter = 1
-anchors_preset = -1
 offset_left = 64.0
 offset_top = 64.0
 text = "hi"
@@ -101,11 +100,9 @@ offset_bottom = 55.0
 text = "time"
 
 [node name="DebugLabel3" type="Label" parent="."]
-visible = false
-offset_left = 1.0
-offset_top = 63.0
-offset_right = 41.0
-offset_bottom = 86.0
+offset_top = 112.0
+offset_right = 40.0
+offset_bottom = 135.0
 
 [node name="Timer" type="Label" parent="."]
 unique_name_in_owner = true
